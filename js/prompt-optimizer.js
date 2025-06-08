@@ -45,7 +45,7 @@ async function checkVeniceConnection() {
         
         // Define Venice API configuration
         const apiEndpoint = API_BASE_URL + "/models";
-        const apiKey = "ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC";
+        const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
         
         console.log(`Attempting to connect to Venice API at: ${apiEndpoint}`);
         
@@ -662,20 +662,25 @@ async function generateAIResponse(prompt, params) {
             throw new Error(`Model ${params.model} not found`);
         }
         
-        // Prepare API request payload - using correct format based on swagger
+        // Prepare API request payload - using Venice AI format
         const requestBody = {
             model: params.model,
             messages: [
                 { role: "user", content: prompt }
             ],
+            frequency_penalty: 0,
+            n: 1,
+            presence_penalty: 0,
             temperature: params.temperature,
+            top_p: params.top_p,
             max_tokens: params.max_tokens,
-            top_p: params.top_p
+            venice_parameters: { include_venice_system_prompt: true },
+            parallel_tool_calls: true
         };
         
         // Define API configuration
         const apiEndpoint = API_BASE_URL + "/chat/completions";
-        const apiKey = "ntmhtbP2fr_pOQsmuLPuN_nm6lm2INWKiNcvrdEfEC";
+        const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
         
         console.log(`Sending request to ${apiEndpoint} with payload:`, JSON.stringify(requestBody));
         

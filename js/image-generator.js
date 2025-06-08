@@ -3,7 +3,7 @@
 // API Configuration
 const API_CONFIG = {
     enabled: true,
-    key: "1HuCqCKmjn0F9cV3wh1STZkaTNlfxhTuqdIcdPQaem",
+    key: "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL",
     endpoint: "https://api.venice.ai/api/v1/image/generate", // Fixed endpoint
     headers: {
         "Content-Type": "application/json",
@@ -11,14 +11,16 @@ const API_CONFIG = {
     }
 };
 
-// Model options from Venice.ai API
+// Model options from Venice.ai API - Updated with latest models
 const MODELS = [
-  { id: "flux-dev", name: "FLUX.1-dev" },
-  { id: "fluently-xl", name: "Fluently-XL-Final" },
-  { id: "flux-dev-uncensored", name: "FLUX.1-dev (uncensored)" },
-  { id: "pony-realism", name: "Pony-Realism" },
-  { id: "stable-diffusion-3.5", name: "Stable-Diffusion-3.5-Large" },
-  { id: "lustify-sdxl", name: "Lustify-SDXL-NSFW-Checkpoint" }
+  { id: "venice-sd35", name: "Venice SD3.5", traits: ["default", "eliza-default"] },
+  { id: "hidream", name: "HiDream", traits: [] },
+  { id: "fluently-xl", name: "Fluently-XL-Final", traits: ["fastest"] },
+  { id: "flux-dev", name: "FLUX.1-dev", traits: ["highest_quality"] },
+  { id: "flux-dev-uncensored", name: "FLUX.1-dev (uncensored)", traits: [] },
+  { id: "lustify-sdxl", name: "Lustify-SDXL-NSFW", traits: [] },
+  { id: "pony-realism", name: "Pony-Realism", traits: ["most_uncensored"] },
+  { id: "stable-diffusion-3.5", name: "Stable-Diffusion-3.5-Large", traits: [] }
 ];
 
 // Style presets
@@ -133,14 +135,14 @@ async function debugVeniceModels() {
 
 // Function to fetch available models from Venice.ai API
 async function fetchAvailableModels() {
-  if (!API_CONFIG.enabled || API_CONFIG.key === "your-api-key-here") {
-    console.log("API not enabled or no valid key, using predefined models");
-    return;
+  if (!API_CONFIG.enabled) {
+    console.log("API not enabled, using predefined models");
+    return MODELS;
   }
   
   try {
-    console.log("Fetching available models from Venice AI...");
-    const response = await fetch("https://api.venice.ai/api/v1/models?type=image", {
+    console.log("Fetching available image models from Venice AI...");
+    const response = await fetch("https://api.venice.ai/api/v1/models", {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${API_CONFIG.key}`,
@@ -156,43 +158,58 @@ async function fetchAvailableModels() {
     console.log("Available models from API:", data);
     
     if (data && data.data && Array.isArray(data.data)) {
-      // Update the global MODELS array with fetched data
-      window.MODELS = data.data.map(model => ({
-        id: model.id,
-        name: model.name || model.id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-        traits: model.traits || []
-      }));
+      // Filter for image models only
+      const imageModels = data.data.filter(model => model.type === "image");
+      console.log("Filtered image models:", imageModels);
       
-      console.log("Updated MODELS array:", window.MODELS);
-      
-      // Replace the models in the dropdown
-      const modelSelect = document.getElementById('model');
-      if (modelSelect) {
-        modelSelect.innerHTML = '';
-        window.MODELS.forEach(model => {
-          const option = document.createElement('option');
-          option.value = model.id;
-          option.textContent = model.name;
-          modelSelect.appendChild(option);
-        });
-        console.log("Models dropdown updated with options:", modelSelect.options.length);
+      if (imageModels.length > 0) {
+        // Update the global MODELS array with fetched data
+        const updatedModels = imageModels.map(model => ({
+          id: model.id,
+          name: model.id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+          traits: model.model_spec?.traits || []
+        }));
+        
+        // Store globally for access by other functions
+        window.VENICE_MODELS = updatedModels;
+        console.log("Updated MODELS array:", updatedModels);
+        
+        // Replace the models in the dropdown
+        const modelSelect = document.getElementById('model');
+        if (modelSelect) {
+          modelSelect.innerHTML = '';
+          updatedModels.forEach(model => {
+            const option = document.createElement('option');
+            option.value = model.id;
+            option.textContent = model.name;
+            if (model.traits.includes('default')) {
+              option.selected = true;
+            }
+            modelSelect.appendChild(option);
+          });
+          console.log("Models dropdown updated with options:", modelSelect.options.length);
+        }
+        
+        return updatedModels;
       } else {
-        console.error("Model select element not found in DOM");
+        console.log("No image models found, using predefined models");
+        return MODELS;
       }
     } else {
       console.error("Unexpected API response format:", data);
-      debugVeniceModels();
+      return MODELS;
     }
   } catch (error) {
     console.error("Error fetching models:", error);
-    debugVeniceModels();
+    console.log("Falling back to predefined models");
+    return MODELS;
   }
 }
 
 // Function to fetch available styles from Venice.ai API
 async function fetchAvailableStyles() {
-  if (!API_CONFIG.enabled || API_CONFIG.key === "your-api-key-here") {
-    console.log("API not enabled or no valid key, using predefined styles");
+  if (!API_CONFIG.enabled) {
+    console.log("API not enabled, using predefined styles");
     return;
   }
   
@@ -454,16 +471,20 @@ class ImageGenerator {
       let imageData;
       
       // Check if we're using real API or demo mode
-      if (API_CONFIG.enabled && API_CONFIG.key !== "your-api-key-here") {
-        // Use real API for image generation
+      if (API_CONFIG.enabled) {
+        // Use real API for image generation - Venice AI format
         const payload = {
           model: model,
           prompt: prompt,
+          embed_exif_metadata: false,
+          format: "webp",
           height: height,
           width: width,
-          steps: steps,
+          hide_watermark: false,
           return_binary: false,
-          hide_watermark: true
+          safe_mode: true,
+          seed: 0,
+          steps: steps
         };
         
         // Add style if not None
@@ -945,7 +966,7 @@ class ImageGenerator {
     this.populateStyleOptions();
     
     // Then try to fetch from API if enabled
-    if (API_CONFIG.enabled && API_CONFIG.key !== "your-api-key-here") {
+    if (API_CONFIG.enabled) {
       console.log("API enabled, fetching models and styles...");
       Promise.all([
         fetchAvailableModels().catch(error => {
@@ -970,7 +991,7 @@ class ImageGenerator {
         }
       });
     } else {
-      console.log("API not enabled or no key specified, using predefined models and styles");
+      console.log("API not enabled, using predefined models and styles");
     }
     
     // Load gallery from local storage
