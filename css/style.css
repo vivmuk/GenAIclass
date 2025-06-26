@@ -2449,6 +2449,34 @@ footer {
     color: white;
 }
 
+.tool-button.primary-cta {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+    color: white;
+    border: none;
+    font-size: 16px;
+    padding: 12px 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    animation: pulse-glow 2s infinite;
+}
+
+.tool-button.primary-cta:hover {
+    background: linear-gradient(135deg, #ff5252 0%, #ff9800 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.5);
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 25px rgba(255, 107, 107, 0.5);
+    }
+}
+
 @media (max-width: 768px) {
     .tools-section .container {
         flex-direction: column;

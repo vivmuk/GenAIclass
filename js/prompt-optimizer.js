@@ -87,11 +87,20 @@ async function checkVeniceConnection() {
     } catch (error) {
         console.error('Venice connection error:', error);
         
-        // Update connection status to error
-        updateConnectionStatus(false, "Failed to connect to Venice AI");
-        alert("Error connecting to Venice AI API: " + error.message);
-        
-        throw error;
+        // Try to use fallback data if API fails
+        console.log('Attempting to use fallback model data...');
+        try {
+            const fallbackModels = await fetchAvailableModels();
+            window.cachedModels = fallbackModels;
+            populateModelDropdowns(fallbackModels);
+            updateConnectionStatus(false, "Using cached models (API unavailable)");
+            return;
+        } catch (fallbackError) {
+            console.error('Fallback data also failed:', fallbackError);
+            updateConnectionStatus(false, "Failed to load models");
+            alert("Error loading AI models: " + error.message);
+            throw error;
+        }
     }
 }
 
