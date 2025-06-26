@@ -103,59 +103,93 @@ async function fetchAvailableModels() {
     try {
         console.log('Using mock model data as fallback');
         
-        // Mock API response structure that mirrors the expected format from the Venice API
+        // Updated models data from Venice AI API
         const mockApiResponse = {
             "object": "list",
             "type": "text",
             "data": [
                 {
-                    "id": "llama-3.3-70b",
+                    "id": "venice-uncensored",
                     "type": "text",
                     "object": "model",
-                    "created": 1733768349,
+                    "created": 1742262554,
                     "owned_by": "venice.ai",
                     "model_spec": {
-                        "availableContextTokens": 65536,
+                        "name": "Venice Uncensored",
+                        "availableContextTokens": 32768,
                         "capabilities": {
                             "optimizedForCode": false,
+                            "quantization": "fp16",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
                             "supportsVision": false,
-                            "supportsFunctionCalling": true,
-                            "supportsResponseSchema": false,
                             "supportsWebSearch": true,
-                            "supportsReasoning": false
+                            "supportsLogProbs": true
                         },
                         "constraints": {
-                            "temperature": { "default": 0.8 },
-                            "top_p": { "default": 0.9 }
+                            "temperature": { "default": 0.3 },
+                            "top_p": { "default": 1 }
                         },
                         "offline": false,
-                        "traits": ["function_calling_default", "default"],
-                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct"
+                        "traits": [],
+                        "modelSource": "https://huggingface.co/cognitivecomputations/Dolphin-Mistral-24B-Venice-Edition"
                     }
                 },
                 {
-                    "id": "llama-3.2-3b",
+                    "id": "qwen-2.5-qwq-32b",
                     "type": "text",
                     "object": "model",
-                    "created": 1727966436,
+                    "created": 1741218077,
                     "owned_by": "venice.ai",
                     "model_spec": {
-                        "availableContextTokens": 131072,
+                        "name": "Venice Reasoning",
+                        "availableContextTokens": 32768,
                         "capabilities": {
                             "optimizedForCode": false,
-                            "supportsVision": false,
-                            "supportsFunctionCalling": true,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": true,
                             "supportsResponseSchema": true,
-                            "supportsWebSearch": false,
-                            "supportsReasoning": false
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
                         },
                         "constraints": {
-                            "temperature": { "default": 0.8 },
-                            "top_p": { "default": 0.9 }
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
                         },
                         "offline": false,
-                        "traits": ["fastest"],
-                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.2-3B"
+                        "traits": [],
+                        "modelSource": "https://huggingface.co/Qwen/QwQ-32B"
+                    }
+                },
+                {
+                    "id": "qwen3-4b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1745903059,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Venice Small",
+                        "availableContextTokens": 32768,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": true,
+                            "supportsReasoning": true,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": [],
+                        "modelSource": "https://huggingface.co/Qwen/Qwen3-4B"
                     }
                 },
                 {
@@ -165,22 +199,166 @@ async function fetchAvailableModels() {
                     "created": 1742262554,
                     "owned_by": "venice.ai",
                     "model_spec": {
+                        "name": "Venice Medium",
                         "availableContextTokens": 131072,
                         "capabilities": {
                             "optimizedForCode": false,
-                            "supportsVision": true,
+                            "quantization": "fp16",
                             "supportsFunctionCalling": true,
+                            "supportsReasoning": false,
                             "supportsResponseSchema": true,
+                            "supportsVision": true,
                             "supportsWebSearch": true,
-                            "supportsReasoning": false
+                            "supportsLogProbs": false
                         },
                         "constraints": {
                             "temperature": { "default": 0.15 },
-                            "top_p": { "default": 0.9 }
+                            "top_p": { "default": 1 }
+                        },
+                        "offline": false,
+                        "traits": ["default_vision"],
+                        "modelSource": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503"
+                    }
+                },
+                {
+                    "id": "mistral-32-24b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1742262554,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Venice Medium",
+                        "beta": true,
+                        "availableContextTokens": 131072,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp16",
+                            "supportsFunctionCalling": true,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
+                            "supportsVision": true,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": false
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.15 },
+                            "top_p": { "default": 1 }
+                        },
+                        "offline": false,
+                        "traits": ["default_vision"],
+                        "modelSource": "https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506"
+                    }
+                },
+                {
+                    "id": "qwen3-235b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1745903059,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Venice Large",
+                        "availableContextTokens": 131072,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": true,
+                            "supportsReasoning": true,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
                         },
                         "offline": false,
                         "traits": [],
-                        "modelSource": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503"
+                        "modelSource": "https://huggingface.co/Qwen/Qwen3-235B-A22B"
+                    }
+                },
+                {
+                    "id": "llama-3.2-3b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1727966436,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Llama 3.2 3B",
+                        "availableContextTokens": 131072,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp16",
+                            "supportsFunctionCalling": true,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": ["fastest"],
+                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.2-3B"
+                    }
+                },
+                {
+                    "id": "llama-3.3-70b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1733768349,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Llama 3.3 70B",
+                        "availableContextTokens": 65536,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": true,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": false,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": false
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": ["function_calling_default", "default"],
+                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct"
+                    }
+                },
+                {
+                    "id": "llama-3.1-405b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1730396371,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Llama 3.1 405B",
+                        "availableContextTokens": 65536,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": ["most_intelligent"],
+                        "modelSource": "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct"
                     }
                 },
                 {
@@ -190,22 +368,137 @@ async function fetchAvailableModels() {
                     "created": 1726869022,
                     "owned_by": "venice.ai",
                     "model_spec": {
+                        "name": "Dolphin 72B",
                         "availableContextTokens": 32768,
                         "capabilities": {
                             "optimizedForCode": false,
-                            "supportsVision": false,
+                            "quantization": "fp8",
                             "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
                             "supportsResponseSchema": true,
+                            "supportsVision": false,
                             "supportsWebSearch": true,
-                            "supportsReasoning": false
+                            "supportsLogProbs": true
                         },
                         "constraints": {
-                            "temperature": { "default": 0.5 },
-                            "top_p": { "default": 1 }
+                            "temperature": { "default": 0.7 },
+                            "top_p": { "default": 0.8 }
                         },
                         "offline": false,
                         "traits": ["most_uncensored"],
                         "modelSource": "https://huggingface.co/cognitivecomputations/dolphin-2.9.2-qwen2-72b"
+                    }
+                },
+                {
+                    "id": "qwen-2.5-vl",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1739074852,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Qwen 2.5 VL 72B",
+                        "availableContextTokens": 32768,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
+                            "supportsVision": true,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.7 },
+                            "top_p": { "default": 0.8 }
+                        },
+                        "offline": false,
+                        "traits": [],
+                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct"
+                    }
+                },
+                {
+                    "id": "qwen-2.5-coder-32b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1731628653,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "Qwen 2.5 Coder 32B",
+                        "availableContextTokens": 32768,
+                        "capabilities": {
+                            "optimizedForCode": true,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": false,
+                            "supportsVision": false,
+                            "supportsWebSearch": false,
+                            "supportsLogProbs": true
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.7 },
+                            "top_p": { "default": 0.8 }
+                        },
+                        "offline": false,
+                        "traits": ["default_code"],
+                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct-GGUF"
+                    }
+                },
+                {
+                    "id": "deepseek-r1-671b",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1738690625,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "DeepSeek R1 671B",
+                        "availableContextTokens": 131072,
+                        "capabilities": {
+                            "optimizedForCode": false,
+                            "quantization": "fp8",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": true,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": true,
+                            "supportsLogProbs": false
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": ["default_reasoning"],
+                        "modelSource": "https://huggingface.co/deepseek-ai/DeepSeek-R1"
+                    }
+                },
+                {
+                    "id": "deepseek-coder-v2-lite",
+                    "type": "text",
+                    "object": "model",
+                    "created": 1740253117,
+                    "owned_by": "venice.ai",
+                    "model_spec": {
+                        "name": "DeepSeek Coder V2 Lite",
+                        "availableContextTokens": 131072,
+                        "capabilities": {
+                            "optimizedForCode": true,
+                            "quantization": "fp16",
+                            "supportsFunctionCalling": false,
+                            "supportsReasoning": false,
+                            "supportsResponseSchema": true,
+                            "supportsVision": false,
+                            "supportsWebSearch": false,
+                            "supportsLogProbs": false
+                        },
+                        "constraints": {
+                            "temperature": { "default": 0.6 },
+                            "top_p": { "default": 0.95 }
+                        },
+                        "offline": false,
+                        "traits": [],
+                        "modelSource": "https://huggingface.co/deepseek-ai/deepseek-coder-v2-lite-Instruct"
                     }
                 },
                 {
@@ -405,16 +698,30 @@ function populateModelDropdowns(models) {
 }
 
 /**
- * Format a model ID into a readable name
+ * Format a model ID into a readable name - use the model_spec.name if available
  */
 function formatModelName(modelId) {
-    // Replace hyphens with spaces and capitalize words
+    // Try to find the model in cached models and use its display name
+    if (window.cachedModels) {
+        const model = window.cachedModels.find(m => m.id === modelId);
+        if (model && model.model_spec && model.model_spec.name) {
+            return model.model_spec.name;
+        }
+    }
+    
+    // Fallback to ID formatting
     return modelId
         .split('-')
         .map(word => {
-            // Handle special cases like "llama", "gpt", etc.
+            // Handle special cases
             if (word === 'llama' || word === 'gpt' || word === 'qwen' || word === 'vl') {
                 return word.toUpperCase();
+            }
+            if (word === 'venice' || word === 'uncensored' || word === 'qwq') {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }
+            if (word === 'deepseek' || word === 'mistral' || word === 'dolphin') {
+                return word.charAt(0).toUpperCase() + word.slice(1);
             }
             // Handle version numbers with decimals
             if (word.includes('.')) {
