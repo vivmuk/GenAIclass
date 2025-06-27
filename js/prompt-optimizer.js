@@ -465,6 +465,7 @@ async function generateAIResponse(prompt, params) {
     const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
     
     console.log(`Making API request to ${apiEndpoint}`);
+    console.log('Request body:', JSON.stringify(requestBody, null, 2));
     
     try {
         // Make the actual API request
