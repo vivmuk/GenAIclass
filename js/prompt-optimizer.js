@@ -7,31 +7,23 @@ const API_BASE_URL = 'https://api.venice.ai/api/v1'; // Venice AI API endpoint
 
 // Initialize when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing Prompt Engineering Lab...');
     try {
+        // Initialize the comparison lab first
+        initComparisonLab();
+        console.log('Comparison lab initialized');
+        
         // Check connection to Venice AI
         checkVeniceConnection().catch(error => {
-            console.error("Connection error:", error);
-            const messagesLeft = document.getElementById('messages-left');
-            const messagesRight = document.getElementById('messages-right');
-            
-            if (messagesLeft && messagesRight) {
-                const errorHtml = `
-                    <div class="error-message">
-                        <h3>Connection Error</h3>
-                        <p>Could not connect to Venice AI API: ${error.message}</p>
-                        <p>Please check your API key and try again later.</p>
-                    </div>
-                `;
-                messagesLeft.innerHTML = errorHtml;
-                messagesRight.innerHTML = errorHtml;
-            }
+            console.error("Venice API connection failed:", error);
+            // The error state is already handled in checkVeniceConnection
         });
         
-        // Initialize the comparison lab
-        initComparisonLab();
+        console.log('Initialization complete');
     } catch (error) {
         console.error("Initialization error:", error);
-        alert("Error initializing application: " + error.message);
+        // Update connection status to show initialization failed
+        updateConnectionStatus(false, "Initialization failed");
     }
 });
 
@@ -85,564 +77,23 @@ async function checkVeniceConnection() {
             throw new Error("Unexpected API response format");
         }
     } catch (error) {
-        console.error('Venice connection error:', error);
+        console.error('Venice API connection error:', error);
         
-        // Try to use fallback data if API fails
-        console.log('Attempting to use fallback model data...');
-        try {
-            const fallbackModels = await fetchAvailableModels();
-            window.cachedModels = fallbackModels;
-            populateModelDropdowns(fallbackModels);
-            updateConnectionStatus(false, "Using cached models (API unavailable)");
-            return;
-        } catch (fallbackError) {
-            console.error('Fallback data also failed:', fallbackError);
-            updateConnectionStatus(false, "Failed to load models");
-            alert("Error loading AI models: " + error.message);
-            throw error;
-        }
+        // Update connection status to show the error
+        updateConnectionStatus(false, "Venice API connection failed");
+        
+        // Populate dropdowns with empty list to show error state
+        populateModelDropdowns([]);
+        
+        throw error;
     }
 }
 
 /**
- * Provide mock models data as a fallback when API is unavailable
- * This function is only used when the actual API call fails
+ * This function should not be used anymore - we only want real Venice API models
  */
 async function fetchAvailableModels() {
-    try {
-        console.log('Using mock model data as fallback');
-        
-        // Updated models data from Venice AI API
-        const mockApiResponse = {
-            "object": "list",
-            "type": "text",
-            "data": [
-                {
-                    "id": "venice-uncensored",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1742262554,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Uncensored",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp16",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.3 },
-                            "top_p": { "default": 1 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/cognitivecomputations/Dolphin-Mistral-24B-Venice-Edition"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-qwq-32b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1741218077,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Reasoning",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": true,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/Qwen/QwQ-32B"
-                    }
-                },
-                {
-                    "id": "qwen3-4b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1745903059,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Small",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": true,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen3-4B"
-                    }
-                },
-                {
-                    "id": "mistral-31-24b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1742262554,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Medium",
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp16",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": true,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.15 },
-                            "top_p": { "default": 1 }
-                        },
-                        "offline": false,
-                        "traits": ["default_vision"],
-                        "modelSource": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503"
-                    }
-                },
-                {
-                    "id": "mistral-32-24b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1742262554,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Medium",
-                        "beta": true,
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp16",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": true,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.15 },
-                            "top_p": { "default": 1 }
-                        },
-                        "offline": false,
-                        "traits": ["default_vision"],
-                        "modelSource": "https://huggingface.co/mistralai/Mistral-Small-3.2-24B-Instruct-2506"
-                    }
-                },
-                {
-                    "id": "qwen3-235b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1745903059,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Venice Large",
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": true,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen3-235B-A22B"
-                    }
-                },
-                {
-                    "id": "llama-3.2-3b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1727966436,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Llama 3.2 3B",
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp16",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": ["fastest"],
-                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.2-3B"
-                    }
-                },
-                {
-                    "id": "llama-3.3-70b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1733768349,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Llama 3.3 70B",
-                        "availableContextTokens": 65536,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": true,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": false,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": ["function_calling_default", "default"],
-                        "modelSource": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct"
-                    }
-                },
-                {
-                    "id": "llama-3.1-405b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1730396371,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Llama 3.1 405B",
-                        "availableContextTokens": 65536,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": ["most_intelligent"],
-                        "modelSource": "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct"
-                    }
-                },
-                {
-                    "id": "dolphin-2.9.2-qwen2-72b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1726869022,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Dolphin 72B",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.7 },
-                            "top_p": { "default": 0.8 }
-                        },
-                        "offline": false,
-                        "traits": ["most_uncensored"],
-                        "modelSource": "https://huggingface.co/cognitivecomputations/dolphin-2.9.2-qwen2-72b"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-vl",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1739074852,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Qwen 2.5 VL 72B",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": true,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.7 },
-                            "top_p": { "default": 0.8 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-coder-32b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1731628653,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "Qwen 2.5 Coder 32B",
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": true,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": false,
-                            "supportsVision": false,
-                            "supportsWebSearch": false,
-                            "supportsLogProbs": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.7 },
-                            "top_p": { "default": 0.8 }
-                        },
-                        "offline": false,
-                        "traits": ["default_code"],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct-GGUF"
-                    }
-                },
-                {
-                    "id": "deepseek-r1-671b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1738690625,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "DeepSeek R1 671B",
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "quantization": "fp8",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": true,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": true,
-                            "supportsLogProbs": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": ["default_reasoning"],
-                        "modelSource": "https://huggingface.co/deepseek-ai/DeepSeek-R1"
-                    }
-                },
-                {
-                    "id": "deepseek-coder-v2-lite",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1740253117,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "name": "DeepSeek Coder V2 Lite",
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": true,
-                            "quantization": "fp16",
-                            "supportsFunctionCalling": false,
-                            "supportsReasoning": false,
-                            "supportsResponseSchema": true,
-                            "supportsVision": false,
-                            "supportsWebSearch": false,
-                            "supportsLogProbs": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/deepseek-ai/deepseek-coder-v2-lite-Instruct"
-                    }
-                },
-                {
-                    "id": "llama-3.1-405b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1730396371,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "availableContextTokens": 65536,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "supportsVision": false,
-                            "supportsFunctionCalling": false,
-                            "supportsResponseSchema": false,
-                            "supportsWebSearch": true,
-                            "supportsReasoning": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.8 },
-                            "top_p": { "default": 0.9 }
-                        },
-                        "offline": false,
-                        "traits": ["most_intelligent"],
-                        "modelSource": "https://huggingface.co/meta-llama/Meta-Llama-3.1-405B-Instruct"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-coder-32b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1731628653,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": true,
-                            "supportsVision": false,
-                            "supportsFunctionCalling": false,
-                            "supportsResponseSchema": false,
-                            "supportsWebSearch": false,
-                            "supportsReasoning": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.8 },
-                            "top_p": { "default": 0.9 }
-                        },
-                        "offline": false,
-                        "traits": ["default_code"],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct-GGUF"
-                    }
-                },
-                {
-                    "id": "deepseek-r1-671b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1738690625,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "availableContextTokens": 131072,
-                        "capabilities": {
-                            "optimizedForCode": true,
-                            "supportsVision": false,
-                            "supportsFunctionCalling": false,
-                            "supportsResponseSchema": false,
-                            "supportsWebSearch": true,
-                            "supportsReasoning": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.9 }
-                        },
-                        "offline": false,
-                        "traits": ["default_reasoning"],
-                        "modelSource": "https://huggingface.co/deepseek-ai/DeepSeek-R1"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-vl",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1739074852,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": false,
-                            "supportsVision": true,
-                            "supportsFunctionCalling": false,
-                            "supportsResponseSchema": false,
-                            "supportsWebSearch": true,
-                            "supportsReasoning": false
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.8 },
-                            "top_p": { "default": 0.9 }
-                        },
-                        "offline": false,
-                        "traits": ["default_vision"],
-                        "modelSource": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct"
-                    }
-                },
-                {
-                    "id": "qwen-2.5-qwq-32b",
-                    "type": "text",
-                    "object": "model",
-                    "created": 1741218077,
-                    "owned_by": "venice.ai",
-                    "model_spec": {
-                        "availableContextTokens": 32768,
-                        "capabilities": {
-                            "optimizedForCode": true,
-                            "supportsVision": false,
-                            "supportsFunctionCalling": false,
-                            "supportsResponseSchema": true,
-                            "supportsWebSearch": true,
-                            "supportsReasoning": true
-                        },
-                        "constraints": {
-                            "temperature": { "default": 0.6 },
-                            "top_p": { "default": 0.95 }
-                        },
-                        "offline": false,
-                        "traits": [],
-                        "modelSource": "https://huggingface.co/Qwen/QwQ-32B"
-                    }
-                }
-            ]
-        };
-
-        return mockApiResponse.data;
-    } catch (error) {
-        console.error("Error fetching models:", error);
-        throw error;
-    }
+    throw new Error('fetchAvailableModels should not be called - use real Venice API only');
 }
 
 /**
@@ -657,6 +108,23 @@ function populateModelDropdowns(models) {
     // Clear existing options
     modelLeft.innerHTML = '';
     modelRight.innerHTML = '';
+    
+    // Check if we have models to work with
+    if (!models || models.length === 0) {
+        console.error('No models available from Venice API');
+        // Add a message to the dropdowns indicating the issue
+        const errorOption = document.createElement('option');
+        errorOption.value = '';
+        errorOption.textContent = 'Models unavailable - Check API connection';
+        errorOption.disabled = true;
+        
+        modelLeft.appendChild(errorOption.cloneNode(true));
+        modelRight.appendChild(errorOption);
+        
+        // Update connection status
+        updateConnectionStatus(false, "Failed to load models from Venice API");
+        return;
+    }
     
     // Add models to dropdowns
     models.forEach(model => {
@@ -971,35 +439,35 @@ async function generateAIResponse(prompt, params) {
         throw new Error('Empty prompt provided. Please enter a valid prompt.');
     }
     
+    // Find the model info for validation
+    const modelInfo = await findModelInfo(params.model);
+    if (!modelInfo) {
+        throw new Error(`Model ${params.model} not found in Venice API models list.`);
+    }
+    
+    // Prepare API request payload - using Venice AI format
+    const requestBody = {
+        model: params.model,
+        messages: [
+            { role: "user", content: prompt }
+        ],
+        frequency_penalty: 0,
+        n: 1,
+        presence_penalty: 0,
+        temperature: params.temperature,
+        top_p: params.top_p,
+        max_tokens: params.max_tokens,
+        venice_parameters: { include_venice_system_prompt: true },
+        parallel_tool_calls: true
+    };
+    
+    // Define API configuration
+    const apiEndpoint = API_BASE_URL + "/chat/completions";
+    const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
+    
+    console.log(`Making API request to ${apiEndpoint}`);
+    
     try {
-        // Find the model info for default parameter values if needed
-        const modelInfo = await findModelInfo(params.model);
-        if (!modelInfo) {
-            throw new Error(`Model ${params.model} not found`);
-        }
-        
-        // Prepare API request payload - using Venice AI format
-        const requestBody = {
-            model: params.model,
-            messages: [
-                { role: "user", content: prompt }
-            ],
-            frequency_penalty: 0,
-            n: 1,
-            presence_penalty: 0,
-            temperature: params.temperature,
-            top_p: params.top_p,
-            max_tokens: params.max_tokens,
-            venice_parameters: { include_venice_system_prompt: true },
-            parallel_tool_calls: true
-        };
-        
-        // Define API configuration
-        const apiEndpoint = API_BASE_URL + "/chat/completions";
-        const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
-        
-        console.log(`Sending request to ${apiEndpoint} with payload:`, JSON.stringify(requestBody));
-        
         // Make the actual API request
         const response = await fetch(apiEndpoint, {
             method: 'POST',
@@ -1010,36 +478,32 @@ async function generateAIResponse(prompt, params) {
             body: JSON.stringify(requestBody)
         });
         
-        // Log detailed response information
-        console.log('API Response Status:', response.status, response.statusText);
+        // Log response information
+        console.log('Venice API Response Status:', response.status, response.statusText);
         
-        // Attempt to read the raw response
+        // Read the response
         const responseText = await response.text();
-        console.log('API Raw Response:', responseText);
         
         // Check for error responses
         if (!response.ok) {
-            throw new Error(`API request failed with status ${response.status}: ${responseText}`);
+            console.error('Venice API Error Response:', responseText);
+            throw new Error(`Venice API request failed (${response.status}): ${responseText}`);
         }
         
-        try {
-            // Parse the JSON response
-            const data = JSON.parse(responseText);
-            console.log('Parsed API Response:', data);
-            
-            // Extract the message content based on the standard chat completion response format
-            if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-                return data.choices[0].message.content;
-            } else {
-                throw new Error("Unexpected API response format");
-            }
-        } catch (parseError) {
-            console.error('Failed to parse API response:', parseError);
-            throw new Error(`Failed to parse API response: ${parseError.message}`);
+        // Parse the JSON response
+        const data = JSON.parse(responseText);
+        console.log('Venice API Success Response received');
+        
+        // Extract the message content
+        if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+            return data.choices[0].message.content;
+        } else {
+            throw new Error("Unexpected response format from Venice API");
         }
+        
     } catch (error) {
-        console.error('Error generating AI response:', error);
-        throw error;
+        console.error('Venice API Error:', error);
+        throw new Error(`Venice API Error: ${error.message}`);
     }
 }
 
@@ -1065,86 +529,43 @@ async function findModelInfo(modelId) {
     if (model) {
         return model;
     } else {
-        console.warn(`Model ${modelId} not found in cached models, fetching fresh data`);
+        console.warn(`Model ${modelId} not found in cached models, trying to refresh cache`);
         
         // If not found, try refreshing the cache once
         try {
             window.cachedModels = await fetchAvailableModels();
-            return window.cachedModels.find(m => m.id === modelId);
+            const foundModel = window.cachedModels.find(m => m.id === modelId);
+            if (foundModel) {
+                return foundModel;
+            } else {
+                console.warn(`Model ${modelId} still not found after cache refresh`);
+                // Return a basic model object to prevent errors
+                return {
+                    id: modelId,
+                    model_spec: {
+                        name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
+                        constraints: {
+                            temperature: { default: 0.7 },
+                            top_p: { default: 0.9 }
+                        }
+                    }
+                };
+            }
         } catch (error) {
             console.error('Error refreshing model cache:', error);
-            return null;
+            // Return a basic model object to prevent errors
+            return {
+                id: modelId,
+                model_spec: {
+                    name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
+                    constraints: {
+                        temperature: { default: 0.7 },
+                        top_p: { default: 0.9 }
+                    }
+                }
+            };
         }
     }
-}
-
-/**
- * Determine the general topic of a prompt
- */
-function getPromptTopic(prompt) {
-    const lowerPrompt = prompt.toLowerCase();
-    
-    if (lowerPrompt.includes('ipl') || lowerPrompt.includes('cricket') || lowerPrompt.includes('indian premier league')) {
-        return 'cricket';
-    } else if (lowerPrompt.includes('sky') || lowerPrompt.includes('weather') || lowerPrompt.includes('cloud') || lowerPrompt.includes('rain')) {
-        return 'weather';
-    } else if (lowerPrompt.includes('ai') || lowerPrompt.includes('computer') || lowerPrompt.includes('technology') || lowerPrompt.includes('digital')) {
-        return 'technology';
-    } else if (lowerPrompt.includes('nature') || lowerPrompt.includes('animal') || lowerPrompt.includes('plant') || lowerPrompt.includes('tree')) {
-        return 'nature';
-    } else if (lowerPrompt.includes('consciousness') || lowerPrompt.includes('meaning') || lowerPrompt.includes('existence') || lowerPrompt.includes('think')) {
-        return 'philosophy';
-    }
-    
-    return 'default';
-}
-
-/**
- * Generate a response for high temperature settings
- */
-function generateCreativeResponse(prompt, topic) {
-    const creativeResponses = {
-        default: "This is a more creative response with higher temperature. The higher temperature makes the output more diverse and sometimes unpredictable. It can include more unexpected ideas and phrasings, exploring unusual connections and novel concepts that might not appear with lower temperature settings.",
-        weather: "The sky is a canvas of infinite possibilities! It's not merely blue, but a symphony of azure tones dancing with wisps of alabaster clouds. The atmospheric theater performs its daily show, with light refracting through suspended water droplets to create a spectacle of color and motion that has inspired poets, painters, and dreamers throughout human history.",
-        technology: "Technology's future unfolds like a blossoming digital flower, with quantum computing threads interweaving with neural interfaces to create a tapestry of possibilities we can barely imagine today. The boundaries between human cognition and machine intelligence blur into a new form of consciousness that transcends our current definitions of both.",
-        nature: "Nature weaves an intricate dance of complexity and simplicity, where each leaf contains universes of cellular machinery while following ancient patterns etched into genetic memory. The forests breathe with a rhythm older than humanity, cycling carbon and oxygen in a planetary respiration that has sustained life through eons of evolutionary experimentation.",
-        philosophy: "Consciousness might be viewed as a fractal phenomenon, recursively aware of its own awareness in an infinite regression of self-reflection. Our perception of reality is perhaps less a window onto truth and more a creative interpretation—a story we tell ourselves about patterns of neural firing that somehow becomes the lived experience of being human.",
-        cricket: "The IPL is not just a cricket tournament—it's a dazzling carnival of athletic artistry where boundaries dissolve between sport and spectacle! Each match unfolds like an epic narrative with heroes emerging from unlikely corners, dynasties rising and falling, and moments of transcendent brilliance that redefine what's possible with bat and ball. The symphony of cheering crowds, the kaleidoscope of team colors, and the electric energy of last-ball finishes create an atmosphere unlike anything else in the sporting universe."
-    };
-    
-    return creativeResponses[topic] || creativeResponses.default;
-}
-
-/**
- * Generate a response for low temperature settings
- */
-function generateFocusedResponse(prompt, topic) {
-    const focusedResponses = {
-        default: "This is a more focused and deterministic response with lower temperature. The lower temperature makes the output more consistent and predictable. It typically sticks closer to the most likely tokens at each step, providing information in a direct and straightforward manner.",
-        weather: "The sky appears blue due to a phenomenon called Rayleigh scattering. Sunlight contains all colors of visible light, and when it enters Earth's atmosphere, air molecules scatter the shorter blue wavelengths more effectively than longer wavelengths. This scattered blue light comes to us from all directions, making the sky appear blue.",
-        technology: "Artificial intelligence systems currently operate through machine learning techniques that identify patterns in training data to make predictions or decisions. Modern AI implementations include natural language processing, computer vision, and reinforcement learning, each specialized for different categories of tasks.",
-        nature: "Ecosystems function through the transfer of energy and materials between organisms. Plants convert solar energy to chemical energy through photosynthesis, herbivores consume plants, and carnivores consume herbivores. Decomposers break down organic matter, returning nutrients to the soil for plants to utilize.",
-        philosophy: "Epistemology examines the nature of knowledge, asking how we know what we know. The field addresses questions about the reliability of perception, the role of reason versus experience in acquiring knowledge, and the standards by which knowledge claims should be evaluated.",
-        cricket: "The IPL (Indian Premier League) is a professional Twenty20 cricket league established in 2008 and based in India. It consists of ten teams representing different Indian cities and is typically played between March and May each year. The IPL operates on a franchise system where teams acquire players through annual auctions. It is the most-attended cricket league globally and ranks sixth among all sports leagues in average attendance."
-    };
-    
-    return focusedResponses[topic] || focusedResponses.default;
-}
-
-/**
- * Generate a response for balanced temperature settings
- */
-function generateBalancedResponse(prompt, topic) {
-    const balancedResponses = {
-        default: "This is a balanced response with moderate temperature. It balances creativity with focus, providing relevant information while still allowing for some variability in the output. This approach often yields the most natural-sounding text for general purposes.",
-        weather: "The sky appears blue because air molecules scatter sunlight—specifically the shorter blue wavelengths—more effectively than other colors. This phenomenon, called Rayleigh scattering, sends blue light in all directions, creating the blue dome we see overhead. At sunrise and sunset, light travels through more atmosphere, scattering the blue and allowing the reds and oranges to dominate.",
-        technology: "Artificial intelligence continues to evolve through advances in machine learning techniques and computational power. Modern AI systems can process natural language, recognize images, and make complex decisions based on vast datasets. While current AI excels at specific tasks, the field is moving toward more general capabilities that can transfer learning across domains.",
-        nature: "Ecosystems maintain balance through complex interactions between organisms and their environment. Energy flows from producers (plants) through various consumer levels, while materials cycle between living organisms and abiotic components. This delicate equilibrium can adapt to gradual changes but may be disrupted by sudden environmental shifts or human activities.",
-        philosophy: "Consciousness remains one of philosophy's most fascinating puzzles, bridging subjective experience with objective reality. The question of how physical brain processes create the sensation of awareness has implications for our understanding of free will, personal identity, and even the nature of reality itself.",
-        cricket: "The IPL (Indian Premier League) is a professional Twenty20 cricket tournament founded in 2008 that has revolutionized the sport through its blend of cricket, entertainment, and commercial innovation. Featuring world-class international players alongside emerging Indian talent, the league operates on a franchise model with teams representing major Indian cities. The IPL combines high-quality cricket with elements of entertainment including celebrity owners, cheerleaders, and musical performances, creating a unique sporting spectacle that attracts massive viewership both in stadiums and on television."
-    };
-    
-    return balancedResponses[topic] || balancedResponses.default;
 }
 
 /**
@@ -1264,93 +685,4 @@ function getRandomElements(array, count) {
     return shuffled.slice(0, count);
 }
 
-/**
- * Generate a simulated AI response using real model data
- */
-async function generateSimulatedResponse(prompt, params) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            // Get model info for the response
-            const modelInfo = findModelInfo(params.model) || {};
-            
-            // Get topic based on prompt
-            const topic = getPromptTopic(prompt);
-            console.log(`Simulating response for topic: ${topic} with model: ${params.model}`);
-            
-            // Generate response based on temperature and topic
-            let response;
-            if (params.temperature > 1.0) {
-                response = generateCreativeResponse(prompt, topic);
-            } else if (params.temperature < 0.5) {
-                response = generateFocusedResponse(prompt, topic);
-            } else {
-                response = generateBalancedResponse(prompt, topic);
-            }
-            
-            // Personalize response with the actual prompt text
-            if (prompt.length > 10) {
-                const promptReference = `Regarding your question about "${prompt.substring(0, 30)}${prompt.length > 30 ? '...' : ''}", `;
-                response = promptReference + response;
-            }
-            
-            // Add parameter-specific details using real model data
-            const modelConstraints = modelInfo.model_spec ? 
-                `Default settings from model data: Temperature: ${modelInfo.model_spec.constraints?.temperature?.default || 0.7}, Top P: ${modelInfo.model_spec.constraints?.top_p?.default || 0.9}` :
-                '';
-            
-            // Add model-specific content from real model data
-            const modelName = params.model?.toLowerCase() || '';
-            const modelSource = modelInfo.model_spec?.modelSource || '';
-            let modelSpecificContent = "\n\n";
-            
-            // Default model capabilities info
-            let capabilities = [];
-            if (modelInfo.model_spec?.capabilities?.optimizedForCode) capabilities.push("optimized for code");
-            if (modelInfo.model_spec?.capabilities?.supportsVision) capabilities.push("vision-capable");
-            if (modelInfo.model_spec?.capabilities?.supportsFunctionCalling) capabilities.push("supports function calling");
-            if (modelInfo.model_spec?.capabilities?.supportsReasoning) capabilities.push("enhanced reasoning");
-            if (modelInfo.model_spec?.capabilities?.supportsWebSearch) capabilities.push("web search enabled");
-            
-            const capabilitiesStr = capabilities.length ? capabilities.join(", ") : "general purpose";
-            
-            // Model-specific content
-            if (modelName.includes('llama')) {
-                modelSpecificContent += `This LLAMA model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr}.`;
-                
-                if (modelName.includes('3.3')) {
-                    modelSpecificContent += " Version 3.3 has improved function calling capabilities and reasoning.";
-                } else if (modelName.includes('405b')) {
-                    modelSpecificContent += " This 405B parameter model delivers exceptional intelligence and comprehensive understanding.";
-                }
-            } else if (modelName.includes('mistral')) {
-                modelSpecificContent += `This Mistral model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr}.`;
-            } else if (modelName.includes('dolphin')) {
-                modelSpecificContent += `This Dolphin model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr} and known for less restricted outputs.`;
-            } else if (modelName.includes('qwen')) {
-                if (modelName.includes('coder')) {
-                    modelSpecificContent += `This Qwen Coder model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr} and specialized for programming tasks.`;
-                } else if (modelName.includes('vl')) {
-                    modelSpecificContent += `This Qwen VL model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr} with multimodal capabilities.`;
-                } else {
-                    modelSpecificContent += `This Qwen model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr}.`;
-                }
-            } else if (modelName.includes('deepseek')) {
-                modelSpecificContent += `This DeepSeek model (${modelSource ? 'based on ' + modelSource.split('/').pop() : ''}) is ${capabilitiesStr} with exceptionally large context windows.`;
-            }
-            
-            // Add context window information if available
-            if (modelInfo.model_spec?.availableContextTokens) {
-                modelSpecificContent += ` It has a context window of ${modelInfo.model_spec.availableContextTokens} tokens.`;
-            }
-            
-            // Finish with parameter information and model capabilities
-            response += `\n\nWith the parameters you selected (Temperature: ${params.temperature}, Max Tokens: ${params.max_tokens}, Top P: ${params.top_p}), the response demonstrates how these settings affect the output. ${modelConstraints}`;
-            response += modelSpecificContent;
-            
-            // Add a note that this is simulated output but using real model data
-            response += "\n\n[Note: This is a simulated response using the real model data from Venice AI. The completions API is not currently available, so responses are generated locally.]";
-            
-            resolve(response);
-        }, 1500);
-    });
-} 
+// Simulated response functions removed - only using real Venice API 
