@@ -457,8 +457,7 @@ async function generateAIResponse(prompt, params) {
         temperature: params.temperature,
         top_p: params.top_p,
         max_tokens: params.max_tokens,
-        venice_parameters: { include_venice_system_prompt: true },
-        parallel_tool_calls: true
+        venice_parameters: { include_venice_system_prompt: true }
     };
     
     // Define API configuration
@@ -511,16 +510,20 @@ async function generateAIResponse(prompt, params) {
  * Find model information from the model ID
  */
 async function findModelInfo(modelId) {
-    // Use a cache to avoid repeatedly fetching the same data
-    if (!window.cachedModels) {
-        try {
-            // Try to get models from the API first
-            window.cachedModels = await fetchAvailableModels();
-            console.log(`Cached ${window.cachedModels.length} models for quick access`);
-        } catch (error) {
-            console.error('Error caching models:', error);
-            window.cachedModels = [];
-        }
+    // Use the cached models from the connection check
+    if (!window.cachedModels || window.cachedModels.length === 0) {
+        console.warn('No cached models available, returning basic model info');
+        // Return a basic model object to prevent errors
+        return {
+            id: modelId,
+            model_spec: {
+                name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
+                constraints: {
+                    temperature: { default: 0.7 },
+                    top_p: { default: 0.9 }
+                }
+            }
+        };
     }
     
     // Find the model in cached data
@@ -529,42 +532,18 @@ async function findModelInfo(modelId) {
     if (model) {
         return model;
     } else {
-        console.warn(`Model ${modelId} not found in cached models, trying to refresh cache`);
-        
-        // If not found, try refreshing the cache once
-        try {
-            window.cachedModels = await fetchAvailableModels();
-            const foundModel = window.cachedModels.find(m => m.id === modelId);
-            if (foundModel) {
-                return foundModel;
-            } else {
-                console.warn(`Model ${modelId} still not found after cache refresh`);
-                // Return a basic model object to prevent errors
-                return {
-                    id: modelId,
-                    model_spec: {
-                        name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
-                        constraints: {
-                            temperature: { default: 0.7 },
-                            top_p: { default: 0.9 }
-                        }
-                    }
-                };
-            }
-        } catch (error) {
-            console.error('Error refreshing model cache:', error);
-            // Return a basic model object to prevent errors
-            return {
-                id: modelId,
-                model_spec: {
-                    name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
-                    constraints: {
-                        temperature: { default: 0.7 },
-                        top_p: { default: 0.9 }
-                    }
+        console.warn(`Model ${modelId} not found in cached models`);
+        // Return a basic model object to prevent errors
+        return {
+            id: modelId,
+            model_spec: {
+                name: modelId.charAt(0).toUpperCase() + modelId.slice(1).replace(/-/g, ' '),
+                constraints: {
+                    temperature: { default: 0.7 },
+                    top_p: { default: 0.9 }
                 }
-            };
-        }
+            }
+        };
     }
 }
 
