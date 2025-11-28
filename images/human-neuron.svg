@@ -1,0 +1,53 @@
+<svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.8">
+        <!-- Dendrites -->
+        <path d="M50 100 Q70 30, 120 60" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M50 100 Q60 70, 100 30" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M50 100 Q40 40, 80 20" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M50 100 Q20 60, 10 20" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M50 100 Q60 130, 100 170" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        <path d="M50 100 Q40 150, 20 180" stroke="#6E56CF" stroke-width="2" stroke-dasharray="4 2"/>
+        
+        <!-- Cell Body -->
+        <circle cx="150" cy="100" r="40" fill="url(#neuronGradient)" stroke="#8A70FF" stroke-width="2"/>
+        
+        <!-- Nucleus -->
+        <circle cx="150" cy="100" r="15" fill="#4338CA" stroke="#6E56CF" stroke-width="1.5"/>
+        
+        <!-- Axon -->
+        <path d="M190 100 Q240 110, 260 100 Q290 90, 310 100 Q340 110, 380 100" stroke="#8A70FF" stroke-width="4"/>
+        
+        <!-- Synapse -->
+        <circle cx="380" cy="100" r="10" fill="#4338CA" stroke="#8A70FF" stroke-width="1.5"/>
+        <path d="M390 100 L410 110" stroke="#8A70FF" stroke-width="2"/>
+        <path d="M390 100 L410 90" stroke="#8A70FF" stroke-width="2"/>
+        <path d="M390 100 L410 100" stroke="#8A70FF" stroke-width="2"/>
+        
+        <!-- Dendrite Connections -->
+        <path d="M110 60 L150 75" stroke="#6E56CF" stroke-width="1.5"/>
+        <path d="M100 30 L130 70" stroke="#6E56CF" stroke-width="1.5"/>
+        <path d="M80 20 L125 80" stroke="#6E56CF" stroke-width="1.5"/>
+        <path d="M10 20 L115 90" stroke="#6E56CF" stroke-width="1.5"/>
+        <path d="M100 170 L130 130" stroke="#6E56CF" stroke-width="1.5"/>
+        <path d="M20 180 L125 120" stroke="#6E56CF" stroke-width="1.5"/>
+        
+        <!-- Electrical Pulses Animation -->
+        <circle cx="220" cy="105" r="3" fill="#FFFFFF">
+            <animate attributeName="opacity" values="1;0;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="280" cy="95" r="3" fill="#FFFFFF">
+            <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="340" cy="105" r="3" fill="#FFFFFF">
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+    </g>
+    
+    <!-- Gradient Definition -->
+    <defs>
+        <radialGradient id="neuronGradient" cx="150" cy="100" r="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#8A70FF" stop-opacity="0.8"/>
+            <stop offset="100%" stop-color="#4338CA" stop-opacity="0.5"/>
+        </radialGradient>
+    </defs>
+</svg> 

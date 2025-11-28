@@ -1,0 +1,4 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="30" y="60" width="140" height="80" rx="5" fill="none" stroke="white" stroke-width="8"/>
+  <text x="100" y="115" font-family="Arial" font-size="28" font-weight="bold" text-anchor="middle" fill="white">NVIDIA</text>
+</svg> 
