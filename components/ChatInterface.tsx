@@ -68,7 +68,10 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
   };
 
   useEffect(() => {
-    scrollToBottom(true, true); // Force immediate scroll on mount
+    // Scroll to top on initial mount
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = 0;
+    }
   }, []);
 
   // Scroll when messages change (including streaming updates)
@@ -89,7 +92,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
           {
             id: 'init-1',
             role: 'model',
-            content: "Hello. I am the **Nano Banana Architect**.\n\nI am here to help you construct a highly structured, professional prompt for Nano Banana Pro. We will move through the 8 areas of the **Prompt Canvas** together.\n\nFirst, tell me about your **Intent & Goal**. What are we creating today? (e.g., A comic page, a dashboard, a logo, a concept art piece?)"
+            content: "Hello. I am the **Nano Banana Architect**.\n\nI generate complete, professional prompts for Nano Banana Pro based on your description. Simply tell me what you want to create, and I'll build a structured prompt using the 8-area Prompt Canvas.\n\nWhat would you like to create? (e.g., A comic page, a dashboard, a logo, a concept art piece, etc.)"
           }
         ]);
       }
@@ -173,11 +176,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
     resetChat();
     await initializeChat();
     setIsInitialized(true);
-    setMessages([
+      setMessages([
         {
           id: 'restart-1',
           role: 'model',
-          content: "Session reset. I am ready to start a new architecture process.\n\nWhat is your **Intent & Goal** for this new project?"
+          content: "Session reset. I am ready to generate a new prompt.\n\nWhat would you like to create?"
         }
       ]);
   };

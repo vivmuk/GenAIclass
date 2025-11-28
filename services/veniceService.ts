@@ -147,6 +147,20 @@ export const sendMessage = async (
 export const generateImage = async (prompt: string): Promise<string> => {
   const apiKey = getApiKey();
 
+  // Clean the prompt - remove markdown code block markers if present
+  let cleanPrompt = prompt.trim();
+  
+  // Remove [PROMPT START] and [PROMPT END] markers
+  cleanPrompt = cleanPrompt.replace(/\[PROMPT START\]/gi, '').replace(/\[PROMPT END\]/gi, '');
+  
+  // Remove markdown code block markers
+  cleanPrompt = cleanPrompt.replace(/```markdown/gi, '').replace(/```/g, '').trim();
+  
+  // Ensure prompt is not too long (nano-banana-pro allows up to 32768 chars, but let's be safe)
+  if (cleanPrompt.length > 30000) {
+    cleanPrompt = cleanPrompt.substring(0, 30000);
+  }
+
   try {
     const response = await fetch(`${VENICE_API_BASE}/image/generate`, {
       method: 'POST',
@@ -156,10 +170,10 @@ export const generateImage = async (prompt: string): Promise<string> => {
       },
       body: JSON.stringify({
         model: IMAGE_MODEL,
-        prompt: prompt,
+        prompt: cleanPrompt,
         width: 1024,
         height: 1024,
-        steps: 20,
+        steps: 1, // nano-banana-pro has max 1 step according to API docs
         format: 'webp',
         return_binary: false,
         safe_mode: false
@@ -167,7 +181,14 @@ export const generateImage = async (prompt: string): Promise<string> => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorText = await response.text();
+      let errorData;
+      try {
+        errorData = JSON.parse(errorText);
+      } catch {
+        errorData = { error: { message: errorText || `API error: ${response.status}` } };
+      }
+      console.error("Venice API error:", errorData);
       throw new Error(errorData.error?.message || `API error: ${response.status}`);
     }
 
