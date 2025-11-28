@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator - GenAIV Academy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/image-generator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="site-container">
+        <!-- Main Content -->
+        <main class="content-container">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <a href="index.html" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+                    <h1>AI Image Generator</h1>
+                    <p class="subtitle">Create stunning images with state-of-the-art AI models</p>
+                    <div class="api-notice">
+                        <p><i class="fas fa-check-circle"></i> Venice AI API is enabled with current models! The generator fetches the latest available models directly from the API.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="image-generator-section">
+                <div class="tabs">
+                    <div id="generator-tab" class="tab active">Generate</div>
+                    <div id="optimizer-tab" class="tab">Prompt Optimizer</div>
+                </div>
+
+                <div id="generator-panel" class="panel">
+                    <div class="generator-form">
+                        <form id="generate-form">
+                            <div class="form-section">
+                                <h3>Model & Style</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="model">AI Model</label>
+                                        <select id="model" class="form-control">
+                                            <option value="" disabled selected>Loading models...</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="style">Style Preset</label>
+                                        <select id="style" class="form-control">
+                                            <option value="" disabled selected>Loading styles...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Prompt</h3>
+                                <div class="form-group">
+                                    <label for="prompt">Image Prompt</label>
+                                    <textarea id="prompt" class="form-control" rows="4" placeholder="Describe the image you want to generate..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="negative-prompt">Negative Prompt (Optional)</label>
+                                    <textarea id="negative-prompt" class="form-control" rows="2" placeholder="Describe what you don't want in the image..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h3>Image Settings</h3>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="aspect-ratio">Aspect Ratio</label>
+                                        <select id="aspect-ratio" class="form-control">
+                                            <option value="16:9">16:9 (Landscape)</option>
+                                            <option value="1:1">1:1 (Square)</option>
+                                            <option value="3:2">3:2 (Photo)</option>
+                                            <option value="9:16">9:16 (Portrait)</option>
+                                            <option value="2:3">2:3 (Portrait)</option>
+                                            <option value="4:3">4:3 (Classic)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resolution">Resolution</label>
+                                        <select id="resolution" class="form-control">
+                                            <option value="low">Low</option>
+                                            <option value="medium" selected>Medium</option>
+                                            <option value="high">High</option>
+                                            <option value="ultra">Ultra</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="width">Width (px)</label>
+                                        <input type="number" id="width" class="form-control" value="1024" min="256" max="2048" step="8">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="height">Height (px)</label>
+                                        <input type="number" id="height" class="form-control" value="576" min="256" max="2048" step="8">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="steps">Steps</label>
+                                        <input type="number" id="steps" class="form-control" value="30" min="10" max="150" step="1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="primary-button">
+                                    <i class="fas fa-wand-magic-sparkles mr-2"></i> Generate Image
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="result-container">
+                        <div id="placeholder" class="placeholder">
+                            <div class="placeholder-content">
+                                <i class="fas fa-image placeholder-icon"></i>
+                                <p>Your generated image will appear here</p>
+                                <small>Enter a prompt and click "Generate Image" to create an AI image</small>
+                            </div>
+                        </div>
+
+                        <div id="progress-container" class="progress-container hidden">
+                            <div class="progress-info">
+                                <span>Generating image...</span>
+                                <span id="progress-percentage">0%</span>
+                            </div>
+                            <div class="progress">
+                                <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+                            </div>
+                            <div class="progress-time">
+                                Time elapsed: <span id="time-counter">0.0s</span>
+                            </div>
+                        </div>
+
+                        <div id="result" class="result hidden">
+                            <div class="image-container">
+                                <img id="generated-image" src="" alt="Generated image">
+                            </div>
+                            <div class="image-details">
+                                <div class="image-detail">
+                                    <span class="detail-label">Model</span>
+                                    <span id="result-model" class="detail-value">-</span>
+                                </div>
+                                <div class="image-detail">
+                                    <span class="detail-label">Style</span>
+                                    <span id="result-style" class="detail-value">-</span>
+                                </div>
+                                <div class="image-detail">
+                                    <span class="detail-label">Size</span>
+                                    <span id="result-size" class="detail-value">-</span>
+                                </div>
+                                <div class="image-detail">
+                                    <span class="detail-label">Steps</span>
+                                    <span id="result-steps" class="detail-value">-</span>
+                                </div>
+                            </div>
+                            <div class="result-actions">
+                                <button id="download-button" class="secondary-button">
+                                    <i class="fas fa-download mr-2"></i> Download
+                                </button>
+                                <button id="save-gallery-button" class="primary-button">
+                                    <i class="fas fa-save mr-2"></i> Save to Gallery
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="optimizer-panel" class="panel hidden">
+                    <div class="optimizer-form">
+                        <div class="form-section">
+                            <h3>Prompt Optimizer</h3>
+                            <p>Enter a simple prompt and let AI enhance it with details to generate better images.</p>
+                            <div class="form-group">
+                                <label for="initial-prompt">Initial Prompt</label>
+                                <textarea id="initial-prompt" class="form-control" rows="4" placeholder="Enter a basic prompt to optimize..."></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button id="optimize-button" class="primary-button">
+                                    <i class="fas fa-wand-magic-sparkles mr-2"></i> Optimize Prompt
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="optimization-result" class="optimization-result hidden">
+                            <h3>Optimized Prompt</h3>
+                            <div class="optimized-prompt">
+                                <p id="optimized-prompt-text"></p>
+                            </div>
+                            <div class="form-actions">
+                                <button id="use-optimized-prompt" class="primary-button">
+                                    <i class="fas fa-check mr-2"></i> Use This Prompt
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="gallery-section" class="gallery-section hidden">
+                <h2>Your Generated Images</h2>
+                <div id="image-gallery" class="image-gallery">
+                    <!-- Generated images will be displayed here -->
+                </div>
+            </section>
+
+            <section class="tips-section">
+                <h2>Tips for Better Results</h2>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Be Specific</h3>
+                        <p>Include details about perspective, lighting, style, and mood in your prompts.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h3>Use Style Presets</h3>
+                        <p>Experiment with different style presets to achieve your desired aesthetic.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3>Negative Prompts</h3>
+                        <p>Use negative prompts to exclude unwanted elements from your generated images.</p>
+                    </div>
+                    <div class="tip-card">
+                        <div class="tip-icon">
+                            <i class="fas fa-sliders"></i>
+                        </div>
+                        <h3>Adjust Steps</h3>
+                        <p>Higher step counts generally produce more detailed images but take longer to generate.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-section">
+                    <p>© 2023 GenAIV Academy. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/image-generator.js"></script>
+</body>
+</html> 

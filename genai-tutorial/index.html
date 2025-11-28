@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction to Generative AI - GenAI Chutney</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="Learn about Generative AI and Neural Networks in this comprehensive tutorial exploring the fundamentals of modern artificial intelligence.">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">GenAI <span>Chutney</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="image-generator.html">Image Generator</a></li>
+                    <li><a href="prompt-optimizer.html">Prompting Lab</a></li>
+                    <li><a href="vocabulary.html">Vocabulary</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="apps.html">GenAI Chutney Apps</a></li>
+                </ul>
+            </nav>
+            <div class="hero">
+                <h1 class="fade-in">Introduction to AI and Generative AI</h1>
+                <p class="fade-in delay-200">Empower yourself with a clear understanding of AI and Generative AI fundamentals and analogies to the human brain so you can better understand how modern AI systems work.</p>
+                <div class="scroll-indicator">
+                    <span>Scroll to explore</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="overview" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Welcome & Series Overview</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Purpose & Goals</h3>
+                    <p>This course aims to build confidence in using Generative AI technologies like CoPilot to boost your productivity and enhance your daily workflows.</p>
+                    
+                    <h3>Agenda Overview</h3>
+                    <p>Throughout this series, we'll cover key topics from fundamentals to practical applications of Generative AI in professional settings.</p>
+                    
+                    <h3>Interactive Expectations</h3>
+                    <p>Each session includes live demonstrations and Q&A portions to ensure you gain hands-on experience with these powerful tools.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="course-roadmap blur-container">
+                        <div class="roadmap-item current blur-hover">
+                            <div class="session-number">1</div>
+                            <div class="session-content">
+                                <h4>Fundamentals</h4>
+                                <p>GenAI Basics & Neural Networks</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-item blur-hover">
+                            <div class="session-number">2</div>
+                            <div class="session-content">
+                                <h4>Applications (Coming Soon)</h4>
+                                <p>Real-world Use Cases</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-item blur-hover">
+                            <div class="session-number">3</div>
+                            <div class="session-content">
+                                <h4>Advanced (Coming Soon)</h4>
+                                <p>Integration & Workflows</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-evolution" class="section">
+         <div class="container">
+             <div class="section-header">
+                 <h2>Evolution of AI</h2>
+             </div>
+             
+             <div class="content-grid">
+                 <div class="text-content">
+                     <h3>Historical Perspective</h3>
+                     <p>Artificial Intelligence has evolved dramatically since its conceptualization in the 1950s, progressing from theoretical frameworks to the sophisticated systems we use today.</p>
+                     
+                     <h3>Key Milestones</h3>
+                     <p>The journey from early AI concepts to modern generative models spans decades of research breakthroughs, with each milestone building upon previous innovations.</p>
+                     
+                     <h3>Current Landscape</h3>
+                     <p>Today's AI landscape is dominated by Large Language Models and generative systems that can understand and create human-like content across multiple modalities.</p>
+                 </div>
+                 <div class="visual-content timeline-container">
+                     <div class="ai-timeline">
+                         <img src="images/ai-evolution.svg" alt="Timeline showing the evolution of AI from 1950 to 2025" class="timeline-image">
+                         <div class="timeline-legend">
+                             <div class="timeline-caption">Evolution of AI, ML, Deep Learning, GenAI, LLMs & Chatbots</div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             
+             <div class="timeline-details">
+                 <div class="timeline-item">
+                     <div class="year">1950</div>
+                     <div class="milestone">AI Concept (Turing Test)</div>
+                     <p>Alan Turing proposed the Turing Test to determine whether a machine could exhibit human-like intelligence, laying the foundation for defining machine intelligence.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">1956</div>
+                     <div class="milestone">Birth of AI (Dartmouth Conference)</div>
+                     <p>The Dartmouth Conference officially coined the term "Artificial Intelligence," marking the beginning of focused AI research and development.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">1980</div>
+                     <div class="milestone">Machine Learning (Expert Systems)</div>
+                     <p>The rise of Expert Systems introduced rule-based AI programs designed to mimic human decision-making in specialized fields like medical diagnosis.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">2012</div>
+                     <div class="milestone">Deep Learning (AlexNet)</div>
+                     <p>AlexNet demonstrated the power of deep neural networks for image recognition, proving that multi-layered neural networks could outperform traditional machine learning.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">2017</div>
+                     <div class="milestone">Generative AI (Transformers)</div>
+                     <p>The Transformer architecture enabled AI to process entire sequences at once, leading to breakthroughs in natural language processing and generation.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">2020</div>
+                     <div class="milestone">LLMs & Chatbots (GPT-3, ChatGPT)</div>
+                     <p>Large Language Models like GPT-3 brought powerful text generation capabilities, making AI-powered conversation accessible to businesses and the public.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">2022</div>
+                     <div class="milestone">ChatGPT-3.5 Release</div>
+                     <p>An improved version with better accuracy, faster responses, and more nuanced conversations, marking a shift toward more interactive and useful AI.</p>
+                 </div>
+                 <div class="timeline-item">
+                     <div class="year">2025</div>
+                     <div class="milestone">GPT-5 Release</div>
+                     <p>Anticipated next generation of AI models with enhanced multimodal capabilities, advanced reasoning, personalization, and real-time interactions.</p>
+                 </div>
+             </div>
+         </div>
+    </section>
+
+    <section id="ai-economics" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Economics of Intelligence</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Intelligence at Zero Cost</h3>
+                    <p>As compute costs decline exponentially, we're witnessing the democratization of artificial intelligence. What once required million-dollar supercomputers can now be achieved with affordable hardware, making AI accessible to organizations of all sizes.</p>
+                    
+                    <h3>Implications for Society</h3>
+                    <p>The plummeting cost of compute is driving a paradigm shift in how AI integrates into every aspect of society. As intelligence becomes ubiquitous and nearly free, we're entering an era where AI augmentation will become the norm rather than the exception.</p>
+                    
+                    <h3>Future Trajectory</h3>
+                    <p>The economics of AI are following an exponential curve that will continue to accelerate innovation. This trajectory suggests we're only at the beginning of understanding how accessible AI will transform industries, scientific discovery, and human potential.</p>
+                </div>
+                <div class="visual-content compute-cost-container">
+                    <div class="compute-cost-chart">
+                        <img src="images/compute-cost.svg" alt="Graph showing the exponential decrease in compute cost per FLOP from 1950 to 2025" class="compute-chart-image">
+                        <div class="chart-legend">
+                            <div class="chart-caption">Cost per FLOP (Floating Point Operation) in USD</div>
+                            <div class="legend-scale">
+                                <span>1950: $0.001</span>
+                                <span>2025: $0.0000000000001</span>
+                            </div>
+                            <div class="global-compute-note">
+                                <p>Global computing operations per day likely exceed 10²⁶ - 10²⁸ FLOPS (2025)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="implications-grid">
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-globe"></i></div>
+                    <h4>AI Becomes Ubiquitous</h4>
+                    <p>AI will be embedded in everyday devices and systems, from personal assistants to smart cities, making intelligence a utility as common as electricity.</p>
+                </div>
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Acceleration of Innovation</h4>
+                    <p>Lower costs enable more experimentation, leading to faster iterations and breakthroughs in medicine, engineering, and scientific research.</p>
+                </div>
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-users"></i></div>
+                    <h4>Democratization of AI</h4>
+                    <p>AI is no longer just for big tech; smaller companies, educational institutions, and developing nations can now leverage AI for growth.</p>
+                </div>
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-brain"></i></div>
+                    <h4>Evolution Beyond Generative AI</h4>
+                    <p>As compute becomes cheaper, AI will develop real-time inference and reasoning capabilities, shifting from reactive to proactive systems.</p>
+                </div>
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h4>Human Augmentation</h4>
+                    <p>AI will transition from being a tool to a true collaborator, enhancing human abilities in creativity, decision-making, and problem-solving.</p>
+                </div>
+                <div class="implication-item">
+                    <div class="implication-icon"><i class="fas fa-microscope"></i></div>
+                    <h4>Scientific Revolution</h4>
+                    <p>AI will accelerate discoveries in materials science, drug development, and climate modeling, solving problems once thought to take decades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-definitions" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key AI Terminology & Definitions</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Understanding the AI Ecosystem</h3>
+                    <p>The field of artificial intelligence is filled with specialized terminology that often overlaps. This glossary provides clear definitions from leading experts to help you navigate conversations about AI technologies.</p>
+                    
+                    <h3>From Technical to Applied</h3>
+                    <p>These definitions show the nested relationship between AI concepts, from the broader field of artificial intelligence to more specialized applications like machine learning, generative AI, and large language models.</p>
+                    
+                    <h3>Evolving Terminology</h3>
+                    <p>As the field rapidly advances, terminology evolves—what was once considered cutting-edge deep learning may now be referred to as "traditional AI" in some contexts. Understanding these terms helps track the evolution of the technology.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="ai-definitions-visual">
+                        <img src="images/ai-definitions.svg" alt="Visual diagram showing the relationships between AI terminology" class="definitions-image">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="definitions-grid">
+                <div class="definition-card" data-category="core">
+                    <h4>Artificial Intelligence (AI)</h4>
+                    <p>Computer systems designed to perform tasks that typically require human intelligence. These systems can perceive their environment, learn from data, and take actions to achieve specific goals.</p>
+                    <p><strong>Example:</strong> Smart assistants like Siri, Alexa, and Google Assistant that can understand voice commands and perform various tasks.</p>
+                </div>
+                
+                <div class="definition-card" data-category="core">
+                    <h4>Machine Learning (ML)</h4>
+                    <p>A subset of AI that allows systems to learn and improve from experience automatically without being explicitly programmed. ML algorithms build models based on sample data to make predictions or decisions.</p>
+                    <p><strong>Example:</strong> Netflix and Spotify recommendation systems that learn from your viewing or listening habits to suggest new content.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Deep Learning</h4>
+                    <p>A specialized type of machine learning that uses artificial neural networks with multiple layers (hence "deep") to progressively extract higher-level features from raw input data, mimicking how the human brain processes information.</p>
+                    <p><strong>Example:</strong> Face recognition in smartphone cameras and social media that can identify individuals in photos with remarkable accuracy.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Large Language Models (LLMs)</h4>
+                    <p>Advanced AI systems trained on vast amounts of text data that can understand, generate, and manipulate language. They work by predicting the most likely next word in a sequence, enabling them to write essays, answer questions, and more.</p>
+                    <p><strong>Example:</strong> ChatGPT and Claude that can answer questions, write essays, and engage in natural-sounding conversations.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Rule-based Systems</h4>
+                    <p>Early AI programs that use explicit "if-then" rules created by human experts to make decisions. Unlike learning systems, rule-based systems follow predetermined logic paths and cannot adapt to new situations without being reprogrammed.</p>
+                    <p><strong>Example:</strong> Spam filters that use predefined rules to determine whether an email is spam based on specific keywords or sender information.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Generative AI</h4>
+                    <p>AI systems that can create new content such as text, images, music, and videos that didn't exist before. Unlike traditional AI that classifies or predicts data, generative AI produces original outputs based on patterns learned from training data.</p>
+                    <p><strong>Example:</strong> DALL-E and Midjourney that create realistic images and artwork based on text descriptions provided by users.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Neural Networks</h4>
+                    <p>Computing systems inspired by biological brain structures, consisting of interconnected nodes ("neurons") that process and transmit information. They excel at recognizing patterns and can learn to perform tasks by analyzing example data.</p>
+                    <p><strong>Example:</strong> Google Translate uses neural networks to provide increasingly accurate translations between languages, capturing nuances and context.</p>
+                </div>
+                
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Agents</h4>
+                    <p>AI systems that can operate autonomously to achieve specific goals on behalf of users. They can perceive their environment, make decisions based on that information, and execute tasks with minimal human intervention.</p>
+                </div>
+                
+                <div class="definition-card" data-category="technical">
+                    <h4>Agentic AI</h4>
+                    <p>Advanced autonomous AI systems that can chain together multiple steps, interact with software or services, make decisions, and adapt their approach based on outcomes. Agentic AI can complete complex tasks much like a personal assistant.</p>
+                </div>
+                             
+               
+            </div>
+        </div>
+    </section>
+
+    <section id="brain-nn" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Brain vs. Neural Network: Understanding the Analogy</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Biological Neurons vs. Artificial Neurons</h3>
+                    <p>Just as the human brain processes information through interconnected neurons, artificial neural networks use mathematical representations of neurons to process data and identify patterns.</p>
+                    
+                    <h3>Synaptic Connections & Weights</h3>
+                    <p>The brain's synapses strengthen with repeated use, similar to how neural network connections adjust their "weights" during training to improve outcomes over time.</p>
+                    
+                    <h3>Learning & Adaptation</h3>
+                    <p>Humans refine skills through practice and experience; similarly, AI models improve through iterative training on diverse examples, gradually enhancing their ability to generate relevant outputs.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="neural-comparison">
+                        <div class="comparison-item">
+                            <h4>Human Neural System</h4>
+                            <div class="neuron-illustration human"></div>
+                            <ul class="comparison-points">
+                                <li>86 billion neurons</li>
+                                <li>Chemical/electrical signals</li>
+                                <li>Learns through experience</li>
+                            </ul>
+                        </div>
+                        <div class="comparison-item">
+                            <h4>Artificial Neural Network</h4>
+                            <div class="neuron-illustration artificial"></div>
+                            <ul class="comparison-points">
+                                <li>Billions of parameters</li>
+                                <li>Mathematical operations</li>
+                                <li>Learns through training data</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="intro" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What is Generative AI?</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Definition & Scope</h3>
+                    <p>Generative AI refers to technologies that create new content (text, images, code, etc.) based on patterns learned from existing data. These systems automate creative and repetitive tasks, enabling unprecedented productivity.</p>
+                    
+                    <h3>Business Impact</h3>
+                    <p>GenAI transforms traditional workflows by saving time, enhancing accuracy, and unlocking new business insights that were previously inaccessible or time-consuming to obtain.</p>
+                    
+                    <h3>GenAI in Action</h3>
+                    <p>Modern generative AI systems integrate directly into familiar applications, helping you draft content, summarize documents, and analyze data with simple natural language prompts.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="comparison-chart">
+                        <h4>Traditional vs. AI-Augmented Workflow</h4>
+                        <div class="chart-container">
+                            <div class="chart-column">
+                                <div class="chart-header">Traditional</div>
+                                <ul class="chart-data">
+                                    <li><span class="time">4 hrs</span> Manual document summarization</li>
+                                    <li><span class="time">2 hrs</span> Email draft and revision</li>
+                                    <li><span class="time">3 hrs</span> Data analysis and insight generation</li>
+                                </ul>
+                                <div class="chart-total">9 hours</div>
+                            </div>
+                            <div class="chart-column highlight">
+                                <div class="chart-header">AI-Augmented</div>
+                                <ul class="chart-data">
+                                    <li><span class="time">30 min</span> AI-assisted summarization</li>
+                                    <li><span class="time">20 min</span> AI email drafting + review</li>
+                                    <li><span class="time">45 min</span> AI-powered data insights</li>
+                                </ul>
+                                <div class="chart-total">1.5 hours</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How Generative AI Works</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Input Process – Prompt Engineering</h3>
+                    <p>Crafting precise, detailed prompts is key to getting high-quality outputs from generative AI. Learning to communicate effectively with AI systems is a skill that improves with practice.</p>
+                    
+                    <h3>Training Process – Data & Algorithms</h3>
+                    <p>AI models like those powering CoPilot are trained on vast datasets, including business content, to understand context, language, and domain-specific knowledge relevant to your work.</p>
+                    
+                    <h3>Output Generation – From Data to Content</h3>
+                    <p>When you provide a prompt, the AI processes it through its neural network, drawing on patterns from its training to generate contextually relevant content that meets your needs.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="process-flow">
+                        <div class="process-step">
+                            <div class="step-icon"><i class="fas fa-keyboard"></i></div>
+                            <h4>User Prompt</h4>
+                            <p>"Draft a quarterly report summary highlighting key financial metrics"</p>
+                        </div>
+                        <div class="process-arrow"><i class="fas fa-arrow-right"></i></div>
+                        <div class="process-step">
+                            <div class="step-icon"><i class="fas fa-brain"></i></div>
+                            <h4>AI Processing</h4>
+                            <p>Pattern recognition, context analysis, content generation</p>
+                        </div>
+                        <div class="process-arrow"><i class="fas fa-arrow-right"></i></div>
+                        <div class="process-step">
+                            <div class="step-icon"><i class="fas fa-file-alt"></i></div>
+                            <h4>Generated Output</h4>
+                            <p>Structured summary with key metrics and insights highlighted</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="genaiv-outputs" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>What Can You Generate Using GenAI?</h2>
+            </div>
+            
+            <div class="output-categories-grid">
+                <div class="output-category">
+                    <div class="output-icon"><i class="fas fa-font"></i></div>
+                    <h4>Text</h4>
+                    <ul class="output-examples">
+                        <li>Business reports</li>
+                        <li>Creative stories</li>
+                        <li>Marketing copy</li>
+                        <li>Academic papers</li>
+                    </ul>
+                </div>
+                <div class="output-category">
+                    <div class="output-icon"><i class="fas fa-image"></i></div>
+                    <h4>Images</h4>
+                    <ul class="output-examples">
+                        <li>Photorealistic scenes</li>
+                        <li>Art in various styles</li>
+                        <li>Product visualizations</li>
+                        <li>Design concepts</li>
+                    </ul>
+                </div>
+                <div class="output-category">
+                    <div class="output-icon"><i class="fas fa-code"></i></div>
+                    <h4>Code</h4>
+                    <ul class="output-examples">
+                        <li>Application functions</li>
+                        <li>Website components</li>
+                        <li>Script automation</li>
+                        <li>API integrations</li>
+                    </ul>
+                </div>
+                <div class="output-category">
+                    <div class="output-icon"><i class="fas fa-music"></i></div>
+                    <h4>Audio/Video</h4>
+                    <ul class="output-examples">
+                        <li>Music compositions</li>
+                        <li>Voice synthesis</li>
+                        <li>Video concepts</li>
+                        <li>Sound effects</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Text Generation & Writing</h3>
+                    <p>From professional emails and marketing copy to creative stories and technical documentation, GenAI can produce various text formats tailored to specific audiences, tones, and purposes.</p>
+                    
+                    <h3>Visual & Design Content</h3>
+                    <p>Create images, illustrations, design mockups, and visual concepts by describing what you envision. AI can generate entirely new visuals or variations on existing design themes.</p>
+                    
+                    <h3>Code & Technical Solutions</h3>
+                    <p>Generate functioning code in various programming languages, debug existing code, and create technical solutions to specific problems with simple natural language instructions.</p>
+                    
+                    <h3>Media & Interactive Content</h3>
+                    <p>Produce audio content, music compositions, voiceovers, video concepts, and even interactive experiences by defining parameters and creative direction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="genaiv-players" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Major Players in the GenAI Landscape</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>Foundation Model Developers</h3>
+                    <p>These organizations create the large language models and multimodal AI systems that power most generative AI applications. They invest billions in research, training infrastructure, and dataset curation.</p>
+                    
+                    <h3>Chip Manufacturers</h3>
+                    <p>The computing hardware that enables AI model training and inference is crucial to the GenAI ecosystem. These companies design specialized processors optimized for AI workloads.</p>
+                    
+                    <h3>Application & Platform Providers</h3>
+                    <p>Building on foundation models, these companies develop user-friendly interfaces and specialized applications that make generative AI capabilities accessible to businesses and consumers.</p>
+                    
+                    <h3>Open Source Communities</h3>
+                    <p>These collaborative ecosystems democratize access to cutting-edge AI by developing freely available models, tools, and frameworks that reduce barriers to entry in the field.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="industry-map">
+                        <div class="industry-category">
+                            <h4>Foundation Models</h4>
+                            <div class="logo-grid">
+                                <div class="company-logo" tabindex="0" role="button" aria-label="OpenAI - Foundation Model Developer"><span class="company-name">OpenAI</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Anthropic - Foundation Model Developer"><span class="company-name">Anthropic</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Google DeepMind - Foundation Model Developer"><span class="company-name">Google DeepMind</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Meta AI - Foundation Model Developer"><span class="company-name">Meta AI</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Microsoft - Foundation Model Developer"><span class="company-name">Microsoft</span></div>
+                            </div>
+                        </div>
+                        <div class="industry-category">
+                            <h4>Chip Manufacturers</h4>
+                            <div class="logo-grid">
+                                <div class="company-logo" tabindex="0" role="button" aria-label="NVIDIA - AI Chip Manufacturer"><span class="company-name">NVIDIA</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="AMD - AI Chip Manufacturer"><span class="company-name">AMD</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Intel - AI Chip Manufacturer"><span class="company-name">Intel</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="ARM - AI Chip Manufacturer"><span class="company-name">ARM</span></div>
+                            </div>
+                        </div>
+                        <div class="industry-category">
+                            <h4>Cloud & Infrastructure</h4>
+                            <div class="logo-grid">
+                                <div class="company-logo" tabindex="0" role="button" aria-label="AWS - Cloud Provider for AI Infrastructure"><span class="company-name">AWS</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Microsoft Azure - Cloud Provider for AI Infrastructure"><span class="company-name">Microsoft Azure</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Google Cloud - Cloud Provider for AI Infrastructure"><span class="company-name">Google Cloud</span></div>
+                                <div class="company-logo" tabindex="0" role="button" aria-label="Oracle Cloud - Cloud Provider for AI Infrastructure"><span class="company-name">Oracle Cloud</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="current-models" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest Foundation Models</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>State-of-the-Art AI Systems</h3>
+                    <p>The AI landscape evolves rapidly with new models released regularly. Each company's flagship model represents its latest research and capabilities in the field.</p>
+                    
+                    <h3>Open vs Closed Ecosystems</h3>
+                    <p>While some companies prioritize tightly controlled access to their models (closed source), others make their models available to the public (open source), often with specific licensing terms.</p>
+                    
+                    <h3>Geographic Availability</h3>
+                    <p>Access to advanced AI models varies significantly by region due to multiple factors:</p>
+                    
+                    <ul class="geographic-factors">
+                        <li><strong>Regulatory Compliance:</strong> Companies must navigate complex regional regulations like the EU AI Act, GDPR in Europe, or data sovereignty laws in various countries. This often results in regional versions of models with different capabilities.</li>
+                        <li><strong>Market Strategy:</strong> Model providers typically roll out access gradually, starting with their primary markets (often US-based) before expanding globally.</li>
+                        <li><strong>Infrastructure Requirements:</strong> Some regions may lack the technical infrastructure needed to support high-demand AI services, limiting effective deployment.</li>
+                        <li><strong>Export Controls:</strong> National security concerns may restrict access to cutting-edge AI capabilities in certain regions due to dual-use technology controls.</li>
+                    </ul>
+                    
+                    <p>Open source models provide a partial solution to these geographic limitations, as they can be deployed locally without API restrictions—though they often require significant technical expertise and computing resources.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="models-table">
+                        <div class="table-header">
+                            <div class="col company-col">Company</div>
+                            <div class="col model-col">Latest Model</div>
+                            <div class="col source-col">Source Status</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">OpenAI</div>
+                            <div class="col model-col">GPT-4o, o1, o3-mini</div>
+                            <div class="col source-col">Closed Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">Anthropic</div>
+                            <div class="col model-col">Claude 3.7 Sonnet</div>
+                            <div class="col source-col">Closed Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">Google DeepMind</div>
+                            <div class="col model-col">Gemini Thinking</div>
+                            <div class="col source-col">Closed Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">Meta AI</div>
+                            <div class="col model-col">Llama 3, Llama 4</div>
+                            <div class="col source-col">Open Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">xAI</div>
+                            <div class="col model-col">Grok-3</div>
+                            <div class="col source-col">Closed Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">DeepSeek AI</div>
+                            <div class="col model-col">DeepSeek-R1</div>
+                            <div class="col source-col">Closed Source</div>
+                        </div>
+                        <div class="table-row">
+                            <div class="col company-col">Mistral AI</div>
+                            <div class="col model-col">Mistral Large</div>
+                            <div class="col source-col">Mixed (Both)</div>
+                        </div>
+                    </div>
+                    
+                    <div class="ecosystem-diagram">
+                        <h4>Open vs. Closed Source Model Comparison</h4>
+                        <div class="diagram-content">
+                            <div class="closed-path">
+                                <div class="path-header">Closed Source Path</div>
+                                <div class="path-steps">
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-code-branch"></i></div>
+                                        <div class="step-text">Proprietary Development</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-shield-alt"></i></div>
+                                        <div class="step-text">Restricted Access</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-key"></i></div>
+                                        <div class="step-text">API Access Only</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-dollar-sign"></i></div>
+                                        <div class="step-text">Usage-Based Pricing</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="vs-divider">VS</div>
+                            
+                            <div class="open-path">
+                                <div class="path-header">Open Source Path</div>
+                                <div class="path-steps">
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-code"></i></div>
+                                        <div class="step-text">Public Development</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-download"></i></div>
+                                        <div class="step-text">Public Access to Code</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-server"></i></div>
+                                        <div class="step-text">Self-Hosting Option</div>
+                                    </div>
+                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
+                                    <div class="path-step">
+                                        <div class="step-icon"><i class="fas fa-wrench"></i></div>
+                                        <div class="step-text">Customization Freedom</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ai-benchmarks" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Humanity's Last Exam: AI Performance Benchmarks</h2>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <h3>The Race for Human-Level Performance</h3>
+                    <p>As AI models grow more sophisticated, researchers use standardized tests to measure their capabilities against human performance. The "Humanity's Last Exam" benchmark evaluates models on complex reasoning, knowledge application, and problem-solving.</p>
+                    
+                    <h3>Accelerating Performance Gains</h3>
+                    <p>The latest generation of AI models has shown significant gains in accuracy and capabilities. Most impressive is the o3-mini series, which despite its smaller size has outperformed earlier, larger models on these challenging benchmarks.</p>
+                    
+                    <h3>Implications for Society</h3>
+                    <p>As models continue to improve at this pace, we can expect to see even more capable AI systems emerging throughout 2025. These advancements will likely transform knowledge work, education, and scientific research in fundamental ways.</p>
+                </div>
+                <div class="visual-content">
+                    <div class="benchmark-chart">
+                        <img src="images/ai-accuracy-2025.svg" alt="Chart showing accuracy comparison between various AI models through 2025" class="accuracy-chart-image">
+                        <div class="chart-legend">
+                            <div class="chart-caption">Latest AI Model Accuracy Comparison (Humanity's Last Exam)</div>
+                            <div class="legend-note">
+                                <p>Higher percentages indicate better performance, with launch dates noted for each model</p>
+                            </div>
+                            <div class="legend-detail">
+                                <p>Featured models: GPT-4o (3.1%), Grok-3 (3.9%), Claude 3.5 Sonnet (4.8%), GPT-4.5 Preview (6.4%), Gemini Thinking (7.2%), DeepSeek-R1 (8.6%), o1 (8.8%), Claude 3.7 Sonnet (16K) (8.9%), o3-mini variants (11.1-14.0%)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="benchmark-details">
+                <div class="benchmark-item">
+                    <div class="benchmark-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>Expert-Level Knowledge</h4>
+                    <p>The newest models demonstrate unprecedented performance across specialized fields, with the o3-mini (high) variant showing a remarkable 14% accuracy on the most challenging benchmark tests ever created.</p>
+                </div>
+                <div class="benchmark-item">
+                    <div class="benchmark-icon"><i class="fas fa-sitemap"></i></div>
+                    <h4>Multistep Reasoning</h4>
+                    <p>Recent models excel at breaking down complex problems into logical sequences, with each generation showing improved capacity to maintain consistency across extended reasoning chains.</p>
+                </div>
+                <div class="benchmark-item">
+                    <div class="benchmark-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h4>Model Efficiency</h4>
+                    <p>The trend toward smaller yet more capable models (as seen with o3-mini) suggests that architectural improvements are now outpacing raw scale, potentially democratizing access to powerful AI capabilities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tool Card Section -->
+    <div class="tools-section">
+        <div class="container">
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-wand-magic-sparkles"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>AI Image Generator <span class="badge">NEW</span></h4>
+                    <p>Create stunning AI-generated images with our new tool</p>
+                </div>
+                                        <a href="image-generator.html" class="tool-button primary-cta">Try it now</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-keyboard"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>Prompt Engineering Lab <span class="badge">NEW</span></h4>
+                    <p>Compare responses from different AI models with adjustable parameters</p>
+                </div>
+                                        <a href="prompt-optimizer.html" class="tool-button primary-cta">Try it now</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>GenAI Vocabulary <span class="badge">NEW</span></h4>
+                    <p>Master 58+ essential GenAI terms with definitions, analogies, and examples</p>
+                </div>
+                <a href="vocabulary.html" class="tool-button primary-cta">Explore Now</a>
+            </div>
+            
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-blog"></i>
+                </div>
+                <div class="tool-info">
+                    <h4>AI Insights Blog <span class="badge">NEW</span></h4>
+                    <p>Stay updated with the latest AI news, tutorials, and expert analysis</p>
+                </div>
+                <a href="blog.html" class="tool-button">Read now</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="copyright">© 2025 GenAI Chutney. All rights reserved.</div>
+                <div class="footer-nav">
+                    <a href="index.html">Home</a>
+                    <a href="image-generator.html">Image Generator</a>
+                    <a href="prompt-optimizer.html">Prompting Lab</a>
+                    <a href="vocabulary.html">Vocabulary</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="apps.html">GenAI Chutney Apps</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html> 
