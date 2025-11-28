@@ -18,4 +18,5 @@ export enum AppView {
   CHAT = 'CHAT',
   GALLERY = 'GALLERY',
   INFO = 'INFO',
+  PROMPT_TESTER = 'PROMPT_TESTER',
 }

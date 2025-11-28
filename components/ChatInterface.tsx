@@ -17,30 +17,63 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
   const [isInitialized, setIsInitialized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const shouldAutoScrollRef = useRef(true);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-scroll to bottom - improved version
-  const scrollToBottom = (force = false) => {
-    if (messagesContainerRef.current) {
-      const container = messagesContainerRef.current;
-      const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
-      
-      // Only auto-scroll if user is near bottom or forced
-      if (isNearBottom || force) {
-        setTimeout(() => {
-          if (messagesEndRef.current) {
-            messagesEndRef.current.scrollIntoView({ behavior: force ? 'auto' : 'smooth', block: 'end' });
-          }
-        }, 50);
+  // Smooth scroll to bottom - extremely reliable version
+  const scrollToBottom = (force = false, immediate = false) => {
+    if (!messagesContainerRef.current || !messagesEndRef.current) return;
+
+    const container = messagesContainerRef.current;
+    const threshold = 150; // pixels from bottom
+    
+    // Check if user is near bottom
+    const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+    
+    // Only auto-scroll if user is near bottom, manually scrolled, or forced
+    if (isNearBottom || force || shouldAutoScrollRef.current) {
+      // Clear any pending scroll
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      const scroll = () => {
+        if (messagesEndRef.current) {
+          messagesEndRef.current.scrollIntoView({ 
+            behavior: immediate ? 'auto' : 'smooth', 
+            block: 'end',
+            inline: 'nearest'
+          });
+        }
+      };
+
+      if (immediate) {
+        scroll();
+      } else {
+        // Use requestAnimationFrame for smoother scrolling
+        requestAnimationFrame(() => {
+          scrollTimeoutRef.current = setTimeout(scroll, 10);
+        });
       }
     }
   };
 
-  useEffect(() => {
-    scrollToBottom(true); // Force scroll on mount
-  }, []);
+  // Track user scroll to disable auto-scroll when they scroll up
+  const handleScroll = () => {
+    if (!messagesContainerRef.current) return;
+    const container = messagesContainerRef.current;
+    const threshold = 200;
+    const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < threshold;
+    shouldAutoScrollRef.current = isNearBottom;
+  };
 
   useEffect(() => {
-    scrollToBottom(); // Auto-scroll when messages change
+    scrollToBottom(true, true); // Force immediate scroll on mount
+  }, []);
+
+  // Scroll when messages change (including streaming updates)
+  useEffect(() => {
+    scrollToBottom(false, false);
   }, [messages, isLoading, isGeneratingImage]);
 
   // Initialize chat on mount or if prompt passed from gallery
@@ -109,7 +142,15 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
               : m
           );
         });
+        // Smooth scroll during streaming
+        scrollToBottom(false, false);
       });
+
+      // Save prompt to localStorage if it contains a prompt code block
+      const promptCode = extractPromptFromMessage(accumulatedContent);
+      if (promptCode) {
+        localStorage.setItem('lastGeneratedPrompt', promptCode);
+      }
 
     } catch (error: any) {
       console.error(error);
@@ -190,7 +231,11 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
     <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative font-sans">
       
       {/* Messages Area */}
-      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 md:p-8 space-y-2 pb-32 scroll-smooth">
+      <div 
+        ref={messagesContainerRef} 
+        onScroll={handleScroll}
+        className="flex-1 overflow-y-auto p-4 md:p-8 space-y-2 pb-32 scroll-smooth"
+      >
         {messages.map((msg) => {
             const promptCode = extractPromptFromMessage(msg.content);
             return (
