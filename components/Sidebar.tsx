@@ -13,8 +13,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onChangeView }) =
       
       {/* Brand */}
       <div className="flex items-center gap-3 px-6 md:mb-10 w-full justify-center md:justify-start">
-        <div className="w-10 h-10 bg-banana-400 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,225,53,0.3)] shrink-0">
-          <Zap className="w-6 h-6 text-obsidian-950 fill-current" />
+        <div className="w-10 h-10 bg-banana-400 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,225,53,0.3)] shrink-0 overflow-visible">
+          <Zap className="w-7 h-7 text-obsidian-950 fill-current" />
         </div>
         <span className="hidden lg:block font-bold text-lg text-white tracking-tight">
           Nano<span className="text-banana-400">Banana</span>

@@ -187,7 +187,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({ initialPrompt, onC
   };
 
   return (
-    <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative">
+    <div className="flex flex-col h-full w-full max-w-5xl mx-auto relative font-sans">
       
       {/* Messages Area */}
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 md:p-8 space-y-2 pb-32 scroll-smooth">

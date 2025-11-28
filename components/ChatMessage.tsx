@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Message } from '../types';
-import { User, Bot, Sparkles } from 'lucide-react';
+import { User, Bot, Sparkles, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 interface ChatMessageProps {
@@ -9,6 +9,14 @@ interface ChatMessageProps {
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   const isUser = message.role === 'user';
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+  
+  const handleCopyPrompt = (text: string, id: string) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2000);
+    });
+  };
 
   return (
     <div className={`flex w-full mb-6 ${isUser ? 'justify-end' : 'justify-start'}`}>
@@ -50,12 +58,36 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
                     components={{
                       code({node, className, children, ...props}) {
                         const match = /language-(\w+)/.exec(className || '')
+                        const codeText = String(children).replace(/\n$/, '');
+                        // Use a hash of the code content as ID for consistent state
+                        const codeId = `code-${message.id}-${codeText.slice(0, 20).replace(/\s/g, '')}`;
+                        const isCopied = copiedId === codeId;
+                        
                         return match ? (
                           <div className="relative group my-4">
-                            <div className="absolute -top-3 left-2 px-2 bg-banana-400 text-obsidian-950 text-[10px] font-bold uppercase rounded tracking-wider">
-                              Prompt Code
+                            <div className="flex items-center justify-between absolute -top-3 left-2 right-2 z-10">
+                              <div className="px-2 bg-banana-400 text-obsidian-950 text-[10px] font-bold uppercase rounded tracking-wider">
+                                Prompt Code
+                              </div>
+                              <button
+                                onClick={() => handleCopyPrompt(codeText, codeId)}
+                                className="flex items-center gap-1 px-2 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-banana-400 text-[10px] font-medium rounded transition-colors border border-gray-700"
+                                title="Copy prompt"
+                              >
+                                {isCopied ? (
+                                  <>
+                                    <Check className="w-3 h-3" />
+                                    <span>Copied!</span>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Copy className="w-3 h-3" />
+                                    <span>Copy</span>
+                                  </>
+                                )}
+                              </button>
                             </div>
-                            <code className={`${className} block bg-[#0a0a0a] p-4 rounded-lg border border-yellow-500/20 text-yellow-50 font-mono text-sm shadow-inner overflow-x-auto`} {...props}>
+                            <code className={`${className} block bg-[#0a0a0a] p-4 pt-6 rounded-lg border border-yellow-500/20 text-yellow-50 font-mono text-sm shadow-inner break-words whitespace-pre-wrap`} {...props}>
                               {children}
                             </code>
                           </div>
