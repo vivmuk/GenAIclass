@@ -1,0 +1,155 @@
+<svg width="1000" height="500" viewBox="0 0 1000 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#4338CA" />
+            <stop offset="100%" stop-color="#8A70FF" />
+        </linearGradient>
+    </defs>
+    
+    <!-- Background Grid -->
+    <g opacity="0.15" stroke="#B8B8D4" stroke-width="1" stroke-dasharray="4 4">
+        <!-- Vertical grid lines -->
+        <line x1="100" y1="50" x2="100" y2="450" />
+        <line x1="200" y1="50" x2="200" y2="450" />
+        <line x1="300" y1="50" x2="300" y2="450" />
+        <line x1="400" y1="50" x2="400" y2="450" />
+        <line x1="500" y1="50" x2="500" y2="450" />
+        <line x1="600" y1="50" x2="600" y2="450" />
+        <line x1="700" y1="50" x2="700" y2="450" />
+        <line x1="800" y1="50" x2="800" y2="450" />
+        <line x1="900" y1="50" x2="900" y2="450" />
+        
+        <!-- Horizontal grid lines -->
+        <line x1="50" y1="100" x2="950" y2="100" />
+        <line x1="50" y1="150" x2="950" y2="150" />
+        <line x1="50" y1="200" x2="950" y2="200" />
+        <line x1="50" y1="250" x2="950" y2="250" />
+        <line x1="50" y1="300" x2="950" y2="300" />
+        <line x1="50" y1="350" x2="950" y2="350" />
+        <line x1="50" y1="400" x2="950" y2="400" />
+    </g>
+    
+    <!-- Timeline -->
+    <g>
+        <!-- X-axis (Year) -->
+        <line x1="60" y1="450" x2="940" y2="450" stroke="#FFFFFF" stroke-width="2" />
+        
+        <!-- Y-axis (Milestone Index) -->
+        <line x1="60" y1="450" x2="60" y2="50" stroke="#FFFFFF" stroke-width="2" />
+        
+        <!-- Title -->
+        <text x="500" y="30" font-family="Outfit, sans-serif" font-size="24" font-weight="600" fill="#FFFFFF" text-anchor="middle">Evolution of AI, ML, Deep Learning, GenAI, LLMs &amp; Chatbots</text>
+        
+        <!-- X-axis Label -->
+        <text x="500" y="490" font-family="Outfit, sans-serif" font-size="18" fill="#B8B8D4" text-anchor="middle">Year</text>
+        
+        <!-- Y-axis Label -->
+        <text x="20" y="250" font-family="Outfit, sans-serif" font-size="18" fill="#B8B8D4" text-anchor="middle" transform="rotate(-90, 20, 250)">Milestone Index</text>
+        
+        <!-- Year Ticks and Labels -->
+        <line x1="100" y1="450" x2="100" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="100" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">1950</text>
+        
+        <line x1="180" y1="450" x2="180" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="180" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">1956</text>
+        
+        <line x1="350" y1="450" x2="350" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="350" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">1980</text>
+        
+        <line x1="600" y1="450" x2="600" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="600" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">2012</text>
+        
+        <line x1="670" y1="450" x2="670" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="670" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">2017</text>
+        
+        <line x1="720" y1="450" x2="720" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="720" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">2020</text>
+        
+        <line x1="780" y1="450" x2="780" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="780" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">2022</text>
+        
+        <line x1="900" y1="450" x2="900" y2="455" stroke="#FFFFFF" stroke-width="2" />
+        <text x="900" y="475" font-family="Outfit, sans-serif" font-size="14" fill="#B8B8D4" text-anchor="middle">2025</text>
+    </g>
+    
+    <!-- Timeline Path -->
+    <path d="M100 400 L180 350 L350 300 L600 250 L670 200 L720 150 L780 100 L900 50" stroke="url(#lineGradient)" stroke-width="3" fill="none">
+        <animate attributeName="stroke-dasharray" from="0,2000" to="2000,0" dur="3s" begin="0.5s" fill="freeze" />
+    </path>
+    
+    <!-- Milestone Points -->
+    <g>
+        <circle cx="100" cy="400" r="8" fill="#4338CA" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="180" cy="350" r="8" fill="#4338CA" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="0.25s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="350" cy="300" r="8" fill="#6E56CF" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="0.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="600" cy="250" r="8" fill="#6E56CF" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="0.75s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="670" cy="200" r="8" fill="#7A63E3" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="1s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="720" cy="150" r="8" fill="#7A63E3" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="1.25s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="780" cy="100" r="8" fill="#8A70FF" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="1.5s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="900" cy="50" r="8" fill="#8A70FF" stroke="#FFFFFF" stroke-width="2">
+            <animate attributeName="r" values="8;10;8" dur="2s" begin="1.75s" repeatCount="indefinite" />
+        </circle>
+    </g>
+    
+    <!-- Milestone Labels -->
+    <g>
+        <!-- 1950: AI Concept (Turing Test) -->
+        <rect x="110" y="390" width="200" height="30" rx="5" fill="#171727" stroke="#4338CA" stroke-width="1" />
+        <text x="120" y="410" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">AI Concept (Turing Test)</text>
+        
+        <!-- 1956: Birth of AI (Dartmouth Conf.) -->
+        <rect x="190" y="340" width="220" height="30" rx="5" fill="#171727" stroke="#4338CA" stroke-width="1" />
+        <text x="200" y="360" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">Birth of AI (Dartmouth Conf.)</text>
+        
+        <!-- 1980: Machine Learning (Expert Systems) -->
+        <rect x="360" y="290" width="230" height="30" rx="5" fill="#171727" stroke="#6E56CF" stroke-width="1" />
+        <text x="370" y="310" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">Machine Learning (Expert Systems)</text>
+        
+        <!-- 2012: Deep Learning (AlexNet) -->
+        <rect x="610" y="240" width="180" height="30" rx="5" fill="#171727" stroke="#6E56CF" stroke-width="1" />
+        <text x="620" y="260" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">Deep Learning (AlexNet)</text>
+        
+        <!-- 2017: Generative AI (Transformers) -->
+        <rect x="680" y="190" width="210" height="30" rx="5" fill="#171727" stroke="#7A63E3" stroke-width="1" />
+        <text x="690" y="210" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">Generative AI (Transformers)</text>
+        
+        <!-- 2020: LLMs & Chatbots (GPT-3, ChatGPT) -->
+        <rect x="730" y="140" width="230" height="30" rx="5" fill="#171727" stroke="#7A63E3" stroke-width="1" />
+        <text x="740" y="160" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">LLMs &amp; Chatbots (GPT-3, ChatGPT)</text>
+        
+        <!-- 2022: ChatGPT-3.5 Release -->
+        <rect x="790" y="90" width="160" height="30" rx="5" fill="#171727" stroke="#8A70FF" stroke-width="1" />
+        <text x="800" y="110" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">ChatGPT-3.5 Release</text>
+        
+        <!-- 2025: GPT-5 Release -->
+        <rect x="910" y="40" width="120" height="30" rx="5" fill="#171727" stroke="#8A70FF" stroke-width="1" />
+        <text x="920" y="60" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">GPT-5 Release</text>
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(60, 20)">
+        <rect x="0" y="0" width="120" height="25" rx="5" fill="#171727" stroke="#FFFFFF" stroke-width="1" opacity="0.5" />
+        <circle cx="15" cy="12.5" r="6" fill="#6E56CF" />
+        <text x="30" y="17" font-family="Outfit, sans-serif" font-size="12" fill="#FFFFFF">AI Evolution</text>
+    </g>
+    
+    <!-- Animated Highlight -->
+    <path d="M100 400 L180 350 L350 300 L600 250 L670 200 L720 150 L780 100 L900 50" stroke="#FFFFFF" stroke-width="1" fill="none" opacity="0.5">
+        <animate attributeName="stroke-dashoffset" from="1000" to="0" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="stroke-dasharray" values="5,15" dur="5s" repeatCount="indefinite" />
+    </path>
+</svg> 
