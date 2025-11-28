@@ -6,11 +6,18 @@ const TEXT_MODEL = 'qwen3-4b';
 const IMAGE_MODEL = 'nano-banana-pro';
 
 const getApiKey = (): string => {
-  if (!process.env.API_KEY) {
+  // Try Vite's import.meta.env first (for production), then fall back to process.env (for build-time)
+  const apiKey = import.meta.env.VITE_VENICE_API_KEY || 
+                 import.meta.env.VENICE_API_KEY || 
+                 import.meta.env.API_KEY ||
+                 (typeof process !== 'undefined' && process.env?.API_KEY) ||
+                 (typeof process !== 'undefined' && process.env?.VENICE_API_KEY);
+  
+  if (!apiKey) {
     console.error("API_KEY is missing from environment variables.");
-    throw new Error("API Key not found");
+    throw new Error("API Key not found. Please set VITE_VENICE_API_KEY or VENICE_API_KEY environment variable.");
   }
-  return process.env.API_KEY;
+  return apiKey;
 };
 
 export const initializeChat = async (): Promise<void> => {
