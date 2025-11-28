@@ -6,16 +6,19 @@ const TEXT_MODEL = 'qwen3-4b';
 const IMAGE_MODEL = 'nano-banana-pro';
 
 const getApiKey = (): string => {
-  // Try Vite's import.meta.env first (for production), then fall back to process.env (for build-time)
+  // In Vite, only VITE_* prefixed env vars are exposed to client
+  // Check all possible variations
   const apiKey = import.meta.env.VITE_VENICE_API_KEY || 
-                 import.meta.env.VENICE_API_KEY || 
-                 import.meta.env.API_KEY ||
-                 (typeof process !== 'undefined' && process.env?.API_KEY) ||
-                 (typeof process !== 'undefined' && process.env?.VENICE_API_KEY);
+                 import.meta.env.VITE_API_KEY ||
+                 // Fallback for Railway/deployment (might be injected differently)
+                 (window as any).__VENICE_API_KEY__ ||
+                 (window as any).__API_KEY__;
   
   if (!apiKey) {
     console.error("API_KEY is missing from environment variables.");
-    throw new Error("API Key not found. Please set VITE_VENICE_API_KEY or VENICE_API_KEY environment variable.");
+    console.error("Available import.meta.env keys:", Object.keys(import.meta.env).filter(k => k.includes('API') || k.includes('KEY')));
+    console.error("Looking for: VITE_VENICE_API_KEY or VITE_API_KEY");
+    throw new Error("API Key not found. Please set VITE_VENICE_API_KEY environment variable in Railway.");
   }
   return apiKey;
 };

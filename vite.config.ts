@@ -14,9 +14,10 @@ export default defineConfig(({ mode }) => {
         // For build-time access (if needed)
         'process.env.API_KEY': JSON.stringify(env.VENICE_API_KEY || env.API_KEY || ''),
         'process.env.VENICE_API_KEY': JSON.stringify(env.VENICE_API_KEY || env.API_KEY || ''),
+        // Explicitly expose VENICE_API_KEY as VITE_VENICE_API_KEY for client access
+        'import.meta.env.VITE_VENICE_API_KEY': JSON.stringify(env.VENICE_API_KEY || env.VITE_VENICE_API_KEY || env.API_KEY || ''),
+        'import.meta.env.VITE_API_KEY': JSON.stringify(env.VENICE_API_KEY || env.VITE_VENICE_API_KEY || env.API_KEY || ''),
       },
-      // Vite automatically exposes VITE_* prefixed env vars to import.meta.env
-      // No need to manually define them here - they're available at runtime
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
