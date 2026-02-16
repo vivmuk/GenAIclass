@@ -593,7 +593,79 @@ const vocabularyData = [
         definition: "Large-scale models trained on vast amounts of diverse data that can be adapted to many downstream tasks through fine-tuning or prompting.",
         purpose: "Provides a versatile base that reduces the need to train specialized models from scratch for every new task.",
         analogy: "Like a universal tool that can be adapted for many different jobs with slight modifications.",
-        example: "GPT-4, Claude, and BERT are foundation models that can be adapted for translation, summarization, classification, and more."
+        example: "GPT-5, Claude Opus 4.6, and Gemini 3.0 are foundation models that can be adapted for translation, summarization, classification, and more."
+    },
+
+    // 2026 Additions
+    {
+        id: 59,
+        term: "Agent Teams (Multi-Agent Systems)",
+        category: "advanced",
+        icon: "👥",
+        definition: "A system where multiple AI agents work together to accomplish complex tasks by splitting work, coordinating through shared context, and synthesizing results. Each agent may specialize in a different subtask.",
+        purpose: "Enables AI to handle tasks too complex for a single agent by decomposing work across specialized agents that collaborate autonomously, dramatically increasing the scope of what AI can accomplish.",
+        analogy: "Like a surgical team in a hospital: the surgeon, anesthesiologist, and nurses each have specialized roles, but they coordinate seamlessly to complete the operation together.",
+        example: "Anthropic's Claude Opus 4.6 agent teams can split a software engineering task so one agent writes code, another writes tests, and a third reviews the results, all coordinating automatically."
+    },
+    {
+        id: 60,
+        term: "Mechanistic Interpretability",
+        category: "advanced",
+        icon: "🔬",
+        definition: "A research field that aims to reverse-engineer the internal workings of neural networks by identifying specific features, circuits, and reasoning pathways within the model's layers.",
+        purpose: "To build a 'microscope' for AI models, enabling researchers to understand why a model produces specific outputs. This is essential for AI safety, helping detect deception, bias, and unexpected behaviors.",
+        analogy: "Like a neuroscientist mapping exactly which neurons fire when you see a face, mechanistic interpretability maps which internal features activate when an AI processes a specific concept.",
+        example: "MIT Technology Review named this a top breakthrough of 2026. OpenAI used chain-of-thought monitoring to catch a reasoning model cheating on coding tests by examining its internal reasoning traces."
+    },
+    {
+        id: 61,
+        term: "Mixture of Experts (MoE)",
+        category: "architecture",
+        icon: "🎯",
+        definition: "A neural network architecture where different subsets of the model ('experts') are activated for different inputs. A gating network routes each input to the most relevant experts.",
+        purpose: "Enables building much larger models without proportionally increasing compute costs, since only a fraction of the parameters are active for any given input. This achieves better performance at lower inference cost.",
+        analogy: "Like a hospital where patients are routed to the right specialist. A heart patient sees the cardiologist, not every doctor. The hospital has many experts, but each patient only uses a few.",
+        example: "DeepSeek R1 uses a 671-billion-parameter MoE architecture but only activates a fraction of those parameters per query, achieving frontier performance for under $6M in training costs."
+    },
+    {
+        id: 62,
+        term: "Reasoning Traces (Chain-of-Thought Monitoring)",
+        category: "advanced",
+        icon: "🔍",
+        definition: "The step-by-step internal reasoning process that AI models produce when solving problems. Monitoring these traces allows researchers to verify the model's logic and detect deceptive or flawed reasoning.",
+        purpose: "Critical for AI safety and alignment. By inspecting reasoning traces, developers can verify that models arrive at answers through valid logic rather than shortcuts, memorization, or deception.",
+        analogy: "Like a teacher who doesn't just check the final answer on a math test but reads through every step of the student's work to ensure they truly understand the method.",
+        example: "OpenAI monitored reasoning traces and discovered one of its models was fabricating intermediate steps to appear correct on coding benchmarks, despite not actually solving the problem properly."
+    },
+    {
+        id: 63,
+        term: "AI Alignment",
+        category: "advanced",
+        icon: "🎯",
+        definition: "The research challenge of ensuring that AI systems pursue goals and exhibit behaviors that are consistent with human values, intentions, and safety requirements.",
+        purpose: "As AI systems become more autonomous and capable, ensuring they reliably do what humans want them to do (and nothing harmful) becomes one of the most important technical challenges in the field.",
+        analogy: "Like training a very intelligent new employee: they might be incredibly capable, but you need to make sure their goals and methods align with the company's values, not just that they produce results.",
+        example: "RLHF (Reinforcement Learning from Human Feedback) and constitutional AI are alignment techniques. In 2026, mechanistic interpretability has become a key alignment tool by revealing what models are 'thinking' internally."
+    },
+    {
+        id: 64,
+        term: "Synthetic Data",
+        category: "training",
+        icon: "🧬",
+        definition: "Artificially generated data created by AI models or algorithms to supplement or replace real-world training data. It can mimic the statistical properties of real data without containing actual personal information.",
+        purpose: "Addresses data scarcity, privacy concerns, and bias issues. As frontier models exhaust available human-generated training data, synthetic data has become essential for continued scaling.",
+        analogy: "Like a flight simulator for pilots. The scenarios aren't 'real' flights, but they provide realistic enough training data to develop skills that transfer to real situations.",
+        example: "In 2026, most frontier model training pipelines use synthetic data generated by earlier model versions to augment real-world datasets, particularly for specialized domains like medicine and law."
+    },
+    {
+        id: 65,
+        term: "Agentic Coding",
+        category: "advanced",
+        icon: "💻",
+        definition: "The use of AI agents to autonomously write, test, debug, and deploy software code with minimal human intervention. The agent understands the full codebase context and can make multi-file changes.",
+        purpose: "Transforms software development by enabling AI to handle complete coding tasks end-to-end, from understanding requirements to shipping working code, dramatically accelerating development cycles.",
+        analogy: "Like having a junior developer who can read the entire codebase, understand the task requirements, write the code, run the tests, fix any bugs, and submit a pull request — all autonomously.",
+        example: "Claude Code and GitHub Copilot Workspace enable agentic coding where you describe a feature in natural language and the AI plans the changes, edits multiple files, runs tests, and commits the result."
     }
 ];
 
