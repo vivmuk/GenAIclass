@@ -11,15 +11,14 @@ const API_CONFIG = {
     }
 };
 
-// Model options from Venice.ai API - Updated with latest models
+// Model options from Venice.ai API - Updated with latest models (2026)
 const MODELS = [
-  { id: "venice-sd35", name: "Venice SD3.5", traits: ["default", "eliza-default"] },
-  { id: "hidream", name: "HiDream", traits: [] },
-  { id: "fluently-xl", name: "Fluently-XL-Final", traits: ["fastest"] },
+  { id: "z-image-turbo", name: "Z-Image Turbo", traits: ["default", "fastest"] },
   { id: "flux-dev", name: "FLUX.1-dev", traits: ["highest_quality"] },
   { id: "flux-dev-uncensored", name: "FLUX.1-dev (uncensored)", traits: [] },
-  { id: "lustify-sdxl", name: "Lustify-SDXL-NSFW", traits: [] },
-  { id: "pony-realism", name: "Pony-Realism", traits: ["most_uncensored"] },
+  { id: "venice-sd35", name: "Venice SD3.5", traits: [] },
+  { id: "hidream", name: "HiDream", traits: [] },
+  { id: "fluently-xl", name: "Fluently-XL-Final", traits: [] },
   { id: "stable-diffusion-3.5", name: "Stable-Diffusion-3.5-Large", traits: [] }
 ];
 
