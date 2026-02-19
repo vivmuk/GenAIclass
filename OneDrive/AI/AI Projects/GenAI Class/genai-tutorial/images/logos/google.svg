@@ -1,5 +1,0 @@
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <text x="100" y="85" font-family="Arial" font-size="24" font-weight="bold" text-anchor="middle" fill="white">Google</text>
-  <text x="100" y="115" font-family="Arial" font-size="22" text-anchor="middle" fill="white">DeepMind</text>
-  <rect x="40" y="130" width="120" height="5" rx="2" fill="white"/>
-</svg> 
