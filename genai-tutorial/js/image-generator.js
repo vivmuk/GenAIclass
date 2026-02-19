@@ -11,15 +11,20 @@ const API_CONFIG = {
     }
 };
 
-// Model options from Venice.ai API - Updated with latest models (2026)
+// Model options from Venice.ai API - Fetched Feb 2026
 const MODELS = [
   { id: "z-image-turbo", name: "Z-Image Turbo", traits: ["default", "fastest"] },
-  { id: "flux-dev", name: "FLUX.1-dev", traits: ["highest_quality"] },
-  { id: "flux-dev-uncensored", name: "FLUX.1-dev (uncensored)", traits: [] },
-  { id: "venice-sd35", name: "Venice SD3.5", traits: [] },
+  { id: "qwen-image", name: "Qwen Image", traits: ["highest_quality"] },
+  { id: "flux-2-max", name: "Flux 2 Max", traits: [] },
+  { id: "flux-2-pro", name: "Flux 2 Pro", traits: [] },
+  { id: "gpt-image-1-5", name: "GPT Image 1.5", traits: [] },
+  { id: "imagineart-1.5-pro", name: "ImagineArt 1.5 Pro", traits: [] },
+  { id: "seedream-v4", name: "SeedreamV4.5", traits: [] },
+  { id: "chroma", name: "Chroma", traits: [] },
+  { id: "nano-banana-pro", name: "Nano Banana Pro", traits: [] },
   { id: "hidream", name: "HiDream", traits: [] },
-  { id: "fluently-xl", name: "Fluently-XL-Final", traits: [] },
-  { id: "stable-diffusion-3.5", name: "Stable-Diffusion-3.5-Large", traits: [] }
+  { id: "venice-sd35", name: "Venice SD35", traits: ["eliza-default"] },
+  { id: "wai-Illustrious", name: "Anime (WAI)", traits: [] }
 ];
 
 // Style presets
@@ -912,27 +917,17 @@ class ImageGenerator {
     if (modelSelect) {
       modelSelect.innerHTML = '';
       
-      // Create and select the flux-dev option first
-      const fluxDevOption = document.createElement('option');
-      fluxDevOption.value = "flux-dev";
-      fluxDevOption.textContent = "FLUX.1-dev";
-      fluxDevOption.selected = true;
-      modelSelect.appendChild(fluxDevOption);
-      
-      // Add the rest of the models
       MODELS.forEach(model => {
-        if (model.id !== "flux-dev") {  // Skip flux-dev since we already added it
-          const option = document.createElement('option');
-          option.value = model.id;
-          option.textContent = model.name;
-          modelSelect.appendChild(option);
+        const option = document.createElement('option');
+        option.value = model.id;
+        option.textContent = model.name;
+        if (model.traits.includes('default')) {
+          option.selected = true;
         }
+        modelSelect.appendChild(option);
       });
       
-      // Force select flux-dev
-      modelSelect.value = "flux-dev";
-      
-      console.log("Model options populated with flux-dev as default");
+      console.log("Model options populated with", MODELS.length, "models");
     }
   }
   

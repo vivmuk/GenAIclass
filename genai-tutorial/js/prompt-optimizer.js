@@ -493,11 +493,31 @@ async function generateAIResponse(prompt, params) {
         // Parse the JSON response
         const data = JSON.parse(responseText);
         console.log('Venice API Success Response received');
+        console.log('Venice API parsed data:', JSON.stringify(data).substring(0, 500));
         
-        // Extract the message content
-        if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-            return data.choices[0].message.content;
+        // Extract the message content - handle multiple response formats
+        if (data.choices && data.choices.length > 0) {
+            const choice = data.choices[0];
+            // Standard format
+            if (choice.message && choice.message.content) {
+                return choice.message.content;
+            }
+            // Reasoning models may put content in reasoning_content or have null content
+            if (choice.message && choice.message.reasoning_content) {
+                return choice.message.reasoning_content;
+            }
+            // Delta format (streaming leftovers)
+            if (choice.delta && choice.delta.content) {
+                return choice.delta.content;
+            }
+            // Some models return content as empty string with reasoning
+            if (choice.message && typeof choice.message.content === 'string') {
+                return choice.message.content || '(Model returned empty response)';
+            }
+            console.error('Unexpected choice structure:', JSON.stringify(choice));
+            throw new Error("Could not extract content from API response");
         } else {
+            console.error('No choices in response:', JSON.stringify(data));
             throw new Error("Unexpected response format from Venice API");
         }
         
