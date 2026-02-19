@@ -132,6 +132,8 @@ nav {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-primary);
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .logo span {
@@ -147,12 +149,18 @@ nav {
     list-style: none;
     margin: 0;
     padding: 0;
+    flex-shrink: 0;
 }
 
 .nav-links li {
     display: inline-block;
     white-space: nowrap;
-    margin-left: 2rem;
+    margin-left: 1.5rem;
+    flex-shrink: 0;
+}
+
+.nav-links li:first-child {
+    margin-left: 0;
 }
 
 .nav-links a {
