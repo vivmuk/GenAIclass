@@ -117,14 +117,15 @@ nav {
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-    padding: 20px 0;
+    padding: 20px;
     position: absolute;
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
+    width: calc(100% - 40px);
     max-width: 1200px;
     z-index: 100;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -139,6 +140,7 @@ nav {
 
 .nav-links {
     display: flex;
+    flex-direction: row;
     align-items: center;
     flex-wrap: nowrap;
     gap: 0;
@@ -148,6 +150,8 @@ nav {
 }
 
 .nav-links li {
+    display: inline-block;
+    white-space: nowrap;
     margin-left: 2rem;
 }
 
