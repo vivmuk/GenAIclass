@@ -16,12 +16,16 @@
         <div class="container">
             <nav>
                 <div class="logo">GenAI <span>Chutney</span></div>
-                <ul class="nav-links">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="image-generator.html">Image Generator</a></li>
                     <li><a href="prompt-optimizer.html">Prompting Lab</a></li>
                     <li><a href="vocabulary.html" class="active">Vocabulary</a></li>
                     <li><a href="blog.html">Blog</a></li>
+                    <li><a href="apps.html">GenAI Chutney Apps</a></li>
                 </ul>
             </nav>
             <div class="hero vocab-hero">
@@ -193,7 +197,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="copyright">© 2025 GenAI Chutney. All rights reserved.</div>
+                <div class="copyright">© 2026 GenAI Chutney. All rights reserved.</div>
                 <div class="footer-nav">
                     <a href="index.html">Home</a>
                     <a href="image-generator.html">Image Generator</a>
@@ -206,6 +210,18 @@
     </footer>
 
     <script src="js/vocabulary.js"></script>
+    <script>
+        const menuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('mobile-open');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+        }
+    </script>
 </body>
 </html>
 
