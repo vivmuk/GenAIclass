@@ -17,10 +17,14 @@
         <div class="container">
             <nav>
                 <div class="logo">GenAI <span>Chutney</span></div>
-                <ul class="nav-links">
+                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-links" id="navLinks">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="image-generator.html">Image Generator</a></li>
                     <li><a href="prompt-optimizer.html">Prompting Lab</a></li>
+                    <li><a href="vocabulary.html">Vocabulary</a></li>
                     <li><a href="blog.html" class="active">Blog</a></li>
                     <li><a href="apps.html">GenAI Chutney Apps</a></li>
                 </ul>
@@ -37,19 +41,19 @@
             <!-- Featured Post -->
             <section class="featured-post">
                 <div class="featured-content">
-                    <div class="featured-badge">Coming Soon</div>
-                    <h2>Featured AI Articles Coming Soon</h2>
-                    <p class="featured-excerpt">We're working on bringing you the latest insights, tutorials, and expert analysis in artificial intelligence and generative AI technologies. Stay tuned for exciting content!</p>
+                    <div class="featured-badge">Featured</div>
+                    <h2>Claude Opus 4.6 and Sonnet 4.6: Anthropic Doubles Down on Agent Teams</h2>
+                    <p class="featured-excerpt">Anthropic released Claude Opus 4.6 on February 5, 2026, followed by Claude Sonnet 4.6 on February 17, both featuring 1M token context windows and a new "agent teams" capability that lets multiple AI agents split and coordinate complex tasks in parallel. Opus 4.6 scores 36.7% on Humanity's Last Exam with adaptive reasoning and leads on Terminal-Bench 2.0 for agentic coding. Built on the Claude Agent SDK (formerly Claude Code SDK), the agent teams architecture enables task decomposition, parallel execution, and result synthesis across autonomous sub-agents.</p>
                     <div class="post-meta">
-                        <span class="author"><i class="fas fa-clock"></i> Content in development</span>
-                        <span class="date"><i class="fas fa-calendar"></i> Launch soon</span>
-                        <span class="read-time"><i class="fas fa-info"></i> Updates coming</span>
+                        <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                        <span class="date"><i class="fas fa-calendar"></i> Feb 17, 2026</span>
+                        <span class="read-time"><i class="fas fa-clock"></i> 7 min read</span>
                     </div>
-                    <a href="#" class="read-more-btn disabled">Coming Soon</a>
+                    <a href="https://www.anthropic.com/news/claude-opus-4-6" target="_blank" rel="noopener noreferrer" class="read-more-btn">Read More</a>
                 </div>
                 <div class="featured-image">
                     <div class="image-placeholder">
-                        <i class="fas fa-hourglass-half"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
                 </div>
             </section>
@@ -61,7 +65,7 @@
                     <div class="category-card active" data-category="all">
                         <i class="fas fa-th-large"></i>
                         <span>All Posts</span>
-                        <div class="post-count">4</div>
+                        <div class="post-count">5</div>
                     </div>
                     <div class="category-card" data-category="tutorials">
                         <i class="fas fa-graduation-cap"></i>
@@ -71,7 +75,7 @@
                     <div class="category-card" data-category="research">
                         <i class="fas fa-flask"></i>
                         <span>Research</span>
-                        <div class="post-count">1</div>
+                        <div class="post-count">2</div>
                     </div>
                     <div class="category-card" data-category="industry">
                         <i class="fas fa-building"></i>
@@ -100,75 +104,97 @@
                 </div>
 
                 <div class="posts-grid" id="postsGrid">
-                    <!-- Coming Soon Posts -->
-                    <article class="blog-post" data-category="tutorials">
-                        <div class="post-image">
-                            <div class="image-placeholder">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                            <div class="category-tag tutorials">Tutorial</div>
-                        </div>
-                        <div class="post-content">
-                            <h4>AI Tutorial Content Coming Soon</h4>
-                            <p>We're preparing comprehensive tutorials to help you learn AI concepts, implementation techniques, and best practices. Stay tuned for exciting educational content!</p>
-                            <div class="post-meta">
-                                <span class="author">Coming Soon</span>
-                                <span class="date">Launch Soon</span>
-                                <span class="read-time">TBD</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <article class="blog-post" data-category="research">
-                        <div class="post-image">
-                            <div class="image-placeholder">
-                                <i class="fas fa-hourglass-half"></i>
-                            </div>
-                            <div class="category-tag research">Research</div>
-                        </div>
-                        <div class="post-content">
-                            <h4>AI Research Articles Coming Soon</h4>
-                            <p>We're curating the latest research findings, breakthrough discoveries, and cutting-edge developments in artificial intelligence. Check back soon!</p>
-                            <div class="post-meta">
-                                <span class="author">Coming Soon</span>
-                                <span class="date">Launch Soon</span>
-                                <span class="read-time">TBD</span>
-                            </div>
-                        </div>
-                    </article>
-
+                    <!-- Post 1: Industry - Gemini 3 -->
                     <article class="blog-post" data-category="industry">
                         <div class="post-image">
                             <div class="image-placeholder">
-                                <i class="fas fa-hourglass-half"></i>
+                                <i class="fas fa-globe"></i>
                             </div>
                             <div class="category-tag industry">Industry</div>
                         </div>
                         <div class="post-content">
-                            <h4>Industry News Coming Soon</h4>
-                            <p>Stay informed about the latest industry trends, company updates, and market developments in the AI space. Content launching soon!</p>
+                            <h4>Google's Gemini 3 Deep Think Shatters Benchmarks with 48.4% on Humanity's Last Exam</h4>
+                            <p>Google released Gemini 3 Deep Think on February 12, 2026, achieving a record-breaking 48.4% on Humanity's Last Exam — the highest score to date — and 3,455 Codeforces Elo. Gemini 3 Flash became the default model in the Gemini app, while Gemini 3 Pro Preview powers advanced reasoning and multimodal tasks. In a major partnership, Apple announced it will use Google's Gemini as the foundation for next-generation Siri, while Google's Project Mariner brings computer use capabilities to the Gemini ecosystem.</p>
                             <div class="post-meta">
-                                <span class="author">Coming Soon</span>
-                                <span class="date">Launch Soon</span>
-                                <span class="read-time">TBD</span>
+                                <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Feb 12, 2026</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 6 min read</span>
                             </div>
                         </div>
                     </article>
 
+                    <!-- Post 2: Research - Mechanistic Interpretability -->
+                    <article class="blog-post" data-category="research">
+                        <div class="post-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-microscope"></i>
+                            </div>
+                            <div class="category-tag research">Research</div>
+                        </div>
+                        <div class="post-content">
+                            <h4>MIT Technology Review Names Mechanistic Interpretability a Top Breakthrough of 2026</h4>
+                            <p>Mechanistic interpretability was selected as one of MIT Technology Review's 10 Breakthrough Technologies for 2026, published on January 12. Pioneered by Anthropic (who built a "microscope" using sparse autoencoders to peer inside Claude), Google DeepMind (where Neel Nanda's team investigated Gemini's self-preservation behaviors), and OpenAI (who used chain-of-thought monitoring to detect reasoning models cheating on coding tasks by editing test frameworks), these techniques reverse-engineer the internal circuits and causal pathways of AI models. OpenAI's December 2025 research showed that penalizing "bad thoughts" doesn't stop misbehavior — it makes models hide their intent more covertly.</p>
+                            <div class="post-meta">
+                                <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Jan 12, 2026</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 8 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post 3: Tools - AI Regulation -->
                     <article class="blog-post" data-category="tools">
                         <div class="post-image">
                             <div class="image-placeholder">
-                                <i class="fas fa-hourglass-half"></i>
+                                <i class="fas fa-balance-scale"></i>
                             </div>
                             <div class="category-tag tools">Tools</div>
                         </div>
                         <div class="post-content">
-                            <h4>AI Tools & Tips Coming Soon</h4>
-                            <p>Discover powerful AI tools, helpful tips, and practical resources to enhance your AI journey. We're preparing valuable content for you!</p>
+                            <h4>AI Regulation Enters the Enforcement Era: What Developers Need to Know in 2026</h4>
+                            <p>California's Transparency in Frontier AI Act (SB 53) and Texas's Responsible AI Governance Act (HB 149) both took effect on January 1, 2026. SB 53 requires large frontier developers (over $500M revenue) to publish risk frameworks and report safety incidents within 15 days, with penalties up to $1M per violation. Texas's TRAIGA imposes penalties from $10,000 to $200,000 for deploying AI that incites harm or discriminates. On December 11, 2025, President Trump signed an executive order proposing federal preemption of state AI laws, creating a two-track compliance reality. California's AI Transparency Act was delayed to August 2, 2026. In total, 145 AI bills were enacted across 38 states in 2025.</p>
                             <div class="post-meta">
-                                <span class="author">Coming Soon</span>
-                                <span class="date">Launch Soon</span>
-                                <span class="read-time">TBD</span>
+                                <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Jan 8, 2026</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 9 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post 4: Research - DeepSeek R1 Anniversary -->
+                    <article class="blog-post" data-category="research">
+                        <div class="post-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div class="category-tag research">Research</div>
+                        </div>
+                        <div class="post-content">
+                            <h4>DeepSeek R1 Turns One: How a $5.6M Chinese Model Reshaped the Global AI Race</h4>
+                            <p>One year after its January 20, 2025 release, DeepSeek R1 remains one of the most influential open-source models on Hugging Face. Built on the DeepSeek-V3 foundation (671 billion parameters, MoE architecture with 37B active per token), R1 proved frontier-level reasoning could match OpenAI's o1 at a fraction of the cost — reportedly just $5.6 million in GPU hours. Its release triggered a record $589 billion single-day wipeout of NVIDIA's market cap on January 27, 2025, the largest single-day stock loss in history, and catalyzed a wave of efficient open-source AI development worldwide.</p>
+                            <div class="post-meta">
+                                <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Jan 20, 2026</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 7 min read</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Post 5: Tutorial - Building with Agent Teams -->
+                    <article class="blog-post" data-category="tutorials">
+                        <div class="post-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="category-tag tutorials">Tutorial</div>
+                        </div>
+                        <div class="post-content">
+                            <h4>Getting Started with AI Agent Teams: A Practical Guide to Multi-Agent Orchestration</h4>
+                            <p>With Anthropic's Claude Agent SDK (originally launched as the Claude Code SDK in May 2025, renamed in September 2025) and OpenAI's Agents API both available, 2026 is the year multi-agent systems go mainstream. The Claude Agent SDK gives agents a full runtime environment — terminal access, file system, web tools — enabling the iterative loop of gathering context, taking action, and verifying work. This guide walks through designing agent teams that split complex tasks, coordinate through shared context, and handle tool use autonomously.</p>
+                            <div class="post-meta">
+                                <span class="author"><i class="fas fa-user"></i> GenAI Chutney Staff</span>
+                                <span class="date"><i class="fas fa-calendar"></i> Feb 10, 2026</span>
+                                <span class="read-time"><i class="fas fa-clock"></i> 12 min read</span>
                             </div>
                         </div>
                     </article>
@@ -205,7 +231,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="copyright">
-                    <p>&copy; 2025 GenAI Chutney. All rights reserved.</p>
+                    <p>&copy; 2026 GenAI Chutney. All rights reserved.</p>
                 </div>
                 <nav class="footer-nav">
                     <a href="index.html">Home</a>
@@ -218,6 +244,18 @@
         </div>
     </footer>
 
+    <script>
+        const menuToggle = document.getElementById('mobileMenuToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('mobile-open');
+                const icon = menuToggle.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            });
+        }
+    </script>
     <script src="js/blog.js"></script>
 </body>
-</html> 
+</html>

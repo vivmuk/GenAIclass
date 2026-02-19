@@ -593,7 +593,7 @@ const vocabularyData = [
         definition: "Large-scale models trained on vast amounts of diverse data that can be adapted to many downstream tasks through fine-tuning or prompting.",
         purpose: "Provides a versatile base that reduces the need to train specialized models from scratch for every new task.",
         analogy: "Like a universal tool that can be adapted for many different jobs with slight modifications.",
-        example: "GPT-4, Claude, and BERT are foundation models that can be adapted for translation, summarization, classification, and more."
+        example: "GPT-5.2, Claude Opus 4.6, and Gemini 3 Pro are foundation models that can be adapted for translation, summarization, classification, and more."
     }
 ];
 
