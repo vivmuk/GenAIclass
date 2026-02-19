@@ -12,22 +12,22 @@
     <meta name="description" content="Learn about Generative AI and Neural Networks in this comprehensive tutorial exploring the fundamentals of modern artificial intelligence.">
 </head>
 <body>
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar" id="sidebar">
+        <div class="logo">GenAI <span>Chutney</span></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="image-generator.html"><i class="fas fa-image"></i> Image Generator</a></li>
+            <li><a href="prompt-optimizer.html"><i class="fas fa-flask"></i> Prompting Lab</a></li>
+            <li><a href="vocabulary.html"><i class="fas fa-book"></i> Vocabulary</a></li>
+            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
+            <li><a href="apps.html"><i class="fas fa-rocket"></i> Apps</a></li>
+        </ul>
+    </nav>
+    <div class="page-content">
     <header>
         <div class="container">
-            <nav>
-                <div class="logo">GenAI <span>Chutney</span></div>
-                <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="image-generator.html">Image Generator</a></li>
-                    <li><a href="prompt-optimizer.html">Prompting Lab</a></li>
-                    <li><a href="vocabulary.html">Vocabulary</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="apps.html">GenAI Chutney Apps</a></li>
-                </ul>
-            </nav>
             <div class="hero">
                 <h1 class="fade-in">Introduction to AI and Generative AI</h1>
                 <p class="fade-in delay-200">Empower yourself with a clear understanding of AI and Generative AI fundamentals and analogies to the human brain so you can better understand how modern AI systems work.</p>
@@ -817,18 +817,21 @@
         </div>
     </footer>
 
+    </div><!-- end page-content -->
     <script src="js/script.js"></script>
     <script>
-        const menuToggle = document.getElementById('mobileMenuToggle');
-        const navLinks = document.getElementById('navLinks');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('mobile-open');
-                const icon = menuToggle.querySelector('i');
-                icon.classList.toggle('fa-bars');
-                icon.classList.toggle('fa-times');
-            });
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('active');
         }
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        });
+        overlay.addEventListener('click', closeSidebar);
     </script>
 </body>
 </html> 
