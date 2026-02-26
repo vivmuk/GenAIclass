@@ -37,7 +37,7 @@ async function checkVeniceConnection() {
         
         // Define Venice API configuration
         const apiEndpoint = API_BASE_URL + "/models";
-        const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
+        const apiKey = window.VENICE_API_KEY;
         
         console.log(`Attempting to connect to Venice API at: ${apiEndpoint}`);
         
@@ -462,7 +462,7 @@ async function generateAIResponse(prompt, params) {
     
     // Define API configuration
     const apiEndpoint = API_BASE_URL + "/chat/completions";
-    const apiKey = "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL";
+    const apiKey = window.VENICE_API_KEY;
     
     console.log(`Making API request to ${apiEndpoint}`);
     console.log('Request body:', JSON.stringify(requestBody, null, 2));
