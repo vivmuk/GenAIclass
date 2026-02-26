@@ -1,6 +1,6 @@
 [build]
   publish = "genai-tutorial"
-  command = "echo 'No build step required'"
+  command = "echo \"window.VENICE_API_KEY = '$VENICE_API_KEY';\" > genai-tutorial/js/config.js"
 
 [[redirects]]
   from = "/kinderquill"
