@@ -84,7 +84,7 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer qSXSNUAsIEo-CKXzRwgAka80w7RjW6QkiU2RlBdn_Z'
+          'Authorization': `Bearer ${process.env.REACT_APP_VENICE_API_KEY}`
         },
         body: JSON.stringify({
           model: model.id,

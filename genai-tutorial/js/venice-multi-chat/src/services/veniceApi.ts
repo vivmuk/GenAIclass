@@ -1,6 +1,6 @@
 import { ModelInfo } from '../types';
 
-const API_KEY = 'qSXSNUAsIEo-CKXzRwgAka80w7RjW6QkiU2RlBdn_Z';
+const API_KEY = process.env.REACT_APP_VENICE_API_KEY || '';
 const BASE_URL = 'https://api.venice.ai/api/v1';
 
 export const fetchModels = async (): Promise<ModelInfo[]> => {

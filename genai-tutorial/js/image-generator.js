@@ -3,7 +3,7 @@
 // API Configuration
 const API_CONFIG = {
     enabled: true,
-    key: "hN16lOsWhoVPHEvw1ay9m9krcXhQ_hyBbHh1W6VVwL",
+    key: window.VENICE_API_KEY,
     endpoint: "https://api.venice.ai/api/v1/image/generate", // Fixed endpoint
     headers: {
         "Content-Type": "application/json",

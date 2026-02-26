@@ -26,6 +26,9 @@ yarn-error.log*
 .env*.local
 .env
 
+# API key config (copy from config.example.js)
+genai-tutorial/js/config.js
+
 # Vercel
 .vercel
 
