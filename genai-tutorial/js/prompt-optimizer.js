@@ -37,7 +37,12 @@ async function checkVeniceConnection() {
         
         // Define Venice API configuration
         const apiEndpoint = API_BASE_URL + "/models";
-        const apiKey = window.VENICE_API_KEY;
+        const apiKey = (window.getVeniceKey && window.getVeniceKey()) || window.VENICE_API_KEY;
+        if (!apiKey) {
+          if (window.openKeyModal) { window.openKeyModal(); return; }
+          alert('Add your Venice API key (click the ⚙ gear) to use the optimizer.');
+          return;
+        }
         
         console.log(`Attempting to connect to Venice API at: ${apiEndpoint}`);
         
@@ -462,7 +467,11 @@ async function generateAIResponse(prompt, params) {
     
     // Define API configuration
     const apiEndpoint = API_BASE_URL + "/chat/completions";
-    const apiKey = window.VENICE_API_KEY;
+    const apiKey = (window.getVeniceKey && window.getVeniceKey()) || window.VENICE_API_KEY;
+    if (!apiKey) {
+      if (window.openKeyModal) window.openKeyModal();
+      throw new Error('Add your Venice API key (click the ⚙ gear) to use the optimizer.');
+    }
     
     console.log(`Making API request to ${apiEndpoint}`);
     console.log('Request body:', JSON.stringify(requestBody, null, 2));

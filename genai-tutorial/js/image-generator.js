@@ -1,9 +1,13 @@
 // Image Generator Application for GenAIV Academy
 
 // API Configuration
+function veniceKey() {
+  return (window.getVeniceKey && window.getVeniceKey()) || window.VENICE_API_KEY || '';
+}
+
 const API_CONFIG = {
     enabled: true,
-    key: window.VENICE_API_KEY,
+    key: (window.getVeniceKey && window.getVeniceKey()) || window.VENICE_API_KEY,
     endpoint: "https://api.venice.ai/api/v1/image/generate", // Fixed endpoint
     headers: {
         "Content-Type": "application/json",
@@ -113,7 +117,7 @@ async function debugVeniceModels() {
     const response = await fetch("https://api.venice.ai/api/v1/models", {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${API_CONFIG.key}`,
+        'Authorization': `Bearer ${veniceKey()}`,
         'Content-Type': 'application/json'
       }
     });
@@ -149,7 +153,7 @@ async function fetchAvailableModels() {
     const response = await fetch("https://api.venice.ai/api/v1/models", {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${API_CONFIG.key}`,
+        'Authorization': `Bearer ${veniceKey()}`,
         'Content-Type': 'application/json'
       }
     });
@@ -222,7 +226,7 @@ async function fetchAvailableStyles() {
     const response = await fetch("https://api.venice.ai/api/v1/image/styles", {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${API_CONFIG.key}`,
+        'Authorization': `Bearer ${veniceKey()}`,
         'Content-Type': 'application/json'
       }
     });
@@ -468,6 +472,13 @@ class ImageGenerator {
       return;
     }
     
+    // Require a key: open the BYOK modal if none
+    if (!veniceKey()) {
+      if (window.openKeyModal) { window.openKeyModal(); return; }
+      alert('Add your Venice API key (click the ⚙ gear) to generate images.');
+      return;
+    }
+
     // Start progress indicator
     this.startProgressIndicator();
     
@@ -507,7 +518,7 @@ class ImageGenerator {
         const response = await fetch(API_CONFIG.endpoint, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${API_CONFIG.key}`,
+            'Authorization': `Bearer ${veniceKey()}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(payload)
@@ -685,7 +696,7 @@ class ImageGenerator {
         const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${API_CONFIG.key}`,
+            'Authorization': `Bearer ${veniceKey()}`,
             'Content-Type': 'application/json'
           },
           body: JSON.stringify(chatPayload)
