@@ -1,6 +1,6 @@
 [build]
   publish = "genai-tutorial"
-  command = "echo \"window.VENICE_API_KEY = \"\"; // visitors bring their own key (BYOK)\" > genai-tutorial/js/config.js"
+  command = "printf 'window.VENICE_API_KEY = null; // BYOK: visitors bring their own key via the gear icon\n' > genai-tutorial/js/config.js"
 
 [[redirects]]
   from = "/kinderquill"
