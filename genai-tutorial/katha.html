@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Katha Weekly — the week in AI, argued | GenAI Chutney</title>
+<meta name="description" content="Katha reads every AI video and podcast from eight channels and writes one weekly issue: the through-line, three things that changed, and the evidence.">
+<meta name="theme-color" content="#05060a">
+<meta property="og:title" content="Katha Weekly — the week in AI, argued">
+<meta property="og:description" content="2,044 videos. Eight channels. One argument a week.">
+<meta property="og:image" content="images/art/model-map.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/chutney.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060a'/%3E%3Ccircle cx='10' cy='13' r='2' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='11' r='2' fill='%23ff4dff'/%3E%3Ccircle cx='22' cy='13' r='2' fill='%23ffb020'/%3E%3Cpath d='M6 17h20c0 5.5-4.5 9-10 9s-10-3.5-10-9Z' stroke='%23f4efe6' stroke-width='1.4' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="GenAI Chutney home">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="14.6" stroke="rgba(255,255,255,.26)"/>
+        <path d="M7.2 17.4h17.6c0 4.9-3.9 8.4-8.8 8.4s-8.8-3.5-8.8-8.4Z" stroke="#f4efe6" stroke-width="1.2"/>
+        <circle cx="12.2" cy="13.1" r="1.45" fill="#00e5ff"/><circle cx="16" cy="11.2" r="1.45" fill="#ff4dff"/><circle cx="19.8" cy="13.1" r="1.45" fill="#ffb020"/>
+      </svg>
+      <span class="brand-name">GenAI <span>Chutney</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#foundations">Foundations</a>
+      <a href="index.html#models">Models</a>
+      <a href="index.html#benchmarks">Benchmarks</a>
+      <a href="index.html#history">History</a>
+      <a href="katha.html" aria-current="page">Katha Weekly</a>
+      <a href="apps.html">Apps</a>
+      <a href="author.html">About</a>
+    </nav>
+    <a class="nav-cta desktop" href="newsletter.html">
+      <span>Subscribe</span>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"/></svg>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <button class="close">Close ✕</button>
+  <a href="index.html">Home <small>Guide</small></a>
+  <a href="index.html#models">Models <small>03</small></a>
+  <a href="katha.html">Katha Weekly <small>Blog</small></a>
+  <a href="newsletter.html">Newsletter <small>Subscribe</small></a>
+  <a href="apps.html">Apps <small>Lab</small></a>
+  <a href="author.html">About Vivek <small>Author</small></a>
+</div>
+
+<main id="main">
+  <section class="page-hero compact">
+    <div class="container">
+      <div class="mono" style="color:var(--muted);margin-bottom:1.2rem">Katha Weekly · the blog</div>
+      <h1>Katha Weekly</h1>
+      <p class="lede">
+        <em class="serif" style="color:var(--amber);font-size:1.12em">Everything said. One argument.</em><br>
+        Eight channels, every video and podcast that shipped this week, read end to end — then one issue
+        that refuses to be a list: a through-line, the three things that actually changed, and the evidence underneath.
+      </p>
+      <div class="meta-row">
+        <span><b data-katha-posts>2,044</b> videos read</span>
+        <span><b>8</b> channels</span>
+        <span>Data refreshed <b data-katha-updated>weekly</b></span>
+        <span>Issues <b id="issue-count">4</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+    <div class="container">
+      <div class="issue-picker" id="issue-picker" role="tablist" aria-label="Issues">
+        <div class="issue-pick"><span class="mono">Loading issues…</span></div>
+      </div>
+      <article id="issue-reader" aria-live="polite">
+        <p class="mono" style="color:var(--muted)">Loading the archive…</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="archive" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">Archive</div>
+          <h2>Every issue, in order.</h2>
+        </div>
+        <p class="section-lede">Each issue stands alone. Read the newest one, or follow a theme across weeks and watch the argument shift.</p>
+      </div>
+      <div class="issues-list" id="issues-archive"></div>
+
+      <div class="stack" style="margin-top:clamp(2rem,4vw,3rem)">
+        <article class="stack-card">
+          <span class="k">How it is made · 01</span>
+          <h4>Read everything</h4>
+          <p>Every video and podcast from eight channels is transcribed and analysed for claims, tools and takeaways. No cherry-picking by title.</p>
+          <ul><li>transcripts</li><li>claim extraction</li><li>scoring</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">How it is made · 02</span>
+          <h4>Find the tension</h4>
+          <p>Stories are grouped by what they disagree about, not by channel. The interesting signal is where two credible sources contradict each other.</p>
+          <ul><li>clustering</li><li>contradictions</li><li>trends</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">How it is made · 03</span>
+          <h4>Write the argument</h4>
+          <p>The issue is drafted from the week's takeaways, then edited for the through-line. Every number traces back to a story you can open.</p>
+          <ul><li>editorial</li><li>citations</li><li>one action</li></ul>
+        </article>
+      </div>
+
+      <div class="subscribe reveal" style="margin-top:clamp(2.5rem,5vw,4rem)">
+        <div class="grid">
+          <div>
+            <div class="kicker mono" style="color:var(--muted);margin-bottom:1rem">Don't refresh the page</div>
+            <h2>Get the issue <em class="serif gradient-text">on Sunday.</em></h2>
+            <p>Katha Weekly arrives as one email. Same argument, same evidence, no feed algorithm in between.</p>
+          </div>
+          <form class="sub-form" name="katha-weekly" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="katha-weekly">
+            <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+            <div class="field">
+              <input type="text" name="first_name" placeholder="First name (optional)" aria-label="First name" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="you@company.com" aria-label="Email address" required autocomplete="email">
+              <button class="btn" type="submit"><span>Subscribe</span>
+                <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
+              </button>
+            </div>
+            <div class="sub-status" aria-live="polite"></div>
+            <p class="fine">One email a week. Unsubscribe in one click.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14.6" stroke="rgba(255,255,255,.26)"/>
+            <path d="M7.2 17.4h17.6c0 4.9-3.9 8.4-8.8 8.4s-8.8-3.5-8.8-8.4Z" stroke="#f4efe6" stroke-width="1.2"/>
+            <circle cx="12.2" cy="13.1" r="1.45" fill="#00e5ff"/><circle cx="16" cy="11.2" r="1.45" fill="#ff4dff"/><circle cx="19.8" cy="13.1" r="1.45" fill="#ffb020"/>
+          </svg>
+          <span class="brand-name">GenAI <span>Chutney</span></span>
+        </a>
+        <p>Katha Weekly is published from 2,044 videos across eight AI channels, every Sunday.</p>
+      </div>
+      <div><h4>Learn</h4><ul>
+        <li><a href="index.html#foundations">Foundations</a></li>
+        <li><a href="index.html#models">Model map</a></li>
+        <li><a href="index.html#benchmarks">Benchmarks</a></li>
+        <li><a href="vocabulary.html">Vocabulary</a></li>
+      </ul></div>
+      <div><h4>Read</h4><ul>
+        <li><a href="katha.html">Katha Weekly</a></li>
+        <li><a href="newsletter.html">Newsletter</a></li>
+        <li><a href="#archive">Archive</a></li>
+        <li><a href="author.html">About</a></li>
+      </ul></div>
+      <div><h4>Build</h4><ul>
+        <li><a href="prompt-optimizer.html">Prompting lab</a></li>
+        <li><a href="image-generator.html">Image generator</a></li>
+        <li><a href="apps.html">Apps</a></li>
+        <li><a href="https://infiniteproductivity.up.railway.app" target="_blank" rel="noopener">Infinite Productivity ↗</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> GenAI Chutney · Vivek Mukhatyar</span>
+      <span>Updated <span data-edition>Oct 2026</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/bench-data.js"></script>
+<script src="js/site.js"></script>
+<script src="js/katha.js"></script>
+<script src="js/subscribe.js"></script>
+</body>
+</html>

@@ -1,838 +1,784 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to Generative AI - GenAI Chutney</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <meta name="description" content="Learn about Generative AI and Neural Networks in this comprehensive tutorial exploring the fundamentals of modern artificial intelligence.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GenAI Chutney — a field guide to the 2026 model economy</title>
+<meta name="description" content="Generative AI, explained with receipts. The 2026 frontier models, benchmarks, economics and agent harnesses — rebuilt every week from 2,044 videos and 8 channels.">
+<meta name="theme-color" content="#05060a">
+<meta property="og:title" content="GenAI Chutney — a field guide to the 2026 model economy">
+<meta property="og:description" content="Models, benchmarks, economics and harnesses. Ground fresh every week.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/art/spice-nebula.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/chutney.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060a'/%3E%3Ccircle cx='10' cy='13' r='2' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='11' r='2' fill='%23ff4dff'/%3E%3Ccircle cx='22' cy='13' r='2' fill='%23ffb020'/%3E%3Cpath d='M6 17h20c0 5.5-4.5 9-10 9s-10-3.5-10-9Z' stroke='%23f4efe6' stroke-width='1.4' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <nav class="sidebar" id="sidebar">
-        <div class="logo">GenAI <span>Chutney</span></div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="image-generator.html"><i class="fas fa-image"></i> Image Generator</a></li>
-            <li><a href="prompt-optimizer.html"><i class="fas fa-flask"></i> Prompting Lab</a></li>
-            <li><a href="vocabulary.html"><i class="fas fa-book"></i> Vocabulary</a></li>
-            <li><a href="blog.html"><i class="fas fa-newspaper"></i> Blog</a></li>
-            <li><a href="apps.html"><i class="fas fa-rocket"></i> Apps</a></li>
-        </ul>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="scroll-progress" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="GenAI Chutney home">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="14.6" stroke="rgba(255,255,255,.26)"/>
+        <path d="M7.2 17.4h17.6c0 4.9-3.9 8.4-8.8 8.4s-8.8-3.5-8.8-8.4Z" stroke="#f4efe6" stroke-width="1.2"/>
+        <circle cx="12.2" cy="13.1" r="1.45" fill="#00e5ff"/>
+        <circle cx="16" cy="11.2" r="1.45" fill="#ff4dff"/>
+        <circle cx="19.8" cy="13.1" r="1.45" fill="#ffb020"/>
+      </svg>
+      <span class="brand-name">GenAI <span>Chutney</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#foundations">Foundations</a>
+      <a href="index.html#models">Models</a>
+      <a href="index.html#benchmarks">Benchmarks</a>
+      <a href="index.html#history">History</a>
+      <a href="katha.html">Katha Weekly</a>
+      <a href="apps.html">Apps</a>
+      <a href="author.html">About</a>
     </nav>
-    <div class="page-content">
-    <header>
-        <div class="container">
-            <div class="hero">
-                <h1 class="fade-in">Introduction to AI and Generative AI</h1>
-                <p class="fade-in delay-200">Empower yourself with a clear understanding of AI and Generative AI fundamentals and analogies to the human brain so you can better understand how modern AI systems work.</p>
-                <div class="scroll-indicator">
-                    <span>Scroll to explore</span>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-            </div>
-        </div>
-    </header>
+    <a class="nav-cta desktop" href="newsletter.html">
+      <span>Subscribe</span>
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"/></svg>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span></button>
+  </div>
+</header>
 
-    <section id="overview" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Welcome & Series Overview</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Purpose & Goals</h3>
-                    <p>This course aims to build confidence in using Generative AI technologies like CoPilot to boost your productivity and enhance your daily workflows.</p>
-                    
-                    <h3>Agenda Overview</h3>
-                    <p>Throughout this series, we'll cover key topics from fundamentals to practical applications of Generative AI in professional settings.</p>
-                    
-                    <h3>Interactive Expectations</h3>
-                    <p>Each session includes live demonstrations and Q&A portions to ensure you gain hands-on experience with these powerful tools.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="course-roadmap blur-container">
-                        <div class="roadmap-item current blur-hover">
-                            <div class="session-number">1</div>
-                            <div class="session-content">
-                                <h4>Fundamentals</h4>
-                                <p>GenAI Basics & Neural Networks</p>
-                            </div>
-                        </div>
-                        <div class="roadmap-item blur-hover">
-                            <div class="session-number">2</div>
-                            <div class="session-content">
-                                <h4>Applications (Coming Soon)</h4>
-                                <p>Real-world Use Cases</p>
-                            </div>
-                        </div>
-                        <div class="roadmap-item blur-hover">
-                            <div class="session-number">3</div>
-                            <div class="session-content">
-                                <h4>Advanced (Coming Soon)</h4>
-                                <p>Integration & Workflows</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="close">Close ✕</button>
+  <a href="index.html#foundations">Foundations <small>01</small></a>
+  <a href="index.html#mechanics">Mechanics <small>02</small></a>
+  <a href="index.html#models">Models <small>03</small></a>
+  <a href="index.html#benchmarks">Benchmarks <small>04</small></a>
+  <a href="index.html#history">History <small>07</small></a>
+  <a href="katha.html">Katha Weekly <small>Blog</small></a>
+  <a href="newsletter.html">Newsletter <small>Subscribe</small></a>
+  <a href="apps.html">Apps <small>Lab</small></a>
+  <a href="author.html">About Vivek <small>Author</small></a>
+</div>
 
-    <section id="ai-evolution" class="section">
-         <div class="container">
-             <div class="section-header">
-                 <h2>Evolution of AI</h2>
-             </div>
-             
-             <div class="content-grid">
-                 <div class="text-content">
-                     <h3>Historical Perspective</h3>
-                     <p>Artificial Intelligence has evolved dramatically since its conceptualization in the 1950s, progressing from theoretical frameworks to the sophisticated systems we use today.</p>
-                     
-                     <h3>Key Milestones</h3>
-                     <p>The journey from early AI concepts to modern generative models spans decades of research breakthroughs, with each milestone building upon previous innovations.</p>
-                     
-                     <h3>Current Landscape</h3>
-                     <p>Today's AI landscape is dominated by Large Language Models and generative systems that can understand and create human-like content across multiple modalities.</p>
-                 </div>
-                 <div class="visual-content timeline-container">
-                     <div class="ai-timeline">
-                         <img src="images/ai-evolution.svg" alt="Timeline showing the evolution of AI from 1950 to 2025" class="timeline-image">
-                         <div class="timeline-legend">
-                             <div class="timeline-caption">Evolution of AI, ML, Deep Learning, GenAI, LLMs & Chatbots</div>
-                         </div>
-                     </div>
-                 </div>
-             </div>
-             
-             <div class="timeline-details">
-                 <div class="timeline-item">
-                     <div class="year">1950</div>
-                     <div class="milestone">AI Concept (Turing Test)</div>
-                     <p>Alan Turing proposed the Turing Test to determine whether a machine could exhibit human-like intelligence, laying the foundation for defining machine intelligence.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">1956</div>
-                     <div class="milestone">Birth of AI (Dartmouth Conference)</div>
-                     <p>The Dartmouth Conference officially coined the term "Artificial Intelligence," marking the beginning of focused AI research and development.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">1980</div>
-                     <div class="milestone">Machine Learning (Expert Systems)</div>
-                     <p>The rise of Expert Systems introduced rule-based AI programs designed to mimic human decision-making in specialized fields like medical diagnosis.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2012</div>
-                     <div class="milestone">Deep Learning (AlexNet)</div>
-                     <p>AlexNet demonstrated the power of deep neural networks for image recognition, proving that multi-layered neural networks could outperform traditional machine learning.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2017</div>
-                     <div class="milestone">Generative AI (Transformers)</div>
-                     <p>The Transformer architecture enabled AI to process entire sequences at once, leading to breakthroughs in natural language processing and generation.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2020</div>
-                     <div class="milestone">LLMs & Chatbots (GPT-3, ChatGPT)</div>
-                     <p>Large Language Models like GPT-3 brought powerful text generation capabilities, making AI-powered conversation accessible to businesses and the public.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2022</div>
-                     <div class="milestone">ChatGPT-3.5 Release</div>
-                     <p>An improved version with better accuracy, faster responses, and more nuanced conversations, marking a shift toward more interactive and useful AI.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2025</div>
-                     <div class="milestone">Agentic AI & Reasoning Models</div>
-                     <p>OpenAI's o1/o3 and DeepSeek R1 introduced chain-of-thought reasoning. GPT-5 launched in August. Claude Opus 4 and Sonnet 4 debuted in May. Agentic AI emerged with autonomous multi-step task completion and tool use.</p>
-                 </div>
-                 <div class="timeline-item">
-                     <div class="year">2026</div>
-                     <div class="milestone">Frontier Agents & Multi-Agent Teams</div>
-                     <p>Claude Opus 4.6, Gemini 3 Deep Think, and GPT-5.3-Codex push frontiers with multi-agent orchestration, million-token context windows, 48.4% on Humanity's Last Exam, and mechanistic interpretability breakthroughs.</p>
-                 </div>
-             </div>
-         </div>
-    </section>
+<main id="main">
 
-    <section id="ai-economics" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>The Economics of Intelligence</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Intelligence at Zero Cost</h3>
-                    <p>As compute costs decline exponentially, we're witnessing the democratization of artificial intelligence. What once required million-dollar supercomputers can now be achieved with affordable hardware, making AI accessible to organizations of all sizes.</p>
-                    
-                    <h3>Implications for Society</h3>
-                    <p>The plummeting cost of compute is driving a paradigm shift in how AI integrates into every aspect of society. DeepSeek R1 proved frontier-level reasoning could match OpenAI's o1 for just $5.6M in GPU hours, while open-source models like Llama 4 and Mistral Large 3 continue to close the gap with proprietary systems.</p>
-                    
-                    <h3>Future Trajectory</h3>
-                    <p>The economics of AI are following an exponential curve that will continue to accelerate innovation. This trajectory suggests we're only at the beginning of understanding how accessible AI will transform industries, scientific discovery, and human potential.</p>
-                </div>
-                <div class="visual-content compute-cost-container">
-                    <div class="compute-cost-chart">
-                        <img src="images/compute-cost.svg" alt="Graph showing the exponential decrease in compute cost per FLOP from 1950 to 2025" class="compute-chart-image">
-                        <div class="chart-legend">
-                            <div class="chart-caption">Cost per FLOP (Floating Point Operation) in USD</div>
-                            <div class="legend-scale">
-                                <span>1950: $0.001</span>
-                                <span>2025: $0.0000000000001</span>
-                            </div>
-                            <div class="global-compute-note">
-                                <p>Global computing operations per day likely exceed 10²⁶ - 10²⁸ FLOPS (2025)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="implications-grid">
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-globe"></i></div>
-                    <h4>AI Becomes Ubiquitous</h4>
-                    <p>AI will be embedded in everyday devices and systems, from personal assistants to smart cities, making intelligence a utility as common as electricity.</p>
-                </div>
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-rocket"></i></div>
-                    <h4>Acceleration of Innovation</h4>
-                    <p>Lower costs enable more experimentation, leading to faster iterations and breakthroughs in medicine, engineering, and scientific research.</p>
-                </div>
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-users"></i></div>
-                    <h4>Democratization of AI</h4>
-                    <p>AI is no longer just for big tech; smaller companies, educational institutions, and developing nations can now leverage AI for growth.</p>
-                </div>
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-brain"></i></div>
-                    <h4>Evolution Beyond Generative AI</h4>
-                    <p>As compute becomes cheaper, AI will develop real-time inference and reasoning capabilities, shifting from reactive to proactive systems.</p>
-                </div>
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-hands-helping"></i></div>
-                    <h4>Human Augmentation</h4>
-                    <p>AI will transition from being a tool to a true collaborator, enhancing human abilities in creativity, decision-making, and problem-solving.</p>
-                </div>
-                <div class="implication-item">
-                    <div class="implication-icon"><i class="fas fa-microscope"></i></div>
-                    <h4>Scientific Revolution</h4>
-                    <p>AI will accelerate discoveries in materials science, drug development, and climate modeling, solving problems once thought to take decades.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ai-definitions" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Key AI Terminology & Definitions</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Understanding the AI Ecosystem</h3>
-                    <p>The field of artificial intelligence is filled with specialized terminology that often overlaps. This glossary provides clear definitions from leading experts to help you navigate conversations about AI technologies.</p>
-                    
-                    <h3>From Technical to Applied</h3>
-                    <p>These definitions show the nested relationship between AI concepts, from the broader field of artificial intelligence to more specialized applications like machine learning, generative AI, and large language models.</p>
-                    
-                    <h3>Evolving Terminology</h3>
-                    <p>As the field rapidly advances, terminology evolves—what was once considered cutting-edge deep learning may now be referred to as "traditional AI" in some contexts. Understanding these terms helps track the evolution of the technology.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="ai-definitions-visual">
-                        <img src="images/ai-definitions.svg" alt="Visual diagram showing the relationships between AI terminology" class="definitions-image">
-                    </div>
-                </div>
-            </div>
-            
-            <div class="definitions-grid">
-                <div class="definition-card" data-category="core">
-                    <h4>Artificial Intelligence (AI)</h4>
-                    <p>Computer systems designed to perform tasks that typically require human intelligence. These systems can perceive their environment, learn from data, and take actions to achieve specific goals.</p>
-                    <p><strong>Example:</strong> Smart assistants like Siri, Alexa, and Google Assistant that can understand voice commands and perform various tasks.</p>
-                </div>
-                
-                <div class="definition-card" data-category="core">
-                    <h4>Machine Learning (ML)</h4>
-                    <p>A subset of AI that allows systems to learn and improve from experience automatically without being explicitly programmed. ML algorithms build models based on sample data to make predictions or decisions.</p>
-                    <p><strong>Example:</strong> Netflix and Spotify recommendation systems that learn from your viewing or listening habits to suggest new content.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Deep Learning</h4>
-                    <p>A specialized type of machine learning that uses artificial neural networks with multiple layers (hence "deep") to progressively extract higher-level features from raw input data, mimicking how the human brain processes information.</p>
-                    <p><strong>Example:</strong> Face recognition in smartphone cameras and social media that can identify individuals in photos with remarkable accuracy.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Large Language Models (LLMs)</h4>
-                    <p>Advanced AI systems trained on vast amounts of text data that can understand, generate, and manipulate language. They work by predicting the most likely next word in a sequence, enabling them to write essays, answer questions, and more.</p>
-                    <p><strong>Example:</strong> ChatGPT and Claude that can answer questions, write essays, and engage in natural-sounding conversations.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Rule-based Systems</h4>
-                    <p>Early AI programs that use explicit "if-then" rules created by human experts to make decisions. Unlike learning systems, rule-based systems follow predetermined logic paths and cannot adapt to new situations without being reprogrammed.</p>
-                    <p><strong>Example:</strong> Spam filters that use predefined rules to determine whether an email is spam based on specific keywords or sender information.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Generative AI</h4>
-                    <p>AI systems that can create new content such as text, images, music, and videos that didn't exist before. Unlike traditional AI that classifies or predicts data, generative AI produces original outputs based on patterns learned from training data.</p>
-                    <p><strong>Example:</strong> DALL-E and Midjourney that create realistic images and artwork based on text descriptions provided by users.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Neural Networks</h4>
-                    <p>Computing systems inspired by biological brain structures, consisting of interconnected nodes ("neurons") that process and transmit information. They excel at recognizing patterns and can learn to perform tasks by analyzing example data.</p>
-                    <p><strong>Example:</strong> Google Translate uses neural networks to provide increasingly accurate translations between languages, capturing nuances and context.</p>
-                </div>
-                
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Agents</h4>
-                    <p>AI systems that can operate autonomously to achieve specific goals on behalf of users. They can perceive their environment, make decisions based on that information, and execute tasks with minimal human intervention.</p>
-                </div>
-                
-                <div class="definition-card" data-category="technical">
-                    <h4>Agentic AI</h4>
-                    <p>Advanced autonomous AI systems that can chain together multiple steps, interact with software or services, make decisions, and adapt their approach based on outcomes. Agentic AI can complete complex tasks much like a personal assistant.</p>
-                </div>
-                             
-               
-            </div>
-        </div>
-    </section>
-
-    <section id="brain-nn" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Brain vs. Neural Network: Understanding the Analogy</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Biological Neurons vs. Artificial Neurons</h3>
-                    <p>Just as the human brain processes information through interconnected neurons, artificial neural networks use mathematical representations of neurons to process data and identify patterns.</p>
-                    
-                    <h3>Synaptic Connections & Weights</h3>
-                    <p>The brain's synapses strengthen with repeated use, similar to how neural network connections adjust their "weights" during training to improve outcomes over time.</p>
-                    
-                    <h3>Learning & Adaptation</h3>
-                    <p>Humans refine skills through practice and experience; similarly, AI models improve through iterative training on diverse examples, gradually enhancing their ability to generate relevant outputs.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="neural-comparison">
-                        <div class="comparison-item">
-                            <h4>Human Neural System</h4>
-                            <div class="neuron-illustration human"></div>
-                            <ul class="comparison-points">
-                                <li>86 billion neurons</li>
-                                <li>Chemical/electrical signals</li>
-                                <li>Learns through experience</li>
-                            </ul>
-                        </div>
-                        <div class="comparison-item">
-                            <h4>Artificial Neural Network</h4>
-                            <div class="neuron-illustration artificial"></div>
-                            <ul class="comparison-points">
-                                <li>Billions of parameters</li>
-                                <li>Mathematical operations</li>
-                                <li>Learns through training data</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="intro" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>What is Generative AI?</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Definition & Scope</h3>
-                    <p>Generative AI refers to technologies that create new content (text, images, code, etc.) based on patterns learned from existing data. These systems automate creative and repetitive tasks, enabling unprecedented productivity.</p>
-                    
-                    <h3>Business Impact</h3>
-                    <p>GenAI transforms traditional workflows by saving time, enhancing accuracy, and unlocking new business insights that were previously inaccessible or time-consuming to obtain.</p>
-                    
-                    <h3>GenAI in Action</h3>
-                    <p>Modern generative AI systems integrate directly into familiar applications, helping you draft content, summarize documents, and analyze data with simple natural language prompts.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="comparison-chart">
-                        <h4>Traditional vs. AI-Augmented Workflow</h4>
-                        <div class="chart-container">
-                            <div class="chart-column">
-                                <div class="chart-header">Traditional</div>
-                                <ul class="chart-data">
-                                    <li><span class="time">4 hrs</span> Manual document summarization</li>
-                                    <li><span class="time">2 hrs</span> Email draft and revision</li>
-                                    <li><span class="time">3 hrs</span> Data analysis and insight generation</li>
-                                </ul>
-                                <div class="chart-total">9 hours</div>
-                            </div>
-                            <div class="chart-column highlight">
-                                <div class="chart-header">AI-Augmented</div>
-                                <ul class="chart-data">
-                                    <li><span class="time">30 min</span> AI-assisted summarization</li>
-                                    <li><span class="time">20 min</span> AI email drafting + review</li>
-                                    <li><span class="time">45 min</span> AI-powered data insights</li>
-                                </ul>
-                                <div class="chart-total">1.5 hours</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>How Generative AI Works</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Input Process – Prompt Engineering</h3>
-                    <p>Crafting precise, detailed prompts is key to getting high-quality outputs from generative AI. Learning to communicate effectively with AI systems is a skill that improves with practice.</p>
-                    
-                    <h3>Training Process – Data & Algorithms</h3>
-                    <p>AI models like those powering CoPilot are trained on vast datasets, including business content, to understand context, language, and domain-specific knowledge relevant to your work.</p>
-                    
-                    <h3>Output Generation – From Data to Content</h3>
-                    <p>When you provide a prompt, the AI processes it through its neural network, drawing on patterns from its training to generate contextually relevant content that meets your needs.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="process-flow">
-                        <div class="process-step">
-                            <div class="step-icon"><i class="fas fa-keyboard"></i></div>
-                            <h4>User Prompt</h4>
-                            <p>"Draft a quarterly report summary highlighting key financial metrics"</p>
-                        </div>
-                        <div class="process-arrow"><i class="fas fa-arrow-right"></i></div>
-                        <div class="process-step">
-                            <div class="step-icon"><i class="fas fa-brain"></i></div>
-                            <h4>AI Processing</h4>
-                            <p>Pattern recognition, context analysis, content generation</p>
-                        </div>
-                        <div class="process-arrow"><i class="fas fa-arrow-right"></i></div>
-                        <div class="process-step">
-                            <div class="step-icon"><i class="fas fa-file-alt"></i></div>
-                            <h4>Generated Output</h4>
-                            <p>Structured summary with key metrics and insights highlighted</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="genaiv-outputs" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>What Can You Generate Using GenAI?</h2>
-            </div>
-            
-            <div class="output-categories-grid">
-                <div class="output-category">
-                    <div class="output-icon"><i class="fas fa-font"></i></div>
-                    <h4>Text</h4>
-                    <ul class="output-examples">
-                        <li>Business reports</li>
-                        <li>Creative stories</li>
-                        <li>Marketing copy</li>
-                        <li>Academic papers</li>
-                    </ul>
-                </div>
-                <div class="output-category">
-                    <div class="output-icon"><i class="fas fa-image"></i></div>
-                    <h4>Images</h4>
-                    <ul class="output-examples">
-                        <li>Photorealistic scenes</li>
-                        <li>Art in various styles</li>
-                        <li>Product visualizations</li>
-                        <li>Design concepts</li>
-                    </ul>
-                </div>
-                <div class="output-category">
-                    <div class="output-icon"><i class="fas fa-code"></i></div>
-                    <h4>Code</h4>
-                    <ul class="output-examples">
-                        <li>Application functions</li>
-                        <li>Website components</li>
-                        <li>Script automation</li>
-                        <li>API integrations</li>
-                    </ul>
-                </div>
-                <div class="output-category">
-                    <div class="output-icon"><i class="fas fa-music"></i></div>
-                    <h4>Audio/Video</h4>
-                    <ul class="output-examples">
-                        <li>Music compositions</li>
-                        <li>Voice synthesis</li>
-                        <li>Video concepts</li>
-                        <li>Sound effects</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Text Generation & Writing</h3>
-                    <p>From professional emails and marketing copy to creative stories and technical documentation, GenAI can produce various text formats tailored to specific audiences, tones, and purposes.</p>
-                    
-                    <h3>Visual & Design Content</h3>
-                    <p>Create images, illustrations, design mockups, and visual concepts by describing what you envision. AI can generate entirely new visuals or variations on existing design themes.</p>
-                    
-                    <h3>Code & Technical Solutions</h3>
-                    <p>Generate functioning code in various programming languages, debug existing code, and create technical solutions to specific problems with simple natural language instructions.</p>
-                    
-                    <h3>Media & Interactive Content</h3>
-                    <p>Produce audio content, music compositions, voiceovers, video concepts, and even interactive experiences by defining parameters and creative direction.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="genaiv-players" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Major Players in the GenAI Landscape</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>Foundation Model Developers</h3>
-                    <p>These organizations create the large language models and multimodal AI systems that power most generative AI applications. They invest billions in research, training infrastructure, and dataset curation.</p>
-                    
-                    <h3>Chip Manufacturers</h3>
-                    <p>The computing hardware that enables AI model training and inference is crucial to the GenAI ecosystem. These companies design specialized processors optimized for AI workloads.</p>
-                    
-                    <h3>Application & Platform Providers</h3>
-                    <p>Building on foundation models, these companies develop user-friendly interfaces and specialized applications that make generative AI capabilities accessible to businesses and consumers.</p>
-                    
-                    <h3>Open Source Communities</h3>
-                    <p>These collaborative ecosystems democratize access to cutting-edge AI by developing freely available models, tools, and frameworks that reduce barriers to entry in the field.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="industry-map">
-                        <div class="industry-category">
-                            <h4>Foundation Models</h4>
-                            <div class="logo-grid">
-                                <div class="company-logo" tabindex="0" role="button" aria-label="OpenAI - Foundation Model Developer"><span class="company-name">OpenAI</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Anthropic - Foundation Model Developer"><span class="company-name">Anthropic</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Google DeepMind - Foundation Model Developer"><span class="company-name">Google DeepMind</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Meta AI - Foundation Model Developer"><span class="company-name">Meta AI</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Microsoft - Foundation Model Developer"><span class="company-name">Microsoft</span></div>
-                            </div>
-                        </div>
-                        <div class="industry-category">
-                            <h4>Chip Manufacturers</h4>
-                            <div class="logo-grid">
-                                <div class="company-logo" tabindex="0" role="button" aria-label="NVIDIA - AI Chip Manufacturer"><span class="company-name">NVIDIA</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="AMD - AI Chip Manufacturer"><span class="company-name">AMD</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Intel - AI Chip Manufacturer"><span class="company-name">Intel</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="ARM - AI Chip Manufacturer"><span class="company-name">ARM</span></div>
-                            </div>
-                        </div>
-                        <div class="industry-category">
-                            <h4>Cloud & Infrastructure</h4>
-                            <div class="logo-grid">
-                                <div class="company-logo" tabindex="0" role="button" aria-label="AWS - Cloud Provider for AI Infrastructure"><span class="company-name">AWS</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Microsoft Azure - Cloud Provider for AI Infrastructure"><span class="company-name">Microsoft Azure</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Google Cloud - Cloud Provider for AI Infrastructure"><span class="company-name">Google Cloud</span></div>
-                                <div class="company-logo" tabindex="0" role="button" aria-label="Oracle Cloud - Cloud Provider for AI Infrastructure"><span class="company-name">Oracle Cloud</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="current-models" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Latest Foundation Models</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>State-of-the-Art AI Systems</h3>
-                    <p>The AI landscape evolves rapidly with new models released regularly. Each company's flagship model represents its latest research and capabilities in the field.</p>
-                    
-                    <h3>Open vs Closed Ecosystems</h3>
-                    <p>While some companies prioritize tightly controlled access to their models (closed source), others make their models available to the public (open source), often with specific licensing terms.</p>
-                    
-                    <h3>Geographic Availability</h3>
-                    <p>Access to advanced AI models varies significantly by region due to multiple factors:</p>
-                    
-                    <ul class="geographic-factors">
-                        <li><strong>Regulatory Compliance:</strong> Companies must navigate complex regional regulations like the EU AI Act, GDPR in Europe, or data sovereignty laws in various countries. This often results in regional versions of models with different capabilities.</li>
-                        <li><strong>Market Strategy:</strong> Model providers typically roll out access gradually, starting with their primary markets (often US-based) before expanding globally.</li>
-                        <li><strong>Infrastructure Requirements:</strong> Some regions may lack the technical infrastructure needed to support high-demand AI services, limiting effective deployment.</li>
-                        <li><strong>Export Controls:</strong> National security concerns may restrict access to cutting-edge AI capabilities in certain regions due to dual-use technology controls.</li>
-                    </ul>
-                    
-                    <p>Open source models provide a partial solution to these geographic limitations, as they can be deployed locally without API restrictions—though they often require significant technical expertise and computing resources.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="models-table">
-                        <div class="table-header">
-                            <div class="col company-col">Company</div>
-                            <div class="col model-col">Latest Model</div>
-                            <div class="col source-col">Source Status</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">OpenAI</div>
-                            <div class="col model-col">GPT-5.3-Codex, GPT-5.2</div>
-                            <div class="col source-col">Closed Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">Anthropic</div>
-                            <div class="col model-col">Claude Opus 4.6, Sonnet 4.6</div>
-                            <div class="col source-col">Closed Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">Google DeepMind</div>
-                            <div class="col model-col">Gemini 3 Pro, Gemini 3 Deep Think</div>
-                            <div class="col source-col">Closed Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">Meta AI</div>
-                            <div class="col model-col">Llama 4 Scout, Llama 4 Maverick</div>
-                            <div class="col source-col">Open Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">xAI</div>
-                            <div class="col model-col">Grok 4.1, Grok 4 Heavy</div>
-                            <div class="col source-col">Closed Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">DeepSeek AI</div>
-                            <div class="col model-col">DeepSeek-R1, DeepSeek-V3</div>
-                            <div class="col source-col">Open Source</div>
-                        </div>
-                        <div class="table-row">
-                            <div class="col company-col">Mistral AI</div>
-                            <div class="col model-col">Mistral Large 3, Devstral 2</div>
-                            <div class="col source-col">Mixed (Both)</div>
-                        </div>
-                    </div>
-                    
-                    <div class="ecosystem-diagram">
-                        <h4>Open vs. Closed Source Model Comparison</h4>
-                        <div class="diagram-content">
-                            <div class="closed-path">
-                                <div class="path-header">Closed Source Path</div>
-                                <div class="path-steps">
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-code-branch"></i></div>
-                                        <div class="step-text">Proprietary Development</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-shield-alt"></i></div>
-                                        <div class="step-text">Restricted Access</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-key"></i></div>
-                                        <div class="step-text">API Access Only</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-dollar-sign"></i></div>
-                                        <div class="step-text">Usage-Based Pricing</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="vs-divider">VS</div>
-                            
-                            <div class="open-path">
-                                <div class="path-header">Open Source Path</div>
-                                <div class="path-steps">
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-code"></i></div>
-                                        <div class="step-text">Public Development</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-download"></i></div>
-                                        <div class="step-text">Public Access to Code</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-server"></i></div>
-                                        <div class="step-text">Self-Hosting Option</div>
-                                    </div>
-                                    <div class="path-arrow"><i class="fas fa-arrow-down"></i></div>
-                                    <div class="path-step">
-                                        <div class="step-icon"><i class="fas fa-wrench"></i></div>
-                                        <div class="step-text">Customization Freedom</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="ai-benchmarks" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Humanity's Last Exam: AI Performance Benchmarks</h2>
-            </div>
-            
-            <div class="content-grid">
-                <div class="text-content">
-                    <h3>The Race for Human-Level Performance</h3>
-                    <p>As AI models grow more sophisticated, researchers use standardized tests to measure their capabilities against human performance. The "Humanity's Last Exam" benchmark evaluates models on complex reasoning, knowledge application, and problem-solving.</p>
-
-                    <h3>2026: A Leap to Near-50% Accuracy</h3>
-                    <p>The 2026 generation of models has shattered previous records. Google's Gemini 3 Deep Think leads Humanity's Last Exam at 48.4%, followed by Gemini 3 Pro at 37.2%, Claude Opus 4.6 at 36.7%, and GPT-5.2 at 35.4%. In roughly one year, scores climbed from single digits to the high 30s-40s.</p>
-
-                    <h3>Implications for Society</h3>
-                    <p>With frontier models now achieving agent-level autonomy and million-token contexts, 2026 marks the shift from AI as a tool to AI as a collaborator. Multi-agent teams (Claude Agent SDK, OpenAI Agents API), mechanistic interpretability breakthroughs, and new AI regulations (SB 53, TRAIGA) are reshaping industries.</p>
-                </div>
-                <div class="visual-content">
-                    <div class="benchmark-chart">
-                        <img src="images/ai-accuracy-2025.svg" alt="Chart showing accuracy comparison between various AI models through 2026" class="accuracy-chart-image">
-                        <div class="chart-legend">
-                            <div class="chart-caption">Latest AI Model Accuracy Comparison (Humanity's Last Exam)</div>
-                            <div class="legend-note">
-                                <p>Higher percentages indicate better performance. 2026 models show dramatic leaps over 2025 predecessors</p>
-                            </div>
-                            <div class="legend-detail">
-                                <p>Featured models: GPT-4o (2.7%), Grok-3 (3.9%), DeepSeek-R1 (8.6%), o3-mini (14.0%), GPT-5 (25.0%), GPT-5.2 (35.4%), Claude Opus 4.6 (36.7%), Gemini 3 Pro (37.2%), Gemini 3 Deep Think (48.4%)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="benchmark-details">
-                <div class="benchmark-item">
-                    <div class="benchmark-icon"><i class="fas fa-graduation-cap"></i></div>
-                    <h4>Record-Breaking Scores</h4>
-                    <p>Gemini 3 Deep Think leads Humanity's Last Exam at 48.4%, with Claude Opus 4.6 at 36.7% and GPT-5.2 at 35.4%. In one year, scores jumped from single digits to nearly 50%. Models demonstrate near-expert reasoning across law, medicine, mathematics, and software engineering.</p>
-                </div>
-                <div class="benchmark-item">
-                    <div class="benchmark-icon"><i class="fas fa-sitemap"></i></div>
-                    <h4>Multistep Reasoning</h4>
-                    <p>Recent models excel at breaking down complex problems into logical sequences, with each generation showing improved capacity to maintain consistency across extended reasoning chains.</p>
-                </div>
-                <div class="benchmark-item">
-                    <div class="benchmark-icon"><i class="fas fa-project-diagram"></i></div>
-                    <h4>Model Efficiency</h4>
-                    <p>The trend toward smaller yet more capable models (as seen with o3-mini) suggests that architectural improvements are now outpacing raw scale, potentially democratizing access to powerful AI capabilities.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tool Card Section -->
-    <div class="tools-section">
-        <div class="container">
-            <div class="tool-card">
-                <div class="tool-icon">
-                    <i class="fas fa-wand-magic-sparkles"></i>
-                </div>
-                <div class="tool-info">
-                    <h4>AI Image Generator <span class="badge">NEW</span></h4>
-                    <p>Create stunning AI-generated images with our new tool</p>
-                </div>
-                                        <a href="image-generator.html" class="tool-button primary-cta">Try it now</a>
-            </div>
-            
-            <div class="tool-card">
-                <div class="tool-icon">
-                    <i class="fas fa-keyboard"></i>
-                </div>
-                <div class="tool-info">
-                    <h4>Prompt Engineering Lab <span class="badge">NEW</span></h4>
-                    <p>Compare responses from different AI models with adjustable parameters</p>
-                </div>
-                                        <a href="prompt-optimizer.html" class="tool-button primary-cta">Try it now</a>
-            </div>
-            
-            <div class="tool-card">
-                <div class="tool-icon">
-                    <i class="fas fa-book-open"></i>
-                </div>
-                <div class="tool-info">
-                    <h4>GenAI Vocabulary <span class="badge">NEW</span></h4>
-                    <p>Master 58+ essential GenAI terms with definitions, analogies, and examples</p>
-                </div>
-                <a href="vocabulary.html" class="tool-button primary-cta">Explore Now</a>
-            </div>
-            
-            <div class="tool-card">
-                <div class="tool-icon">
-                    <i class="fas fa-blog"></i>
-                </div>
-                <div class="tool-info">
-                    <h4>AI Insights Blog <span class="badge">NEW</span></h4>
-                    <p>Stay updated with the latest AI news, tutorials, and expert analysis</p>
-                </div>
-                <a href="blog.html" class="tool-button">Read now</a>
-            </div>
-        </div>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <canvas id="hero-canvas" aria-hidden="true"></canvas>
+    <div class="container">
+      <div class="hero-eyebrow">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Field guide to the model economy</span>
+        <span>·</span>
+        <span>Updated <span data-edition>Oct 2026</span></span>
+      </div>
+      <h1>
+        <span class="line"><span>Generative AI,</span></span>
+        <span class="line"><span><em class="gradient-text">ground fresh.</em></span></span>
+      </h1>
+      <p class="hero-sub">
+        Every week the frontier moves and the fundamentals don't. This is both, in one place:
+        <b>the models that matter</b>, the benchmarks with their source dates attached,
+        the economics nobody puts on a slide, and the harness that decides whether any of it survives production.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="#foundations"><span>Start with the basics</span>
+          <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="katha.html"><span>Read Katha Weekly</span>
+          <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
+        </a>
+      </div>
+      <dl class="hero-meta">
+        <div><dt>Videos read</dt><dd><span data-count="2044">2,044</span></dd></div>
+        <div><dt>Channels tracked</dt><dd><span data-count="8">8</span></dd></div>
+        <div><dt>Weekly issues</dt><dd><span data-count="4">4</span></dd></div>
+        <div><dt>Daily briefings</dt><dd><span data-count="22">22</span></dd></div>
+      </dl>
     </div>
+    <div class="hero-foot">
+      <div class="marquee" aria-hidden="true">
+        <span>GPT-6 Sol</span><span>Claude Opus 5.5</span><span>Gemini 4 Argon</span><span>DeepSeek V4.1</span><span>Kimi K3.1</span><span>Qwen 3.8</span><span>GLM 5.2</span><span>Grok 4.7</span>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="copyright">© 2026 GenAI Chutney. All rights reserved.</div>
-                <div class="footer-nav">
-                    <a href="index.html">Home</a>
-                    <a href="image-generator.html">Image Generator</a>
-                    <a href="prompt-optimizer.html">Prompting Lab</a>
-                    <a href="vocabulary.html">Vocabulary</a>
-                    <a href="blog.html">Blog</a>
-                    <a href="apps.html">GenAI Chutney Apps</a>
-                </div>
-            </div>
+  <!-- ================= 01 FOUNDATIONS ================= -->
+  <section class="section" id="foundations">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">01 — Foundations</div>
+          <h2>A model is a compression of the internet that learned to guess.</h2>
         </div>
-    </footer>
+        <p class="section-lede">
+          Generative AI does not look anything up. It has read an enormous amount of text, images and audio,
+          compressed the patterns into weights, and now predicts what should come next. Everything strange
+          about these systems follows from that one sentence.
+        </p>
+      </div>
 
-    </div><!-- end page-content -->
-    <script src="js/byok.js"></script>
-    <script src="js/script.js"></script>
-    <script>
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebarOverlay');
-        function closeSidebar() {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-        }
-        sidebarToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('active');
-        });
-        overlay.addEventListener('click', closeSidebar);
-    </script>
+      <div class="definition">
+        <div class="definition-copy">
+          <p class="big-quote">
+            A chat box is one interface on top of a probability machine.
+            <em>Prompting is how you steer the guess.</em>
+          </p>
+          <p>
+            When you type a prompt, the model turns your words into tokens, converts each token into a vector
+            of numbers, and lets every token look at the others to decide what the context means. Then it
+            samples the next token. Repeat a thousand times and you have an essay, a JSON object, or a
+            working function.
+          </p>
+          <p>
+            This is why the same question gets different answers, why confident prose is not evidence, and
+            why "hallucination" is not a bug to be patched out. The system is optimised to continue plausibly.
+            Your job is to make the plausible thing the correct thing — with context, constraints, tools,
+            and a check that can fail.
+          </p>
+          <div class="pull-stat">
+            <div><b data-count="1" data-suffix="M">1M</b><span>Tokens of context in 2026 flagships</span></div>
+            <div><b data-count="90" data-suffix="%">90%</b><span>Cache-read discount on reused context</span></div>
+          </div>
+        </div>
+        <figure class="plate reveal-img">
+          <img src="images/art/spice-nebula.webp" alt="Macro photograph of iridescent spice powders suspended in a dark vortex" width="1536" height="1024" loading="eager">
+          <figcaption><span>Plate 01 — pattern, pressed into a shape</span><span>Chutney / 2026</span></figcaption>
+        </figure>
+      </div>
+
+      <div class="modality-grid" role="list">
+        <button class="modality is-active" role="listitem" aria-pressed="true">
+          <span class="idx">01 / TEXT + CODE</span>
+          <h4>Language</h4>
+          <p>The original trick, still the most valuable. Reasoning, drafting, extraction, and code that a reviewer can check.</p>
+          <div class="samples"><b>GPT-6</b><b>Opus 5.5</b><b>Gemini 4</b></div>
+        </button>
+        <button class="modality" role="listitem" aria-pressed="false">
+          <span class="idx">02 / IMAGE</span>
+          <h4>Still images</h4>
+          <p>Diffusion turns noise into a picture conditioned on your prompt. Product shots, concept art, and increasingly, type that is actually legible.</p>
+          <div class="samples"><b>Flux 3</b><b>GPT Image 2.5</b><b>Krea 2</b></div>
+        </button>
+        <button class="modality" role="listitem" aria-pressed="false">
+          <span class="idx">03 / AUDIO</span>
+          <h4>Speech &amp; music</h4>
+          <p>Near-real-time voices with emotion, cloned timbre, and generated score. The latency number matters more than the demo.</p>
+          <div class="samples"><b>Veo audio</b><b>TTS-XAI</b><b>Suno</b></div>
+        </button>
+        <button class="modality" role="listitem" aria-pressed="false">
+          <span class="idx">04 / VIDEO</span>
+          <h4>Motion</h4>
+          <p>Four-second clips became four-K scenes with synchronized sound. Consistency across shots is the frontier now.</p>
+          <div class="samples"><b>Veo 3.1</b><b>Kling</b><b>Runway Gen-4</b></div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 02 MECHANICS ================= -->
+  <section class="section" id="mechanics">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">02 — Mechanics</div>
+          <h2>Watch a prompt become a prediction.</h2>
+        </div>
+        <p class="section-lede">
+          Type anything below. We split it the way a model would see it, show which tokens the last one
+          attends to, and rank what it would say next. The probabilities are illustrative; the mechanics are real.
+        </p>
+      </div>
+
+      <div class="lab">
+        <div class="lab-head">
+          <span class="mono">Tokenizer · attention · next token</span>
+          <span class="mono" style="color:var(--lime)">live</span>
+        </div>
+        <div class="lab-body">
+          <label class="mono" for="lab-input" style="display:block;margin-bottom:.6rem;color:var(--muted)">Your prompt</label>
+          <input id="lab-input" type="text" value="The model that wins is not the smartest one in the room." autocomplete="off" spellcheck="false" aria-describedby="lab-help">
+          <div class="token-row" id="lab-tokens" aria-live="polite"></div>
+          <div class="token-summary" id="lab-summary"></div>
+          <div class="attention" id="lab-attention" aria-hidden="true"></div>
+          <div class="mono" style="color:var(--muted);margin-bottom:.5rem">What comes next</div>
+          <div class="next-tokens" id="lab-next" aria-live="polite"></div>
+          <p class="lab-note" id="lab-help">
+            Illustrative tokenisation and attention. Production tokenizers use subword vocabularies of 100k+
+            entries, and real attention has many heads across dozens of layers. The point is the shape of the
+            computation, not the numbers.
+          </p>
+        </div>
+      </div>
+
+      <div class="stack" style="margin-top:1.4rem">
+        <article class="stack-card">
+          <span class="k">Step 01</span>
+          <h4>Tokenise</h4>
+          <p>Text becomes pieces. “Unbelievable” might arrive as three tokens. Everything downstream is arithmetic on those pieces.</p>
+          <ul><li>vocabulary</li><li>subwords</li><li>context window</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">Step 02</span>
+          <h4>Embed &amp; attend</h4>
+          <p>Each token becomes a vector. Attention lets every token weigh every other token, which is how “it” finds its noun.</p>
+          <ul><li>embeddings</li><li>self-attention</li><li>layers</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">Step 03</span>
+          <h4>Sample</h4>
+          <p>The model scores every possible next token, then picks one. Temperature decides how adventurous that pick is.</p>
+          <ul><li>logits</li><li>temperature</li><li>top-p</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 03 MODELS ================= -->
+  <section class="section" id="models">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">03 — The 2026 frontier</div>
+          <h2>Nine months, four flagships, one price war.</h2>
+        </div>
+        <p class="section-lede">
+          The frontier reset three times this year: Claude Opus 5 in July, the GPT-6 family in September,
+          Gemini 4 Argon in October. Prices fell faster than capability rose. Prices below are launch
+          numbers per million tokens, and they move.
+        </p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter models">
+        <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+        <button class="chip" data-filter="frontier" aria-pressed="false">Frontier</button>
+        <button class="chip" data-filter="open" aria-pressed="false">Open weights</button>
+        <button class="chip" data-filter="efficient" aria-pressed="false">Cheap &amp; fast</button>
+      </div>
+
+      <div class="model-table" role="table" aria-label="Model comparison, October 2026">
+        <div class="model-row head" role="row">
+          <span role="columnheader">Model</span>
+          <span role="columnheader">Input / 1M</span>
+          <span role="columnheader">Output / 1M</span>
+          <span role="columnheader" class="ctx">Context</span>
+          <span role="columnheader">Why it matters</span>
+          <span></span>
+        </div>
+
+        <div class="model-row" role="row" data-cat="frontier">
+          <div class="model-name"><i class="model-dot" style="background:#00e5ff;box-shadow:0 0 10px #00e5ff"></i><div><b>GPT-6 Astra <span class="model-badge">Sep 3</span></b><small>OpenAI · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$10.00</div>
+          <div class="model-cell price" role="cell" data-label="out">$50.00</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">The capability flagship: computer use and long-horizon coding. Priced like a scarce resource.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="frontier efficient">
+          <div class="model-name"><i class="model-dot" style="background:#7cff6b;box-shadow:0 0 10px #7cff6b"></i><div><b>GPT-6 Sol <span class="model-badge">Sep 22</span></b><small>OpenAI · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$2.00</div>
+          <div class="model-cell price" role="cell" data-label="out">$10.00</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">Half the price of its predecessor, above Opus 5 on the vendor's automation bench. The value pick.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="efficient">
+          <div class="model-name"><i class="model-dot" style="background:#7cff6b"></i><div><b>GPT-6 Luna</b><small>OpenAI · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$0.10</div>
+          <div class="model-cell price" role="cell" data-label="out">$0.50</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">Classification, routing, extraction. Ninety-three percent cheaper per task than Opus 5 on OpenAI's own numbers.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="frontier">
+          <div class="model-name"><i class="model-dot" style="background:#b56cff;box-shadow:0 0 10px #b56cff"></i><div><b>Claude Opus 5.5 <span class="model-badge">Sep 22</span></b><small>Anthropic · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$4.00</div>
+          <div class="model-cell price" role="cell" data-label="out">$20.00</div>
+          <div class="model-cell ctx" role="cell">1M</div>
+          <div class="model-note" role="cell">66.4% on Terminal-Bench 4.0. Cache reads at $0.20 makes long agent runs affordable.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="frontier">
+          <div class="model-name"><i class="model-dot" style="background:#b56cff"></i><div><b>Claude Opus 5 <span class="model-badge">Jul 24</span></b><small>Anthropic · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$5.00</div>
+          <div class="model-cell price" role="cell" data-label="out">$25.00</div>
+          <div class="model-cell ctx" role="cell">1M</div>
+          <div class="model-note" role="cell">128K output, adaptive thinking, five effort levels. Still the reference for careful code review.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="frontier">
+          <div class="model-name"><i class="model-dot" style="background:#ff4dff;box-shadow:0 0 10px #ff4dff"></i><div><b>Gemini 4 Argon <span class="model-badge">Oct 13</span></b><small>Google DeepMind · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$2.00*</div>
+          <div class="model-cell price" role="cell" data-label="out">$10.00*</div>
+          <div class="model-cell ctx" role="cell">1M out</div>
+          <div class="model-note" role="cell">Top of LMArena at 1524. Up to 1M output tokens in one response. *Intro price until Nov 30, then $4 / $20.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="open efficient">
+          <div class="model-name"><i class="model-dot" style="background:#ffb020"></i><div><b>DeepSeek V4.1 Flash <span class="model-badge">MIT</span></b><small>DeepSeek · open weights</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$0.15</div>
+          <div class="model-cell price" role="cell" data-label="out">$0.60</div>
+          <div class="model-cell ctx" role="cell">1M</div>
+          <div class="model-note" role="cell">552B params, 8B active, open weights. The reason self-hosting is a real budget line again.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="open">
+          <div class="model-name"><i class="model-dot" style="background:#ffb020"></i><div><b>DeepSeek V4 Pro <span class="model-badge">Aug 13</span></b><small>DeepSeek · open weights</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">—</div>
+          <div class="model-cell price" role="cell" data-label="out">—</div>
+          <div class="model-cell ctx" role="cell">1M</div>
+          <div class="model-note" role="cell">1.6T mixture-of-experts with 49B active. MIT licence, 167 GB of weights on Hugging Face.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="open frontier">
+          <div class="model-name"><i class="model-dot" style="background:#ff7a32"></i><div><b>Kimi K3.1 Pro</b><small>Moonshot · open weights</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">—</div>
+          <div class="model-cell price" role="cell" data-label="out">—</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">Shipped the same 13 apps as Opus 5.5 in a head-to-head build. The open-weight ceiling keeps rising.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="open">
+          <div class="model-name"><i class="model-dot" style="background:#ff7a32"></i><div><b>Qwen 3.8 Max</b><small>Alibaba · open weights</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">—</div>
+          <div class="model-cell price" role="cell" data-label="out">—</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">2.4T parameters. Fine-tuning target of choice when the data cannot leave the building.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="open efficient">
+          <div class="model-name"><i class="model-dot" style="background:#7cff6b"></i><div><b>GLM 5.2</b><small>Z.ai · open weights</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">—</div>
+          <div class="model-cell price" role="cell" data-label="out">—</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">Ranked above Opus 4.8 on coding benchmarks at roughly a sixth of the cost.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+
+        <div class="model-row" role="row" data-cat="efficient">
+          <div class="model-name"><i class="model-dot" style="background:#ff4dff"></i><div><b>Grok 4.7</b><small>xAI · closed</small></div></div>
+          <div class="model-cell price" role="cell" data-label="in">$2.00</div>
+          <div class="model-cell price" role="cell" data-label="out">$6.00</div>
+          <div class="model-cell ctx" role="cell">—</div>
+          <div class="model-note" role="cell">Cheap output, fast, live search wired in. Useful for news-shaped work.</div>
+          <div aria-hidden="true">↗</div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:1.2rem">
+        Launch pricing from vendor announcements and secondary trackers, Oct 2026. Where a price is not
+        published for an open-weight model we show a dash rather than invent one. Always re-check before you budget.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= 04 BENCHMARKS ================= -->
+  <section class="section" id="benchmarks">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">04 — Benchmarks</div>
+          <h2>Benchmarks, with receipts.</h2>
+        </div>
+        <p class="section-lede">
+          A score without a date is a rumour. Every board below carries the snapshot it came from —
+          and note how often the leader is not the model with the biggest launch.
+        </p>
+      </div>
+
+      <div class="bench-wrap">
+        <div class="bench-tabs" role="tablist" aria-label="Benchmarks">
+          <button class="bench-tab is-active" role="tab" aria-selected="true" data-bench="hle"><b>Humanity's Last Exam</b><span>Jun 2026</span></button>
+          <button class="bench-tab" role="tab" aria-selected="false" data-bench="swe"><b>SWE-bench Verified</b><span>Aug 2026</span></button>
+          <button class="bench-tab" role="tab" aria-selected="false" data-bench="gpqa"><b>GPQA Diamond</b><span>Aug 2026</span></button>
+          <button class="bench-tab" role="tab" aria-selected="false" data-bench="simple"><b>SimpleBench</b><span>Aug 2026</span></button>
+          <button class="bench-tab" role="tab" aria-selected="false" data-bench="terminal"><b>Terminal-Bench 4.0</b><span>Sep 2026</span></button>
+        </div>
+        <div class="bench-chart" role="tabpanel">
+          <h4 id="bench-title">Humanity's Last Exam</h4>
+          <p class="bench-desc" id="bench-desc"></p>
+          <div id="bench-bars"></div>
+          <p class="bench-source" id="bench-source"></p>
+        </div>
+      </div>
+      <p class="note" style="margin-top:1.4rem">
+        Vendors publish their own numbers under their own settings; we prefer third-party snapshots where they exist.
+        Differences of a point or two are usually noise. Differences of ten are a product decision.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= 05 ECONOMICS ================= -->
+  <section class="section" id="economics">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">05 — Economics</div>
+          <h2>Intelligence got cheaper. The bill got bigger.</h2>
+        </div>
+        <p class="section-lede">
+          Both things are true at once. The price of a competent token collapsed by half twice this year,
+          while the five biggest cloud builders committed the largest infrastructure budget in history.
+        </p>
+      </div>
+
+      <div class="econ-grid">
+        <div class="econ">
+          <div class="tag">Hyperscaler capex, 2026</div>
+          <div class="num">$660–690<small>B</small></div>
+          <p>Microsoft, Alphabet, Amazon, Meta and Oracle, nearly double 2025. About three quarters of it is AI infrastructure.</p>
+        </div>
+        <div class="econ">
+          <div class="tag">GPT-6 price cut</div>
+          <div class="num">50<small>%</small></div>
+          <p>Sol and Luna launched at half the promotional price of the GPT-5.6 models they replaced. Capability up, price down.</p>
+        </div>
+        <div class="econ">
+          <div class="tag">Opus 5.5 run cost</div>
+          <div class="num">40<small>%</small></div>
+          <p>Cheaper per typical workload than Opus 5, with cache reads down sixty percent. The saving is in reuse, not in the headline rate.</p>
+        </div>
+      </div>
+
+      <div class="price-ladder">
+        <div class="pl-head"><span>Model</span><span>Input / output per 1M</span><span>Change</span></div>
+        <div class="pl-row"><b>GPT-6 Sol</b><span class="mono">$4 → $2 · $20 → $10</span><span class="delta">−50%</span></div>
+        <div class="pl-row"><b>GPT-6 Luna</b><span class="mono">$0.20 → $0.10 · $1.20 → $0.50</span><span class="delta">−50%</span></div>
+        <div class="pl-row"><b>Claude Opus 5.5</b><span class="mono">$5 → $4 · $25 → $20</span><span class="delta">−20%</span></div>
+        <div class="pl-row"><b>Opus 5.5 cache read</b><span class="mono">$0.50 → $0.20 per 1M</span><span class="delta">−60%</span></div>
+        <div class="pl-row"><b>Gemini 4 Argon</b><span class="mono">$2 / $10 intro → $4 / $20 after Nov 30</span><span class="delta">+100% later</span></div>
+      </div>
+
+      <div class="definition" style="margin-top:clamp(2.5rem,5vw,4rem)">
+        <figure class="plate reveal-img">
+          <img src="images/art/compute.webp" alt="Macro photograph of a glowing silicon die" width="1536" height="1024" loading="lazy">
+          <figcaption><span>Plate 02 — the bill arrives as silicon</span><span>Compute / 2026</span></figcaption>
+        </figure>
+        <div class="definition-copy">
+          <p class="big-quote">The number that matters is not dollars per token. <em>It is dollars per finished task.</em></p>
+          <p>
+            On Zapier's AutomationBench, GPT-6 Sol at maximum effort scored 33.2% for $0.27 a task.
+            Claude Opus 5 scored 26.9% for about eleven times that. Anthropic's counter is efficiency rather
+            than list price: Opus 5.5 beat GPT-6 Astra on FrontierCode at roughly a fifth of the cost per task.
+          </p>
+          <p>
+            Both claims can be true because they measure different work. Which means the only benchmark that
+            matters for your budget is your own eval, run on your own traces, with the cost column filled in.
+          </p>
+          <p class="note">
+            Sources: OpenAI GPT-6 Sol/Luna launch (22 Sep 2026) · Anthropic Opus 5.5 model card (22 Sep 2026) ·
+            Futurum Group capex estimate (2026). Cost-per-task figures are vendor-reported.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 06 HARNESS ================= -->
+  <section class="section" id="harness">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">06 — The harness</div>
+          <h2>The model is the cheap part. The harness is the product.</h2>
+        </div>
+        <p class="section-lede">
+          Every serious team arrived at the same conclusion this year: swapping the harness moves results
+          more than swapping the model. Context, tools, memory, verification, isolation and spend limits —
+          that is where the work actually lives.
+        </p>
+      </div>
+
+      <div class="harness">
+        <div>
+          <ul class="harness-list" style="list-style:none;padding:0;margin:0">
+            <li class="harness-item"><span class="n">01</span><div><b>Context</b><p>What the model can see right now. Retrieval that reasons across documents, not chunks stuffed into a window.</p></div></li>
+            <li class="harness-item"><span class="n">02</span><div><b>Tools</b><p>Typed, narrow, permissioned. Every tool is an attack surface and a billing event.</p></div></li>
+            <li class="harness-item"><span class="n">03</span><div><b>Memory</b><p>What survives the turn. Long-lived tokens are how one chat agent leaked CRM data from seven hundred companies.</p></div></li>
+            <li class="harness-item"><span class="n">04</span><div><b>Verification</b><p>A check that can fail. Fresh sessions scored against a contract beat self-review every time.</p></div></li>
+            <li class="harness-item"><span class="n">05</span><div><b>Isolation</b><p>MicroVMs, credential proxies, kernel boundaries. Prompt guardrails fold when the request is reframed.</p></div></li>
+            <li class="harness-item"><span class="n">06</span><div><b>Spend control</b><p>Identity and budget limits where a prompt cannot move them. Agentic workloads are mostly input and cache.</p></div></li>
+          </ul>
+        </div>
+        <div>
+          <figure class="plate reveal-img">
+            <img src="images/art/harness.webp" alt="A translucent wireframe bust containing orbiting nodes" width="1536" height="1024" loading="lazy">
+            <figcaption><span>Plate 03 — the cage is the capability</span><span>Harness / 2026</span></figcaption>
+          </figure>
+          <blockquote class="throughline" style="margin-top:1.6rem">
+            <span class="mono">From Katha, 12 October 2026</span>
+            <p>“An agent told a customer the refund had gone through. The tool was never called. Latency and error metrics stayed green.”</p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 07 HISTORY ================= -->
+  <section class="section" id="history">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">07 — History</div>
+          <h2>Seventy-six years to a chat box. Four years to an agent.</h2>
+        </div>
+        <p class="section-lede">
+          The ideas are old; the compounding is new. Drag the rail to follow the line from a question about
+          imitation to a model that can run your terminal.
+        </p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-rail"><i></i></div>
+        <div class="timeline-scroll" tabindex="0" aria-label="AI history timeline, scroll horizontally">
+          <article class="tl-item"><div class="tl-year">1950</div><div class="tl-card"><span class="tl-tag">Question</span><h4>The imitation game</h4><p>Turing asks whether a machine can hold a conversation indistinguishable from a person. The test is about behaviour, not understanding.</p></div></article>
+          <article class="tl-item"><div class="tl-year">1956</div><div class="tl-card"><span class="tl-tag">Field</span><h4>Dartmouth workshop</h4><p>The term “artificial intelligence” is coined. The founding bet: every feature of intelligence can be described precisely enough to be simulated.</p></div></article>
+          <article class="tl-item"><div class="tl-year">1966</div><div class="tl-card"><span class="tl-tag">First chat</span><h4>ELIZA</h4><p>Pattern matching dressed as empathy. People confide in it anyway — the first lesson that fluency is not comprehension.</p></div></article>
+          <article class="tl-item"><div class="tl-year">1986</div><div class="tl-card"><span class="tl-tag">Method</span><h4>Backpropagation</h4><p>Errors flow backwards through a network and adjust the weights. The training algorithm under every model you use today.</p></div></article>
+          <article class="tl-item"><div class="tl-year">1997</div><div class="tl-card"><span class="tl-tag">Narrow win</span><h4>Deep Blue</h4><p>A machine beats the world chess champion with search, not learning. Expertise can be brute-forced inside a closed board.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2012</div><div class="tl-card"><span class="tl-tag">Scale</span><h4>AlexNet</h4><p>Two GPUs and a deep net demolish ImageNet. The hardware era of AI starts here, not in 2022.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2017</div><div class="tl-card"><span class="tl-tag">Architecture</span><h4>Attention is all you need</h4><p>The transformer drops recurrence for attention. Every frontier model since is a descendant of this paper.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2020</div><div class="tl-card"><span class="tl-tag">Emergence</span><h4>GPT-3</h4><p>175B parameters and in-context learning. The prompt becomes a programming interface.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2022</div><div class="tl-card"><span class="tl-tag">Public</span><h4>ChatGPT, Stable Diffusion, Midjourney</h4><p>Thirty days that put generation in everyone's hands. Images and words stop being scarce skills.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2023</div><div class="tl-card"><span class="tl-tag">Platform</span><h4>GPT-4 &amp; the open-weight wave</h4><p>Multimodal reasoning arrives; Llama makes weights a strategy. Enterprises start writing AI policies.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2024</div><div class="tl-card"><span class="tl-tag">Reasoning</span><h4>o1 &amp; MCP</h4><p>Models learn to think before answering, and Anthropic publishes a protocol that lets them use tools consistently.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2025</div><div class="tl-card"><span class="tl-tag">Agents</span><h4>Claude Code, GPT-5, Gemini 3</h4><p>Models stop chatting and start editing repositories. The unit of work becomes the delegated task.</p></div></article>
+          <article class="tl-item"><div class="tl-year">2026</div><div class="tl-card"><span class="tl-tag">This year</span><h4>Opus 5 → GPT-6 → Gemini 4</h4><p>Three frontier resets in nine months, a 50% price cut, one-million-token contexts, and agents that run for hours. The model becomes the cheap part.</p></div></article>
+          <article class="tl-item"><div class="tl-year">Now</div><div class="tl-card"><span class="tl-tag">Open question</span><h4>Proof, not demos</h4><p>Verification, containment and cost per finished task. The next moat is evidence that the thing actually did the work.</p></div></article>
+        </div>
+        <div class="tl-controls">
+          <button class="tl-btn" data-dir="prev" aria-label="Earlier entries"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.3"/></svg></button>
+          <button class="tl-btn" data-dir="next" aria-label="Later entries"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.3"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 08 BUILD ================= -->
+  <section class="section" id="build">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker mono">08 — Build</div>
+          <h2>What to learn, in the order that pays.</h2>
+        </div>
+        <p class="section-lede">
+          Six skills, roughly in order of return. The lab in this site exists so you can practise four of
+          them without an API key.
+        </p>
+      </div>
+
+      <div class="stack">
+        <article class="stack-card">
+          <span class="k">01</span>
+          <h4>Direct the model</h4>
+          <p>Write the contract: role, task, constraints, output shape, and one example of good. Most “bad model” complaints are bad instructions.</p>
+          <ul><li><a class="link-underline" href="prompt-optimizer.html">Prompting lab</a></li><li>few-shot</li><li>JSON schema</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">02</span>
+          <h4>Give it context</h4>
+          <p>Retrieval, chunking, graph structure for multi-hop questions. The window is big now; attention is still finite.</p>
+          <ul><li>RAG</li><li>GraphRAG</li><li>citations</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">03</span>
+          <h4>Give it tools</h4>
+          <p>Narrow functions with typed inputs, explicit failure modes, and an audit trail. A tool call is a permission slip.</p>
+          <ul><li>function calling</li><li>MCP</li><li>sandboxing</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">04</span>
+          <h4>Verify it</h4>
+          <p>Build the eval before the feature. Score against a private holdout, fail the run when the tool was never called.</p>
+          <ul><li>evals</li><li>LLM-as-judge</li><li>regression suites</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">05</span>
+          <h4>Contain it</h4>
+          <p>MicroVMs, scoped credentials, spend ceilings, and a kill switch that does not depend on the model cooperating.</p>
+          <ul><li>least privilege</li><li>proxies</li><li>rate limits</li></ul>
+        </article>
+        <article class="stack-card">
+          <span class="k">06</span>
+          <h4>Ship it</h4>
+          <p>Latency budgets, streaming, caching, and a cost dashboard a finance team can read. Then measure the task, not the token.</p>
+          <ul><li>streaming</li><li>prompt cache</li><li>unit economics</li></ul>
+        </article>
+      </div>
+
+      <div class="pull-stat" style="margin-top:2.6rem">
+        <div><b><a class="link-underline" href="vocabulary.html">97</a></b><span>Terms in the glossary</span></div>
+        <div><b><a class="link-underline" href="image-generator.html">Live</a></b><span>Image generator, bring your own key</span></div>
+        <div><b><a class="link-underline" href="apps.html">6</a></b><span>Working apps in the lab</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= KATHA BAND ================= -->
+  <section class="katha-band">
+    <div class="container">
+      <div class="inner">
+        <div class="orb" aria-hidden="true">
+          <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          <span class="pole"></span>
+          <span class="core"></span>
+        </div>
+        <div>
+          <div class="kicker mono" style="color:var(--muted)">Katha Weekly</div>
+          <h2>Everything said this week, <em class="serif" style="color:var(--amber)">distilled to one argument.</em></h2>
+          <p class="section-lede">
+            Katha reads every video and podcast from eight AI channels, then writes the weekly issue that
+            ties them together. No hot takes, no listicles — one through-line, three things that changed,
+            and the stories that prove it.
+          </p>
+          <div class="latest" id="katha-latest">
+            <span class="mono">Issue loading…</span>
+          </div>
+          <div class="hero-actions" style="margin-top:1.4rem">
+            <a class="btn" href="katha.html"><span>Read the issues</span>
+              <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="newsletter.html"><span>Get it by email</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NEWSLETTER ================= -->
+  <section class="section" id="subscribe" style="border-bottom:0">
+    <div class="container">
+      <div class="subscribe reveal">
+        <div class="grid">
+          <div>
+            <div class="kicker mono" style="color:var(--muted);margin-bottom:1rem">The newsletter</div>
+            <h2>One email, Sundays. <em class="serif gradient-text">The week, argued.</em></h2>
+            <p>
+              Katha Weekly lands with the issue: the through-line, the three things that actually changed,
+              and a builder's action you can run on Monday. Free, no drip sequence, unsubscribe in one click.
+            </p>
+          </div>
+          <form class="sub-form" name="katha-weekly" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="katha-weekly">
+            <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+            <div class="field">
+              <input type="text" name="first_name" placeholder="First name (optional)" aria-label="First name" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <input type="email" name="email" placeholder="you@company.com" aria-label="Email address" required autocomplete="email">
+              <button class="btn" type="submit"><span>Subscribe</span>
+                <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
+              </button>
+            </div>
+            <div class="sub-status" aria-live="polite"></div>
+            <p class="fine">By subscribing you agree to receive one weekly email. No spam, no list rental.</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= AUTHOR ================= -->
+  <section class="section" id="author">
+    <div class="container">
+      <div class="author">
+        <div class="author-portrait reveal-img">
+          <img src="images/vivek-portrait.webp" alt="Vivek Mukhatyar" width="900" height="1125" loading="lazy">
+          <span class="badge">Emerging AI Leader · 2025</span>
+        </div>
+        <div class="author-copy">
+          <div class="kicker mono" style="color:var(--muted);margin-bottom:1rem">About the author</div>
+          <h2>Vivek Mukhatyar builds the systems, then explains them.</h2>
+          <p>
+            AI leader in medical affairs, conference chair for AI in Medical Affairs in 2025 and 2026,
+            and the builder behind Prompt Optimizer, Medical Affairs OS, ProteinLens, Gujarati Kids and KinderQuill.
+            GenAI Chutney is the teaching surface for that work: what the frontier actually does, measured,
+            with the receipts attached.
+          </p>
+          <p>
+            The longer story — the four-year arc from watching the frontier to orchestrating agents, the
+            conference rooms, the awards, the six working projects — lives in <b>Infinite Productivity</b>.
+            It is the portfolio; this is the classroom.
+          </p>
+          <div class="author-links">
+            <a href="author.html">Full bio &amp; links</a>
+            <a href="https://infiniteproductivity.up.railway.app" target="_blank" rel="noopener">Infinite Productivity ↗</a>
+            <a href="https://www.linkedin.com/in/vivmuk" target="_blank" rel="noopener">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <svg class="brand-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="14.6" stroke="rgba(255,255,255,.26)"/>
+            <path d="M7.2 17.4h17.6c0 4.9-3.9 8.4-8.8 8.4s-8.8-3.5-8.8-8.4Z" stroke="#f4efe6" stroke-width="1.2"/>
+            <circle cx="12.2" cy="13.1" r="1.45" fill="#00e5ff"/>
+            <circle cx="16" cy="11.2" r="1.45" fill="#ff4dff"/>
+            <circle cx="19.8" cy="13.1" r="1.45" fill="#ffb020"/>
+          </svg>
+          <span class="brand-name">GenAI <span>Chutney</span></span>
+        </a>
+        <p>A living field guide to generative AI. Ground fresh from 2,044 videos, eight channels, and whatever shipped this week.</p>
+      </div>
+      <div>
+        <h4>Learn</h4>
+        <ul>
+          <li><a href="index.html#foundations">Foundations</a></li>
+          <li><a href="index.html#models">Model map</a></li>
+          <li><a href="index.html#benchmarks">Benchmarks</a></li>
+          <li><a href="vocabulary.html">Vocabulary</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="katha.html">Katha Weekly</a></li>
+          <li><a href="newsletter.html">Newsletter</a></li>
+          <li><a href="blog.html">Blog archive</a></li>
+          <li><a href="index.html#history">History</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Build</h4>
+        <ul>
+          <li><a href="prompt-optimizer.html">Prompting lab</a></li>
+          <li><a href="image-generator.html">Image generator</a></li>
+          <li><a href="apps.html">Apps</a></li>
+          <li><a href="author.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-year>2026</span> GenAI Chutney · Vivek Mukhatyar</span>
+      <span>Built with Three.js · Updated <span data-edition>Oct 2026</span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/vendor/three.min.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/bench-data.js"></script>
+<script src="js/site.js"></script>
+<script src="js/katha.js"></script>
+<script src="js/subscribe.js"></script>
 </body>
-</html> 
+</html>
