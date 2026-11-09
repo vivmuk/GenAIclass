@@ -1,0 +1,448 @@
+{
+ "generated": "2026-11-09",
+ "source": "venice.up.railway.app catalogue (30 apps)",
+ "apps": [
+  {
+   "name": "Venice Video",
+   "full_name": "Venice Video",
+   "slug": "venice-video",
+   "line": "Takes text, image or video prompts, returns generated video from Venice models",
+   "group": "media",
+   "url": "https://venicevideo.up.railway.app",
+   "status": "live",
+   "tags": [
+    "video",
+    "swiss-design"
+   ],
+   "wide": true,
+   "shot": "images/apps/venice-video.jpg"
+  },
+  {
+   "name": "Gujarati Kids",
+   "full_name": "Gujarati Kids",
+   "slug": "gujarati-kids",
+   "line": "Turns speech, images and conversation into Gujarati lessons for kids 4\u201312",
+   "group": "learn",
+   "url": "https://gujarati.up.railway.app",
+   "status": "live",
+   "tags": [
+    "education",
+    "speech"
+   ],
+   "wide": false,
+   "shot": "images/apps/gujarati-kids.jpg"
+  },
+  {
+   "name": "ProteinLens",
+   "full_name": "ProteinLens",
+   "slug": "proteinlens",
+   "line": "Takes a protein, returns its folded structure as a 3D visualization",
+   "group": "health",
+   "url": "https://proteinlens.up.railway.app",
+   "status": "live",
+   "tags": [
+    "science",
+    "3d"
+   ],
+   "wide": true,
+   "shot": "images/apps/proteinlens.jpg"
+  },
+  {
+   "name": "Katha",
+   "full_name": "Katha",
+   "slug": "katha",
+   "line": "Takes your chat messages, gives back a story told in conversation",
+   "group": "media",
+   "url": "https://katha.up.railway.app",
+   "status": "live",
+   "tags": [
+    "chat",
+    "api"
+   ],
+   "wide": true,
+   "shot": "images/apps/katha.jpg"
+  },
+  {
+   "name": "Cognitive Bias",
+   "full_name": "Cognitive Bias",
+   "slug": "cognitive-bias",
+   "line": "Takes a cognitive bias from the catalog, returns a reframing",
+   "group": "learn",
+   "url": "https://cogviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "psychology",
+    "learning"
+   ],
+   "wide": false,
+   "shot": "images/apps/cognitive-bias.jpg"
+  },
+  {
+   "name": "TrialPath",
+   "full_name": "TrialPath (OncoMatch)",
+   "slug": "trialpath",
+   "line": "Takes a cancer patient's profile, returns matching oncology trials",
+   "group": "health",
+   "url": "https://oncomatch.up.railway.app",
+   "status": "live",
+   "tags": [
+    "medical",
+    "matching"
+   ],
+   "wide": false,
+   "shot": "images/apps/trialpath.jpg"
+  },
+  {
+   "name": "Mystery Menu",
+   "full_name": "Mystery Menu",
+   "slug": "mystery-menu",
+   "line": "Takes two players, gives a five-secret-ingredient draft and bidding duel",
+   "group": "play",
+   "url": "https://mystery-menu-production.up.railway.app",
+   "status": "live",
+   "tags": [
+    "game",
+    "mobile"
+   ],
+   "wide": false,
+   "shot": "images/apps/mystery-menu.jpg"
+  },
+  {
+   "name": "Harness Engineering",
+   "full_name": "Harness Engineering",
+   "slug": "harness-engineering",
+   "line": "Takes a domain, returns an agent harness design",
+   "group": "agents",
+   "url": "https://harnessviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "agents",
+    "framework"
+   ],
+   "wide": false,
+   "shot": "images/apps/harness-engineering.jpg"
+  },
+  {
+   "name": "Music Viv",
+   "full_name": "Music Viv",
+   "slug": "music-viv",
+   "line": "Takes lyrics and instrumentation choices, returns a generated music track",
+   "group": "media",
+   "url": "https://musicviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "music",
+    "audio"
+   ],
+   "wide": false,
+   "shot": "images/apps/music-viv.jpg"
+  },
+  {
+   "name": "OpenEvidence",
+   "full_name": "OpenEvidence",
+   "slug": "openevidence",
+   "line": "Takes a medical question, returns an evidence-based answer",
+   "group": "health",
+   "url": "https://oe.up.railway.app",
+   "status": "live",
+   "tags": [
+    "medical",
+    "search"
+   ],
+   "wide": false,
+   "shot": "images/apps/openevidence.jpg"
+  },
+  {
+   "name": "LogicViv",
+   "full_name": "LogicViv",
+   "slug": "logicviv",
+   "line": "Takes a logic puzzle, returns reasoning toward its solution",
+   "group": "play",
+   "url": "https://logicviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "reasoning",
+    "games"
+   ],
+   "wide": false,
+   "shot": "images/apps/logicviv.jpg"
+  },
+  {
+   "name": "Designviv (Styles + Techniques)",
+   "full_name": "Designviv (Styles + Techniques)",
+   "slug": "designviv",
+   "line": "Takes a style or technique lookup, returns live demos agents can reference",
+   "group": "agents",
+   "url": "https://designviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "design",
+    "agents"
+   ],
+   "wide": false,
+   "shot": "images/apps/designviv.jpg"
+  },
+  {
+   "name": "Engineering Leader Academy",
+   "full_name": "Engineering Leader Academy",
+   "slug": "engineering-leader-academy",
+   "line": "Work through the curriculum, come away with engineering leadership skills",
+   "group": "learn",
+   "url": "https://engineeringacademy.up.railway.app",
+   "status": "live",
+   "tags": [
+    "education"
+   ],
+   "wide": true,
+   "shot": "images/apps/engineering-leader-academy.jpg"
+  },
+  {
+   "name": "MA1 / MA Sandbox / MA AI Learning",
+   "full_name": "MA1 / MA Sandbox / MA AI Learning",
+   "slug": "ma1-ma-sandbox-ma-ai-learning",
+   "line": "Bring Medical Affairs topics, get lessons and a sandbox to practise",
+   "group": "learn",
+   "url": "https://ma1.up.railway.app",
+   "status": "live",
+   "tags": [
+    "pharma",
+    "education"
+   ],
+   "wide": false,
+   "shot": "images/apps/ma1-ma-sandbox-ma-ai-learning.jpg"
+  },
+  {
+   "name": "MADarwin",
+   "full_name": "MADarwin",
+   "slug": "madarwin",
+   "line": "Takes MSL field intelligence, returns strategy for medical affairs teams",
+   "group": "health",
+   "url": "https://madarwin.up.railway.app",
+   "status": "live",
+   "tags": [
+    "pharma",
+    "strategy"
+   ],
+   "wide": true,
+   "shot": "images/apps/madarwin.jpg"
+  },
+  {
+   "name": "Messy Action",
+   "full_name": "Messy Action",
+   "slug": "messy-action",
+   "line": "Takes a search term, returns matching transcripts from the 100-day archive",
+   "group": "data",
+   "url": "https://messyaction.up.railway.app",
+   "status": "live",
+   "tags": [
+    "archive",
+    "search"
+   ],
+   "wide": false,
+   "shot": "images/apps/messy-action.jpg"
+  },
+  {
+   "name": "Fable5",
+   "full_name": "Fable5",
+   "slug": "fable5",
+   "line": "Takes your moves through five chapters, returns lessons on Fable 5's capabilities",
+   "group": "learn",
+   "url": "https://fable5.up.railway.app",
+   "status": "offline",
+   "tags": [
+    "game",
+    "education"
+   ],
+   "wide": false,
+   "shot": "images/apps/fable5.jpg"
+  },
+  {
+   "name": "Cogs",
+   "full_name": "Cogs",
+   "slug": "cogs",
+   "line": "Tinker with cogs, exercise your mechanical thinking",
+   "group": "play",
+   "url": "https://cogs.up.railway.app",
+   "status": "live",
+   "tags": [
+    "game"
+   ],
+   "wide": false,
+   "shot": "images/apps/cogs.jpg"
+  },
+  {
+   "name": "Expert-KDense / Sci-Research",
+   "full_name": "Expert-KDense / Sci-Research",
+   "slug": "expert-kdense-sci-research",
+   "line": "Bring a research question, work through it alongside a co-scientist",
+   "group": "agents",
+   "url": "https://expertviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "science",
+    "agents"
+   ],
+   "wide": false,
+   "shot": "images/apps/expert-kdense-sci-research.jpg"
+  },
+  {
+   "name": "Visper",
+   "full_name": "Visper",
+   "slug": "visper",
+   "line": "Give it visuals, explore how they are perceived",
+   "group": "media",
+   "url": "https://visper.up.railway.app",
+   "status": "live",
+   "tags": [
+    "vision"
+   ],
+   "wide": false,
+   "shot": "images/apps/visper.jpg"
+  },
+  {
+   "name": "vivGPT",
+   "full_name": "vivGPT",
+   "slug": "vivgpt",
+   "line": "Takes a chat message, returns a reply from Venice models",
+   "group": "media",
+   "url": "https://vivgpt.up.railway.app",
+   "status": "live",
+   "tags": [
+    "chat"
+   ],
+   "wide": false,
+   "shot": "images/apps/vivgpt.jpg"
+  },
+  {
+   "name": "WildDeed",
+   "full_name": "WildDeed",
+   "slug": "wilddeed",
+   "line": "Takes a US land parcel, returns a dossier of its wildlife",
+   "group": "data",
+   "url": "https://wilddeed-production.up.railway.app",
+   "status": "live",
+   "tags": [
+    "nature",
+    "data"
+   ],
+   "wide": false,
+   "shot": "images/apps/wilddeed.jpg"
+  },
+  {
+   "name": "Infinite Productivity",
+   "full_name": "Infinite Productivity",
+   "slug": "infinite-productivity",
+   "line": "Take the course, get productivity systems to apply",
+   "group": "learn",
+   "url": "https://infiniteproductivity.up.railway.app",
+   "status": "live",
+   "tags": [
+    "education"
+   ],
+   "wide": false,
+   "shot": "images/apps/infinite-productivity.jpg"
+  },
+  {
+   "name": "Horse Harness",
+   "full_name": "Horse Harness",
+   "slug": "horse-harness",
+   "line": "Try an experimental harness, see how it behaves",
+   "group": "play",
+   "url": "https://web-production-07325.up.railway.app",
+   "status": "live",
+   "tags": [
+    "experiment"
+   ],
+   "wide": false,
+   "shot": "images/apps/horse-harness.jpg"
+  },
+  {
+   "name": "jevusecases",
+   "full_name": "jevusecases",
+   "slug": "jevusecases",
+   "line": "Feeds a decision model nineteen closed-answer jobs across code, prompts, plates",
+   "group": "data",
+   "url": "https://jev.up.railway.app",
+   "status": "live",
+   "tags": [
+    "eval",
+    "bench"
+   ],
+   "wide": false,
+   "shot": "images/apps/jevusecases.jpg"
+  },
+  {
+   "name": "AI in Action",
+   "full_name": "AI in Action",
+   "slug": "ai-in-action",
+   "line": "Pick a showcase example, see AI applied in practice",
+   "group": "agents",
+   "url": "https://aiinaction.up.railway.app",
+   "status": "live",
+   "tags": [
+    "showcase"
+   ],
+   "wide": false,
+   "shot": "images/apps/ai-in-action.jpg"
+  },
+  {
+   "name": "Benchmark (ViviIndex)",
+   "full_name": "Benchmark (ViviIndex)",
+   "slug": "benchmark",
+   "line": "Takes Venice models, returns six-track scores and a cost-per-score leaderboard",
+   "group": "data",
+   "url": "https://benchmarkviv.up.railway.app",
+   "status": "live",
+   "tags": [
+    "eval",
+    "leaderboard"
+   ],
+   "wide": true,
+   "shot": "images/apps/benchmark.jpg"
+  },
+  {
+   "name": "Vent",
+   "full_name": "Vent",
+   "slug": "vent",
+   "line": "Type out what's weighing on you, get a listening companion's reply",
+   "group": "health",
+   "url": "https://vent-production-f72f.up.railway.app",
+   "status": "live",
+   "tags": [
+    "wellbeing"
+   ],
+   "wide": false,
+   "shot": "images/apps/vent.jpg"
+  },
+  {
+   "name": "NutriSnap",
+   "full_name": "NutriSnap",
+   "slug": "nutrisnap",
+   "line": "Takes a photo of your meal, gives back its nutrition numbers",
+   "group": "health",
+   "url": "https://minimal-production-b450.up.railway.app",
+   "status": "offline",
+   "tags": [
+    "health",
+    "byok"
+   ],
+   "wide": false,
+   "shot": "images/apps/nutrisnap.jpg"
+  },
+  {
+   "name": "LyricLens",
+   "full_name": "LyricLens",
+   "slug": "lyriclens",
+   "line": "Takes song lyrics, returns an analysis and visualization",
+   "group": "media",
+   "url": "https://lyriclens-production.up.railway.app",
+   "status": "offline",
+   "tags": [
+    "music",
+    "nlp"
+   ],
+   "wide": false,
+   "shot": null
+  }
+ ]
+}

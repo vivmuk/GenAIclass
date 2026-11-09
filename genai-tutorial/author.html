@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About Vivek Mukhatyar — the builder behind GenAI Chutney</title>
-<meta name="description" content="Vivek Mukhatyar: AI leader in medical affairs, conference chair, and builder of Prompt Optimizer, Medical Affairs OS, ProteinLens, Gujarati Kids and KinderQuill.">
+<meta name="description" content="Vivek Mukhatyar: AI leader in medical affairs, conference chair 2025 and 2026, and the builder of 30 apps on one Venice API key — KinderQuill, ProteinLens, Gujarati Kids, Prompt Optimizer and more.">
 <meta name="theme-color" content="#05060a">
 <meta property="og:title" content="About Vivek Mukhatyar">
 <meta property="og:description" content="The classroom is GenAI Chutney. The record is Infinite Productivity.">
@@ -13,6 +13,37 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="css/chutney.css">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060a'/%3E%3Ccircle cx='10' cy='13' r='2' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='11' r='2' fill='%23ff4dff'/%3E%3Ccircle cx='22' cy='13' r='2' fill='%23ffb020'/%3E%3Cpath d='M6 17h20c0 5.5-4.5 9-10 9s-10-3.5-10-9Z' stroke='%23f4efe6' stroke-width='1.4' fill='none'/%3E%3C/svg%3E">
+<style>
+  /* ---------- about: numbers, builds, lanes ---------- */
+  .author-stats { display: flex; flex-wrap: wrap; gap: 1px; margin-top: 1.8rem; background: var(--line-soft); border: 1px solid var(--line-soft); max-width: 560px; }
+  .author-stats div { flex: 1 1 110px; background: var(--ink); padding: .9rem 1rem; }
+  .author-stats b { display: block; font-family: var(--f-display); font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1; letter-spacing: -.03em; }
+  .author-stats div:nth-child(1) b { color: var(--saffron); }
+  .author-stats div:nth-child(2) b { color: var(--cyan); }
+  .author-stats span { display: block; margin-top: .35rem; font-family: var(--f-mono); font-size: .56rem; letter-spacing: .13em; text-transform: uppercase; color: var(--muted); }
+
+  .work { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); }
+  .work-card { display: flex; flex-direction: column; background: var(--ink); transition: background .35s var(--ease); }
+  .work-card:hover { background: var(--ink-3); }
+  .work-card figure { margin: 0; overflow: hidden; aspect-ratio: 16 / 10; background: var(--ink-3); }
+  .work-card img { width: 100%; height: 100%; object-fit: cover; object-position: top center; transition: transform 1.1s var(--ease); }
+  .work-card:hover img { transform: scale(1.035); }
+  .work-card .cap { padding: 1rem 1.15rem 1.25rem; display: flex; flex-direction: column; gap: .35rem; flex: 1; }
+  .work-card .cap .k { font-family: var(--f-mono); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
+  .work-card h3 { font-size: 1.08rem; }
+  .work-card p { margin: 0; font-size: .84rem; line-height: 1.5; color: var(--paper-dim); }
+  .work-card .go { margin-top: auto; padding-top: .7rem; font-family: var(--f-mono); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); display: flex; justify-content: space-between; }
+
+  .lane { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line-soft); border: 1px solid var(--line-soft); margin-top: clamp(2rem, 4vw, 3rem); }
+  .lane a { display: flex; flex-direction: column; gap: .35rem; padding: 1.2rem 1.3rem; background: var(--ink); transition: background .35s; }
+  .lane a:hover { background: var(--ink-3); }
+  .lane .k { font-family: var(--f-mono); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-2); }
+  .lane b { font-family: var(--f-display); font-size: 1.1rem; letter-spacing: -.02em; font-weight: 500; }
+  .lane span { font-size: .8rem; color: var(--muted); }
+
+  @media (max-width: 900px) { .work, .lane { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .work, .lane { grid-template-columns: 1fr; } .author-stats div { flex-basis: 45%; } }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -56,22 +87,27 @@
 </div>
 
 <main id="main">
-  <section class="page-hero" style="padding-bottom:clamp(2rem,5vw,3.5rem)">
+  <section class="page-hero" style="padding-bottom:clamp(2.2rem,5vw,3.5rem)">
     <div class="container">
       <div class="author">
-        <div class="author-portrait reveal-img">
+        <div class="author-portrait">
           <img src="images/vivek-portrait.webp" alt="Portrait of Vivek Mukhatyar" width="900" height="1125" loading="eager">
           <span class="badge">Boston · 2022 → 2026</span>
         </div>
         <div class="author-copy">
           <div class="mono" style="color:var(--muted);margin-bottom:1.2rem">About the author</div>
-          <h1 style="font-size:clamp(2.4rem,5.4vw,4.6rem)">Vivek<br><em class="serif gradient-text">Mukhatyar.</em></h1>
+          <h1 style="font-size:clamp(2.4rem,5.4vw,4.4rem)">Vivek<br><em class="serif gradient-text">Mukhatyar.</em></h1>
           <p class="lede" style="margin-top:1.2rem">
-            AI leader in medical affairs. Conference chair for AI in Medical Affairs in 2025 and 2026.
-            Builder of six working AI products. And the person who reads the transcripts so you don't have to.
+            AI leader in medical affairs. Chairs the AI in Medical Affairs conference.
+            Builds working software, not decks.
           </p>
+          <div class="author-stats">
+            <div><b>30</b><span>apps shipped</span></div>
+            <div><b>2</b><span>years as chair</span></div>
+            <div><b>40+</b><span>guest broadcasts</span></div>
+          </div>
           <div class="author-links">
-            <a href="https://infiniteproductivity.up.railway.app" target="_blank" rel="noopener" style="border-color:rgba(0,229,255,.5);color:var(--paper)">Open Infinite Productivity ↗</a>
+            <a href="apps.html" style="border-color:rgba(255,176,32,.5);color:var(--paper)">See all 30 apps →</a>
             <a href="https://www.linkedin.com/in/vivmuk" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a href="newsletter.html">Subscribe</a>
           </div>
@@ -85,23 +121,17 @@
       <div class="section-head">
         <div><div class="kicker mono">Why this exists</div><h2>The classroom and the record.</h2></div>
         <p class="section-lede">
-          GenAI Chutney is the teaching surface: the model map, the benchmarks with dates, the harness diagram,
-          and the weekly argument. Infinite Productivity is the record: the four-year arc, the rooms, the awards,
-          the six projects, in the order they happened.
+          GenAI Chutney teaches the model economy — model map, dated benchmarks, the weekly argument.
+          <em>Infinite Productivity keeps the receipts:</em> the arc, the rooms, the builds, in order.
         </p>
       </div>
 
-      <div class="subscribe reveal" style="padding:clamp(1.6rem,4vw,3rem)">
+      <div class="subscribe">
         <div class="grid">
           <div>
             <div class="kicker mono" style="color:var(--muted);margin-bottom:1rem">The portfolio</div>
-            <h2 style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Infinite Productivity <em class="serif gradient-text">is the app.</em></h2>
-            <p>
-              A cinematic trace of one instruction multiplying into human capability: five moments from
-              2022 to 2026, the conference chairmanship, forty-plus broadcasts, and the six builds —
-              Prompt Optimizer, Medical Affairs OS, Medical Affairs Skills, ProteinLens, Gujarati Kids, KinderQuill.
-            </p>
-            <p class="note">Yes — the About page links straight to it. That is deliberate: the bio is a doorway, not a dead end.</p>
+            <h2 style="font-size:clamp(1.7rem,3.4vw,2.6rem)">Infinite Productivity <em class="serif gradient-text">is the record.</em></h2>
+            <p>Five moments from 2022 to 2026, two chairmanships, forty-plus broadcasts — and the builds that came out of them.</p>
           </div>
           <div style="display:flex;flex-direction:column;justify-content:center;gap:.8rem">
             <a class="btn" href="https://infiniteproductivity.up.railway.app" target="_blank" rel="noopener">
@@ -119,16 +149,16 @@
     <div class="container">
       <div class="section-head">
         <div><div class="kicker mono">The arc</div><h2>Four years, five turns.</h2></div>
-        <p class="section-lede">Each turn changed what was possible in a working week — and what a leader was expected to know.</p>
+        <p class="section-lede">Each turn changed what a working week could produce — and what a leader was expected to know.</p>
       </div>
       <div class="timeline">
         <div class="timeline-rail"><i></i></div>
         <div class="timeline-scroll" tabindex="0" aria-label="Career timeline">
-          <article class="tl-item is-past"><div class="tl-year">2022</div><div class="tl-card"><span class="tl-tag">The video mirage</span><h4>Words became a speaking avatar</h4><p>Six months before ChatGPT, a synthetic presenter proved the boundary between an idea and a made thing had moved.</p></div></article>
-          <article class="tl-item is-past"><div class="tl-year">2023</div><div class="tl-card"><span class="tl-tag">The translator</span><h4>Private curiosity became public language</h4><p>From watching the frontier to explaining it: panels, workshops, and the first Medical Affairs conversations about what AI would change.</p></div></article>
-          <article class="tl-item is-past"><div class="tl-year">2024</div><div class="tl-card"><span class="tl-tag">The thinker</span><h4>Answers became reasoning</h4><p>Reasoning models turned prompting into delegation. The job shifted from asking well to specifying precisely.</p></div></article>
-          <article class="tl-item is-past"><div class="tl-year">2025</div><div class="tl-card"><span class="tl-tag">The prototype flood</span><h4>No slides. Show what you built.</h4><p>Prompt Optimizer, ProteinLens, Gujarati Kids, KinderQuill. Emerging AI Leader in Biopharma. Conference chair, Tech Tank, organisational change.</p></div></article>
-          <article class="tl-item is-past"><div class="tl-year">2026</div><div class="tl-card"><span class="tl-tag">The orchestrator</span><h4>Chair the room, then build the system</h4><p>Conference chair again, a hands-on prompting workshop, and agentic systems that do the work rather than describe it. Katha and this site are the teaching layer.</p></div></article>
+          <article class="tl-item is-past"><div class="tl-year">2022</div><div class="tl-card"><span class="tl-tag">The video mirage</span><h4>Words became a speaking avatar</h4><p>Six months before ChatGPT, a synthetic presenter made the point.</p></div></article>
+          <article class="tl-item is-past"><div class="tl-year">2023</div><div class="tl-card"><span class="tl-tag">The translator</span><h4>Curiosity became public language</h4><p>Panels and workshops: explaining the frontier to Medical Affairs.</p></div></article>
+          <article class="tl-item is-past"><div class="tl-year">2024</div><div class="tl-card"><span class="tl-tag">The thinker</span><h4>Answers became reasoning</h4><p>Prompting turned into delegation; asking well became specifying precisely.</p></div></article>
+          <article class="tl-item is-past"><div class="tl-year">2025</div><div class="tl-card"><span class="tl-tag">The prototype flood</span><h4>No slides. Show what you built.</h4><p>Prompt Optimizer, ProteinLens, Gujarati Kids, KinderQuill. Emerging AI Leader in Biopharma. Chair.</p></div></article>
+          <article class="tl-item is-past"><div class="tl-year">2026</div><div class="tl-card"><span class="tl-tag">The orchestrator</span><h4>Chair the room, then build the system</h4><p>Chair again, a hands-on workshop, and thirty apps that do the work rather than describe it.</p></div></article>
         </div>
         <div class="tl-controls">
           <button class="tl-btn" data-dir="prev" aria-label="Earlier"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.3"/></svg></button>
@@ -141,16 +171,41 @@
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <div><div class="kicker mono">Selected work</div><h2>Six builds, one standard.</h2></div>
-        <p class="section-lede">Each one answers a question the day job actually asked: can this be governed, repeated, and trusted by someone who did not build it?</p>
+        <div><div class="kicker mono">Selected builds</div><h2>Six that set the standard.</h2></div>
+        <p class="section-lede">Each answers a question the day job asked: can this be governed, repeated, and trusted by someone who did not build it?</p>
       </div>
-      <div class="stack">
-        <article class="stack-card"><span class="k">01 · Instruct</span><h4>Prompt Optimizer</h4><p>A better way to direct frontier models: structure, constraints and evaluation in one loop.</p><ul><li><a class="link-underline" href="prompt-optimizer.html">Try it here</a></li></ul></article>
-        <article class="stack-card"><span class="k">02 · Evidence</span><h4>Medical Affairs OS</h4><p>Governed, repeatable, evidence-aware work for teams under regulatory scrutiny.</p><ul><li>system concept</li></ul></article>
-        <article class="stack-card"><span class="k">03 · Skills</span><h4>Medical Affairs Skills</h4><p>Reusable agent skills built for scrutiny — evidence, safety, review trails.</p><ul><li><a class="link-underline" href="https://github.com/Open-Medical-Affairs-AI/Medical-Affairs-Skills" target="_blank" rel="noopener">Repository ↗</a></li></ul></article>
-        <article class="stack-card"><span class="k">04 · Understand</span><h4>ProteinLens</h4><p>From sequence and structure to biological meaning, in a browser.</p><ul><li><a class="link-underline" href="https://proteinlens.up.railway.app/" target="_blank" rel="noopener">Live app ↗</a></li></ul></article>
-        <article class="stack-card"><span class="k">05 · Preserve</span><h4>Gujarati Kids</h4><p>AI in service of language and cultural continuity for the next generation.</p><ul><li><a class="link-underline" href="https://gujarati.up.railway.app/" target="_blank" rel="noopener">Live app ↗</a></li></ul></article>
-        <article class="stack-card"><span class="k">06 · Imagine</span><h4>KinderQuill</h4><p>Personalised stories for limitless young imaginations, with a grown-up in the loop.</p><ul><li><a class="link-underline" href="https://kinderquill.up.railway.app/" target="_blank" rel="noopener">Live app ↗</a></li></ul></article>
+
+      <div class="work">
+        <a class="work-card" href="/kinderquill">
+          <figure><img src="images/apps/kinderquill.jpg" alt="KinderQuill story builder" width="900" height="563" loading="lazy"></figure>
+          <div class="cap"><span class="k">01 · Imagine</span><h3>KinderQuill</h3><p>Stories that illustrate and narrate themselves, with a grown-up in the loop.</p><span class="go"><span>Venice-funded</span><span>↗</span></span></div>
+        </a>
+        <a class="work-card" href="https://proteinlens.up.railway.app/" target="_blank" rel="noopener">
+          <figure><img src="images/apps/proteinlens.jpg" alt="ProteinLens 3D protein viewer" width="900" height="563" loading="lazy"></figure>
+          <div class="cap"><span class="k">02 · Understand</span><h3>ProteinLens</h3><p>A protein in, its folded 3D structure out — in the browser.</p><span class="go"><span>Live app</span><span>↗</span></span></div>
+        </a>
+        <a class="work-card" href="https://gujarati.up.railway.app/" target="_blank" rel="noopener">
+          <figure><img src="images/apps/gujarati-kids.jpg" alt="Gujarati Kids lesson screen" width="900" height="563" loading="lazy"></figure>
+          <div class="cap"><span class="k">03 · Preserve</span><h3>Gujarati Kids</h3><p>Speech, pictures and conversation for children learning Gujarati.</p><span class="go"><span>Live app</span><span>↗</span></span></div>
+        </a>
+        <a class="work-card" href="https://madarwin.up.railway.app/" target="_blank" rel="noopener">
+          <figure><img src="images/apps/madarwin.jpg" alt="MADarwin medical affairs dashboard" width="900" height="563" loading="lazy"></figure>
+          <div class="cap"><span class="k">04 · Govern</span><h3>MADarwin</h3><p>Field intelligence and strategy for medical science liaisons.</p><span class="go"><span>Live app</span><span>↗</span></span></div>
+        </a>
+        <a class="work-card" href="https://engineeringacademy.up.railway.app/" target="_blank" rel="noopener">
+          <figure><img src="images/apps/engineering-leader-academy.jpg" alt="Engineering Leader Academy course page" width="900" height="563" loading="lazy"></figure>
+          <div class="cap"><span class="k">05 · Teach</span><h3>Engineering Leader Academy</h3><p>A course platform for engineers who now have to lead.</p><span class="go"><span>Live app</span><span>↗</span></span></div>
+        </a>
+        <a class="work-card" href="prompt-optimizer.html">
+          <figure><img src="images/apps/prompt-optimizer.jpg" alt="Prompt Engineering Lab composer" width="900" height="445" loading="lazy"></figure>
+          <div class="cap"><span class="k">06 · Instruct</span><h3>Prompt Optimizer</h3><p>Structure, constraints and evaluation in one prompting loop.</p><span class="go"><span>Try it here</span><span>↗</span></span></div>
+        </a>
+      </div>
+
+      <div class="lane">
+        <a href="apps.html"><span class="k">Index</span><b>All 30 apps</b><span>Screenshots, status and links, in six groups.</span></a>
+        <a href="katha.html"><span class="k">Weekly</span><b>Katha Weekly</b><span>The week in AI, read and argued.</span></a>
+        <a href="https://venice.up.railway.app" target="_blank" rel="noopener"><span class="k">Archive</span><b>Private catalogue ↗</b><span>Every project since 2024, with the receipts.</span></a>
       </div>
     </div>
   </section>
@@ -160,24 +215,17 @@
       <div class="definition">
         <div class="definition-copy">
           <div class="kicker mono" style="margin-bottom:1rem;color:var(--muted)">Why the receipts</div>
-          <h2 style="margin-bottom:1.2rem">The room kept changing. The practice stayed public.</h2>
-          <p>
-            Two consecutive years chairing AI in Medical Affairs taught me the same lesson this site is built on:
-            the gap is never the model. It is the translation — from capability to a workflow a regulated team will
-            actually trust, and from a demo to a number a finance team will sign.
-          </p>
-          <p>
-            So everything here carries its date, its source and its counter-argument. Where a number is vendor-reported,
-            it says so. Where I do not know, there is a dash instead of a guess.
-          </p>
+          <p class="big-quote">The gap is never the model. <em>It is the translation.</em></p>
+          <p>Two years chairing AI in Medical Affairs taught the same lesson this site is built on: the work is turning capability into a workflow a regulated team will trust, and a demo into a number finance will sign.</p>
+          <p>So everything here carries its date, its source and its counter-argument. Where I do not know, there is a dash instead of a guess.</p>
           <div class="pull-stat">
-            <div><b>40+</b><span>Guest broadcasts</span></div>
-            <div><b>2×</b><span>Conference chair</span></div>
-            <div><b>6</b><span>Working products</span></div>
+            <div><b>30</b><span>Working apps</span></div>
+            <div><b>6</b><span>Groups</span></div>
+            <div><b>1</b><span>Venice key</span></div>
           </div>
         </div>
-        <figure class="plate reveal-img">
-          <img src="images/author/award-2025.webp" alt="Vivek Mukhatyar on stage receiving the Emerging AI Leader award, 2025" width="1200" height="800" loading="lazy">
+        <figure class="plate">
+          <img src="images/author/award-2025.webp" alt="Vivek Mukhatyar on stage receiving the Emerging AI Leader award, 2025" width="1200" height="1500" loading="lazy">
           <figcaption><span>Emerging AI Leader in Biopharma · 2025</span><span>Boston</span></figcaption>
         </figure>
       </div>
@@ -186,7 +234,7 @@
 
   <section class="section" style="border-bottom:0">
     <div class="container">
-      <div class="subscribe reveal">
+      <div class="subscribe">
         <div class="grid">
           <div>
             <div class="kicker mono" style="color:var(--muted);margin-bottom:1rem">Keep in touch</div>
@@ -240,7 +288,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span data-year>2026</span> GenAI Chutney · Vivek Mukhatyar</span>
-      <span>Updated <span data-edition>Oct 2026</span></span>
+      <span>Updated <span data-edition>Nov 2026</span></span>
     </div>
   </div>
 </footer>
