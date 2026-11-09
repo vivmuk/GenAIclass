@@ -36,6 +36,8 @@
 @media (max-width: 900px) {
   .apps-hero .hero-grid { grid-template-columns: 1fr; }
   .hero-collage { order: 2; }
+  .hero-collage figure:not(.big), .hero-collage .cap { display: none; }
+  .hero-collage figure.big { aspect-ratio: 16 / 9; }
 }
 
 .spotlight { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .6fr); border: 1px solid var(--line); background: var(--ink-2); transition: border-color .4s var(--ease); }
