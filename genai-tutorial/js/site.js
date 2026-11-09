@@ -237,7 +237,7 @@
   function cut(t, n) { t = String(t); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
 
   function benchSvg(b) {
-    var W = 1000, padL = 340, padR = 108, rowH = 44, top = 46;
+    var W = 1000, padL = 372, padR = 96, rowH = 44, top = 46;
     var rows = b.rows || [];
     var H = top + rows.length * rowH + 30;
     var plotW = W - padL - padR;
@@ -254,7 +254,6 @@
       var x = padL + (t / 100) * plotW;
       out.push('<line class="bench-grid' + (t === 0 ? ' bench-base' : '') + '" x1="' + x.toFixed(1) + '" y1="' + (top - 14) + '" x2="' + x.toFixed(1) + '" y2="' + (H - 20) + '"/>');
       out.push('<text class="bench-tick" x="' + x.toFixed(1) + '" y="' + (top - 22) + '" text-anchor="middle">' + t + unit + '</text>');
-      out.push('<text class="bench-tick" x="' + x.toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle">' + t + '</text>');
     });
 
     rows.forEach(function (r, i) {
@@ -262,7 +261,7 @@
       var v = Math.max(0, Math.min(100, Number(r[1]) || 0));
       var hot = i === 0;
       out.push('<g class="bench-row">');
-      out.push('<text class="bench-name' + (hot ? ' is-top' : '') + '" x="0" y="' + (y + 24) + '">' + esc(cut(r[0], 28)) + '</text>');
+      out.push('<text class="bench-name' + (hot ? ' is-top' : '') + '" x="0" y="' + (y + 24) + '">' + esc(cut(r[0], 32)) + '</text>');
       out.push('<rect class="bench-slot" x="' + padL + '" y="' + (y + 6) + '" width="' + plotW + '" height="20" rx="1"/>');
       out.push('<rect class="bench-fill' + (hot ? ' is-hot' : '') + '" x="' + padL + '" y="' + (y + 6) + '" width="' + plotW + '" height="20" rx="1" ' +
         'fill="url(#' + (hot ? 'benchHot' : 'benchCool') + ')" style="--v:' + (v / 100).toFixed(4) + ';transition-delay:' + (i * 70) + 'ms"/>');

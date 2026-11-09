@@ -177,7 +177,7 @@
 
     points = new THREE.Points(geo, mat);
     points.rotation.x = 0.04;
-    points.position.set(window.innerWidth < 900 ? 0 : 4.5, -0.25, 0);
+    points.position.set(window.innerWidth < 900 ? 0 : 4.85, -0.25, 0);
     scene.add(points);
 
     animate();
