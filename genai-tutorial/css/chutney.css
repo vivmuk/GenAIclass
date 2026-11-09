@@ -351,6 +351,22 @@ em { font-style: italic; }
 
 /* ---------- model map ---------- */
 .filters { display: flex; gap: .45rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+.arrival {
+  display: grid; grid-template-columns: auto minmax(0, auto) minmax(0, 1fr) auto;
+  gap: clamp(.7rem, 2vw, 1.6rem); align-items: center;
+  padding: .85rem 1.1rem; margin-bottom: 1.4rem;
+  border: 1px solid rgba(181,108,255,.35);
+  background: linear-gradient(90deg, rgba(181,108,255,.14), rgba(0,229,255,.06) 55%, transparent);
+}
+.arrival .al { font-family: var(--f-mono); font-size: .56rem; letter-spacing: .14em; text-transform: uppercase; color: var(--paper-dim); }
+.arrival b { font-family: var(--f-display); font-size: clamp(1.05rem, 1.6vw, 1.35rem); letter-spacing: -.02em; font-weight: 600; white-space: nowrap; }
+.arrival .specs { font-size: .82rem; color: var(--muted); }
+.arrival .rate { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--amber); white-space: nowrap; }
+.arrival .rate em { font-style: normal; color: var(--muted-2); }
+@media (max-width: 760px) {
+  .arrival { grid-template-columns: 1fr; gap: .35rem; }
+  .arrival .rate { white-space: normal; }
+}
 .chip {
   font-family: var(--f-mono); font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
   border: 1px solid var(--line); padding: .5rem .8rem; color: var(--muted);
