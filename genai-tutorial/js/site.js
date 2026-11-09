@@ -229,22 +229,60 @@
   var benchBars = $('#bench-bars');
   var benchSource = $('#bench-source');
 
+  /* Benchmarks as a real SVG chart: shared 0-100 axis, gridlines, the top row
+     called out, and bars that grow from the axis when the tab is opened. */
+  function esc(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+  function cut(t, n) { t = String(t); return t.length > n ? t.slice(0, n - 1) + '…' : t; }
+
+  function benchSvg(b) {
+    var W = 1000, padL = 340, padR = 108, rowH = 44, top = 46;
+    var rows = b.rows || [];
+    var H = top + rows.length * rowH + 30;
+    var plotW = W - padL - padR;
+    var unit = b.unit || '%';
+    var ticks = [0, 25, 50, 75, 100];
+    var out = [];
+    out.push('<svg class="bench-svg" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="' + esc(b.name) + ' results">');
+    out.push('<defs><linearGradient id="benchCool" x1="0" y1="0" x2="1" y2="0">' +
+      '<stop offset="0" stop-color="#00e5ff"/><stop offset=".55" stop-color="#b56cff"/><stop offset="1" stop-color="#ff4dff"/></linearGradient>' +
+      '<linearGradient id="benchHot" x1="0" y1="0" x2="1" y2="0">' +
+      '<stop offset="0" stop-color="#ffb020"/><stop offset="1" stop-color="#ff7a32"/></linearGradient></defs>');
+
+    ticks.forEach(function (t) {
+      var x = padL + (t / 100) * plotW;
+      out.push('<line class="bench-grid' + (t === 0 ? ' bench-base' : '') + '" x1="' + x.toFixed(1) + '" y1="' + (top - 14) + '" x2="' + x.toFixed(1) + '" y2="' + (H - 20) + '"/>');
+      out.push('<text class="bench-tick" x="' + x.toFixed(1) + '" y="' + (top - 22) + '" text-anchor="middle">' + t + unit + '</text>');
+      out.push('<text class="bench-tick" x="' + x.toFixed(1) + '" y="' + (H - 4) + '" text-anchor="middle">' + t + '</text>');
+    });
+
+    rows.forEach(function (r, i) {
+      var y = top + i * rowH;
+      var v = Math.max(0, Math.min(100, Number(r[1]) || 0));
+      var hot = i === 0;
+      out.push('<g class="bench-row">');
+      out.push('<text class="bench-name' + (hot ? ' is-top' : '') + '" x="0" y="' + (y + 24) + '">' + esc(cut(r[0], 28)) + '</text>');
+      out.push('<rect class="bench-slot" x="' + padL + '" y="' + (y + 6) + '" width="' + plotW + '" height="20" rx="1"/>');
+      out.push('<rect class="bench-fill' + (hot ? ' is-hot' : '') + '" x="' + padL + '" y="' + (y + 6) + '" width="' + plotW + '" height="20" rx="1" ' +
+        'fill="url(#' + (hot ? 'benchHot' : 'benchCool') + ')" style="--v:' + (v / 100).toFixed(4) + ';transition-delay:' + (i * 70) + 'ms"/>');
+      out.push('<text class="bench-val' + (hot ? ' is-top' : '') + '" x="' + (padL + (v / 100) * plotW + 12).toFixed(1) + '" y="' + (y + 21) + '">' + r[1] + unit + '</text>');
+      out.push('</g>');
+    });
+    out.push('</svg>');
+    requestAnimationFrame(function () {
+      $$('#bench-bars .bench-fill').forEach(function (f) { f.classList.add('in'); });
+    });
+    return out.join('');
+  }
+
   function drawBench(key) {
     var b = BENCH[key];
     if (!b || !benchBars) return;
     if (benchTitle) benchTitle.textContent = b.name;
     if (benchDesc) benchDesc.textContent = b.desc;
     if (benchSource) benchSource.textContent = b.source;
-    benchBars.innerHTML = b.rows.map(function (r) {
-      return '<div class="bar-row"><div><div class="bar-label"><span>' + r[0] + '</span><i>' + (b.note || '') + '</i></div>' +
-        '<div class="bar-track"><span class="bar-fill" data-w="' + r[1] + '"></span></div></div>' +
-        '<div class="val">' + r[1] + (b.unit || '%') + '</div></div>';
-    }).join('');
-    requestAnimationFrame(function () {
-      $$('#bench-bars .bar-fill').forEach(function (f, i) {
-        setTimeout(function () { f.style.width = f.getAttribute('data-w') + '%'; }, i * 90);
-      });
-    });
+    benchBars.innerHTML = benchSvg(b);
   }
   benchTabs.forEach(function (tab) {
     tab.addEventListener('click', function () {
@@ -303,4 +341,247 @@
     stamp.textContent = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
   $$('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
+  /* ---------- price plane (SVG, log-log) ---------- */
+  var rows = $$('.model-row[data-cat]');
+  var MODELS = rows.map(function (row) {
+    var b = row.querySelector('.model-name b');
+    if (!b) return null;
+    var name = (b.childNodes[0] && b.childNodes[0].textContent || b.textContent).trim();
+    var cells = $$('.model-cell.price', row);
+    var pin = parseFloat((cells[0] && cells[0].textContent || '').replace(/[^0-9.]/g, ''));
+    var pout = parseFloat((cells[1] && cells[1].textContent || '').replace(/[^0-9.]/g, ''));
+    return { name: name, in: pin, out: pout, cat: (row.getAttribute('data-cat') || '').split(' ') };
+  }).filter(function (m) { return m && isFinite(m.in) && isFinite(m.out) && m.in > 0 && m.out > 0; });
+
+  function logScale(d0, d1, p0, p1) {
+    var l0 = Math.log10(d0), l1 = Math.log10(d1);
+    return {
+      at: function (v) { return p0 + ((Math.log10(v) - l0) / (l1 - l0)) * (p1 - p0); },
+      ticks: function (list) {
+        return list.map(function (v) {
+          return { v: v, x: p0 + ((Math.log10(v) - l0) / (l1 - l0)) * (p1 - p0) };
+        });
+      }
+    };
+  }
+
+  function catColor(m) {
+    if (m.cat.indexOf('open') >= 0) return '#7cff6b';
+    if (m.cat.indexOf('efficient') >= 0) return '#ffb020';
+    if (m.cat.indexOf('frontier') >= 0) return '#00e5ff';
+    return '#b56cff';
+  }
+
+  function buildPriceMap() {
+    var host = $('#price-map');
+    if (!host || !MODELS.length) return;
+    var MOBILE = window.innerWidth < 660;
+    if (MOBILE) {
+      // Small screens get a sorted bar list, not a shrunken scatter: a 1000-unit
+      // viewBox at 360px turns every label into a smudge.
+      var lede = document.querySelector('.pricemap-head p');
+      if (lede) lede.textContent = 'Sorted by output price, because the cheapest model here is a hundred times cheaper than the dearest. Bar length is that output price on a log scale — the input price sits in the same row.';
+      var sorted = MODELS.slice().sort(function (a, b) { return b.out - a.out; });
+      var money = function (v) { return '$' + (v < 1 ? v.toFixed(2) : v.toFixed(0)); };
+      var maxOut = sorted[0].out;
+      var rowsHtml = sorted.map(function (m, i) {
+        var w = Math.max(4, (Math.log10(m.out / 0.4) / Math.log10(maxOut / 0.4)) * 100);
+        return '<li' + (m.name.indexOf('Fable 5.2') >= 0 ? ' class="is-hot"' : '') + '>' +
+          '<span class="pm-rank">' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<span class="pm-mname">' + m.name.replace(/\s*\(.*$/, '') + '</span>' +
+          '<span class="pm-price">' + money(m.in) + ' / ' + money(m.out) + '</span>' +
+          '<span class="pm-bar" style="--w:' + w.toFixed(1) + '%"></span></li>';
+      }).join('');
+      host.innerHTML = '<div class="pm-mobile"><div class="pm-mhead"><span>Model</span><span>In / out per 1M</span></div><ol>' + rowsHtml + '</ol>' +
+        '<p class="pm-mnote">Sorted by output price. Bar length is log-scaled output price; input price sits in the same row.</p></div>';
+      return;
+    }
+    var W = 1000, H = 486, padL = 88, padR = 132, padT = 26, padB = 60;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+    var X = logScale(0.08, 10, padL, padL + plotW);
+    var Y = logScale(0.1, 60, padT + plotH, padT);
+    var out = [];
+    out.push('<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Input and output price of every model on the map, log scales">');
+
+    X.ticks([0.1, 1, 10]).forEach(function (t) {
+      out.push('<line class="pm-grid" x1="' + t.x.toFixed(1) + '" y1="' + padT + '" x2="' + t.x.toFixed(1) + '" y2="' + (padT + plotH) + '"/>');
+      out.push('<text class="pm-tick" x="' + t.x.toFixed(1) + '" y="' + (H - 38) + '" text-anchor="middle">$' + (t.v < 1 ? t.v.toFixed(2) : t.v) + '</text>');
+    });
+    Y.ticks([0.1, 1, 10]).forEach(function (t) {
+      out.push('<line class="pm-grid" x1="' + padL + '" y1="' + t.x.toFixed(1) + '" x2="' + (padL + plotW) + '" y2="' + t.x.toFixed(1) + '"/>');
+      out.push('<text class="pm-tick" x="' + (padL - 14) + '" y="' + (t.x + 4).toFixed(1) + '" text-anchor="end">$' + (t.v < 1 ? t.v.toFixed(2) : t.v) + '</text>');
+    });
+
+    out.push('<line class="pm-axis" x1="' + padL + '" y1="' + (padT + plotH) + '" x2="' + (padL + plotW) + '" y2="' + (padT + plotH) + '"/>');
+    out.push('<line class="pm-axis" x1="' + padL + '" y1="' + padT + '" x2="' + padL + '" y2="' + (padT + plotH) + '"/>');
+    out.push('<text class="pm-axis-label" x="' + (padL + plotW / 2) + '" y="' + (H - 10) + '" text-anchor="middle">Input price per 1M tokens</text>');
+    out.push('<text class="pm-axis-label" x="0" y="' + (padT + plotH / 2) + '" text-anchor="middle" transform="rotate(-90 14 ' + (padT + plotH / 2) + ')">Output price</text>');
+
+    out.push('<line class="pm-diag" x1="' + X.at(0.1).toFixed(1) + '" y1="' + Y.at(0.1).toFixed(1) + '" x2="' + X.at(10).toFixed(1) + '" y2="' + Y.at(10).toFixed(1) + '"/>');
+    out.push('<text class="pm-diag-label" x="' + (X.at(6) + 9).toFixed(1) + '" y="' + (Y.at(8) - 7).toFixed(1) + '">read = write</text>');
+
+    // Greedy label placement: every point gets a name, nudged to the first
+    // candidate slot that clears the labels already placed.
+    var placed = [];
+    var order = MODELS.slice().sort(function (a, b) {
+      var ha = a.name.indexOf('Fable 5.2') >= 0 ? -2 : 0;
+      var hb = b.name.indexOf('Fable 5.2') >= 0 ? -2 : 0;
+      return ha - hb;
+    });
+    function hits(box) {
+      if (box.x1 < padL + 2 || box.x2 > W - 6) return true;
+      for (var k = 0; k < placed.length; k++) {
+        var o = placed[k];
+        if (!(box.x2 < o.x1 || box.x1 > o.x2 || box.y2 < o.y1 || box.y1 > o.y2)) return true;
+      }
+      return false;
+    }
+
+    var taken = [];
+    order.forEach(function (m) {
+      var x = X.at(m.in), y = Y.at(m.out);
+      // two models can share a price point exactly; nudge so both stay visible
+      for (var guard = 0; guard < 8; guard++) {
+        var clash = taken.some(function (t) { return Math.abs(t.x - x) < 7 && Math.abs(t.y - y) < 7; });
+        if (!clash) break;
+        y -= 10; x += 4;
+      }
+      taken.push({ x: x, y: y });
+      var hot = m.name.indexOf('Fable 5.2') >= 0;
+      var shortName = m.name.replace(/\s*\(.*$/, '');
+      var tw = Math.min(168, shortName.length * 5.6), th = 12;
+      var cands = [
+        [x + 11, y + 4, 'start'], [x - 11, y + 4, 'end'],
+        [x - 11, y - 7, 'end'], [x + 11, y - 7, 'start'],
+        [x - 11, y + 19, 'end'], [x + 11, y + 19, 'start'],
+        [x + 11, y + 31, 'start'], [x - 11, y + 31, 'end'],
+        [x + 11, y - 19, 'start'], [x - 11, y - 19, 'end'],
+        [x + 11, y - 31, 'start'], [x - 11, y - 31, 'end']
+      ];
+      var pick = null;
+      for (var c = 0; c < cands.length; c++) {
+        var cx = cands[c][0], cy = cands[c][1], anchor = cands[c][2];
+        var bx1 = anchor === 'start' ? cx : cx - tw;
+        var box = { x1: bx1, x2: bx1 + tw, y1: cy - th, y2: cy + 3 };
+        if (!hits(box)) { pick = { x: cx, y: cy, anchor: anchor }; placed.push(box); break; }
+      }
+      if (!pick) {
+        pick = { x: x - 11, y: y - 7, anchor: 'end' };
+        placed.push({ x1: x - 11 - tw, x2: x - 11, y1: y - 19, y2: y - 4 });
+      }
+      m._label = pick;
+      m._short = shortName;
+      m._x = x; m._y = y; m._hot = hot;
+    });
+
+    MODELS.forEach(function (m) {
+      out.push('<g class="pm-point" data-name="' + m.name.replace(/"/g, '') + '">');
+      out.push('<circle class="pm-dot" cx="' + m._x.toFixed(1) + '" cy="' + m._y.toFixed(1) + '" r="' + (m._hot ? 8 : 5.5) + '" fill="' + catColor(m) + '" fill-opacity="' + (m._hot ? 1 : 0.85) + '"/>');
+      if (MOBILE) {
+        out.push('<text class="pm-index" x="' + m._x.toFixed(1) + '" y="' + (m._y + 3.2).toFixed(1) + '" text-anchor="middle">' + (MODELS.indexOf(m) + 1) + '</text>');
+      } else if (m._label) {
+        out.push('<text class="pm-name' + (m._hot ? ' is-hot' : '') + '" x="' + m._label.x.toFixed(1) + '" y="' + m._label.y.toFixed(1) + '" text-anchor="' + m._label.anchor + '">' + m._short + '</text>');
+      }
+      out.push('</g>');
+    });
+    out.push('</svg>');
+    host.innerHTML = out.join('');
+    if (MOBILE) {
+      var key = '<ol class="pm-key">';
+      MODELS.forEach(function (m, i) {
+        key += '<li' + (m._hot ? ' class="is-hot"' : '') + '><i>' + (i + 1) + '</i><b>' + m.name.replace(/\s*\(.*$/, '') + '</b><span>$' + m.in + ' / $' + m.out + '</span></li>';
+      });
+      key += '</ol>';
+      host.insertAdjacentHTML('beforeend', key);
+      var hint = document.querySelector('.pm-hint');
+      if (hint) hint.textContent = 'Tap a dot for prices';
+    }
+    host.insertAdjacentHTML('beforeend', '<div class="pm-tip" id="pm-tip" role="status"></div>');
+
+    var tip = $('#pm-tip');
+    $$('.pm-point', host).forEach(function (g) {
+      var m = null;
+      for (var i = 0; i < MODELS.length; i++) if (MODELS[i].name === g.getAttribute('data-name')) m = MODELS[i];
+      if (!m) return;
+      g.addEventListener('mouseenter', function () {
+        tip.innerHTML = '<b>' + m.name + '</b><span>$' + m.in.toFixed(2) + ' in · $' + m.out.toFixed(2) + ' out</span>';
+        tip.classList.add('is-on');
+      });
+      g.addEventListener('mousemove', function (e) {
+        var box = host.getBoundingClientRect();
+        tip.style.left = Math.min(box.width - 160, Math.max(0, e.clientX - box.left + 14)) + 'px';
+        tip.style.top = Math.max(0, e.clientY - box.top - 18) + 'px';
+      });
+      g.addEventListener('mouseleave', function () { tip.classList.remove('is-on'); });
+    });
+  }
+  buildPriceMap();
+
+  /* ---------- run-the-bill estimator ---------- */
+  var estModel = $('#est-model');
+  if (estModel && MODELS.length) {
+    MODELS.forEach(function (m, i) {
+      var o = document.createElement('option');
+      o.value = i;
+      o.textContent = m.name + ' — $' + m.in + ' in / $' + m.out + ' out';
+      estModel.appendChild(o);
+    });
+    var fi = -1;
+    MODELS.forEach(function (m, i) { if (m.name.indexOf('Fable 5.2') >= 0) fi = i; });
+    estModel.value = fi >= 0 ? fi : 0;
+
+    var sIn = $('#est-in'), sOut = $('#est-out');
+    var oIn = $('#est-in-out'), oOut = $('#est-out-out');
+    var costEl = $('#est-cost'), perEl = $('#est-per');
+
+    function fmtTok(n) {
+      if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1).replace(/\.0$/, '') + 'M';
+      if (n >= 1e3) return Math.round(n / 1e3) + 'k';
+      return String(Math.round(n));
+    }
+    function fmtMoney(v) {
+      if (v >= 1000) return '$' + Math.round(v).toLocaleString('en-US');
+      if (v >= 100) return '$' + v.toFixed(0);
+      if (v >= 10) return '$' + v.toFixed(1);
+      if (v >= 0.1) return '$' + v.toFixed(2);
+      if (v >= 0.01) return '$' + v.toFixed(3);
+      return '$' + v.toFixed(4);
+    }
+    function update() {
+      var m = MODELS[Number(estModel.value)] || MODELS[0];
+      var tin = Math.round(Math.pow(10, Number(sIn.value)) / 1000) * 1000;
+      var tout = Math.round(Math.pow(10, Number(sOut.value)) / 1000) * 1000;
+      oIn.textContent = fmtTok(tin);
+      oOut.textContent = fmtTok(tout);
+      var cin = (tin / 1e6) * m.in;
+      var cout = (tout / 1e6) * m.out;
+      var c = cin + cout;
+      costEl.textContent = fmtMoney(c);
+      perEl.textContent = fmtMoney(c * 1000);
+      var split = document.getElementById('est-split');
+      if (split) split.textContent = 'in ' + fmtMoney(cin) + ' · out ' + fmtMoney(cout);
+    }
+    [estModel, sIn, sOut].forEach(function (el) { el.addEventListener('input', update); });
+    update();
+  }
+
+  /* ---------- harness loop ---------- */
+  var hItems = $$('.harness-item');
+  hItems.forEach(function (el, i) { el.setAttribute('data-step', String(i + 1)); });
+  $$('.loop-node').forEach(function (node) {
+    var step = node.getAttribute('data-step');
+    var on = function () {
+      node.classList.add('is-hot');
+      hItems.forEach(function (li) { li.classList.toggle('is-hot', li.getAttribute('data-step') === step); });
+    };
+    var off = function () {
+      node.classList.remove('is-hot');
+      hItems.forEach(function (li) { li.classList.remove('is-hot'); });
+    };
+    node.addEventListener('mouseenter', on);
+    node.addEventListener('focus', on);
+    node.addEventListener('mouseleave', off);
+    node.addEventListener('blur', off);
+  });
+
 })();

@@ -1,5 +1,7 @@
-/* GenAI Chutney — hero particle field.
-   One WebGL context, additive spice nebula, pointer parallax, scroll response. */
+/* GenAI Chutney — hero field.
+   One WebGL context. Dust drifts as a spice nebula, then periodically condenses
+   into rows of token blocks and disperses again. Pointer parallax, scroll lift,
+   static frame under prefers-reduced-motion, paused when offscreen/hidden. */
 (function () {
   var canvas = document.getElementById('hero-canvas');
   if (!canvas || !window.THREE) return;
@@ -7,10 +9,12 @@
   if (reduce) { canvas.parentNode.classList.add('no-webgl'); return; }
 
   var THREE = window.THREE;
-  var scene, camera, renderer, points, rim, clock;
+  var scene, camera, renderer, points, clock;
   var pointer = { x: 0, y: 0 }, target = { x: 0, y: 0 };
   var scrollN = 0, scrollTarget = 0, visible = true, raf = null;
-  var COUNT = window.innerWidth < 700 ? 16000 : 34000;
+  var NARROW = window.innerWidth < 700;
+  var COUNT = NARROW ? 18000 : 42000;
+  var DPR = Math.min(window.devicePixelRatio || 1, 1.75);
 
   var PALETTE = [
     [0.00, 0.90, 1.00],   // cyan
@@ -21,6 +25,58 @@
     [0.98, 0.94, 0.88]    // paper
   ];
 
+  /* Token lattice: ragged rows of block-shaped tokens in the same world space
+     as the nebula. Points packed inside a block read as a solid glyph under
+     additive blending, so the cloud can "condense" into tokenised text. */
+  function tokenTargets(n) {
+    var out = new Float32Array(n * 3);
+    var rows = NARROW ? 3 : 3;
+    var rowsY = [];
+    for (var r = 0; r < rows; r++) rowsY.push((r - (rows - 1) / 2) * 0.95);
+
+    // Word groups: tight gaps inside a word, a wide gap between words, so the
+    // lattice reads as tokenised text rather than four strips of static.
+    var blocks = [];
+    for (var rr = 0; rr < rows; rr++) {
+      var x = NARROW ? -3.0 : -3.5;
+      var limit = -x;
+      while (x < limit) {
+        var wordBlocks = 1 + ((Math.random() * 3) | 0);
+        for (var wb = 0; wb < wordBlocks && x < limit; wb++) {
+          var w = 0.22 + Math.random() * 0.5;
+          blocks.push({ x: x + w / 2, y: rowsY[rr], w: w, h: 0.34 });
+          x += w + 0.045;
+        }
+        x += 0.5;
+      }
+    }
+
+    // Points snap to a 3-row cell grid inside each block, so the lattice shows
+    // token cells instead of uniform static.
+    for (var i = 0; i < n; i++) {
+      var b = blocks[(Math.random() * blocks.length) | 0];
+      var cols = Math.max(2, Math.round(b.w / 0.048));
+      var cx = Math.floor(Math.random() * cols);
+      var cy = Math.floor(Math.random() * 3);
+      out[i * 3] = b.x - b.w / 2 + (cx + 0.5) * (b.w / cols) + (Math.random() - 0.5) * 0.012;
+      out[i * 3 + 1] = b.y - b.h / 2 + (cy + 0.5) * (b.h / 3) + (Math.random() - 0.5) * 0.012;
+      out[i * 3 + 2] = (Math.random() - 0.5) * 0.02;
+    }
+    return out;
+  }
+
+  function smooth(x) { return x * x * (3 - 2 * x); }
+
+  /* One condense-and-release cycle every ~13s: in, hold, out, rest. */
+  function morphAt(t) {
+    var period = 13.0, inA = 1.7, hold = 3.1, outA = 1.5;
+    var p = t % period;
+    if (p < inA) return smooth(p / inA);
+    if (p < inA + hold) return 1;
+    if (p < inA + hold + outA) return 1 - smooth((p - inA - hold) / outA);
+    return 0;
+  }
+
   function init() {
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(56, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
@@ -28,7 +84,7 @@
     camera.rotation.x = -0.42;
 
     renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: false, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(DPR);
     renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
     renderer.setClearColor(0x000000, 0);
 
@@ -64,34 +120,43 @@
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     geo.setAttribute('aColor', new THREE.BufferAttribute(col, 3));
     geo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
+    geo.setAttribute('aTarget', new THREE.BufferAttribute(tokenTargets(COUNT), 3));
 
     var mat = new THREE.ShaderMaterial({
       uniforms: {
         uTime: { value: 0 },
-        uSize: { value: window.innerWidth < 700 ? 2.0 : 2.35 },
-        uDpr: { value: Math.min(window.devicePixelRatio || 1, 2) },
-        uScroll: { value: 0 }
+        uSize: { value: NARROW ? 2.0 : 2.35 },
+        uDpr: { value: DPR },
+        uScroll: { value: 0 },
+        uMorph: { value: 0 }
       },
       vertexShader: [
-        'uniform float uTime; uniform float uSize; uniform float uDpr; uniform float uScroll;',
-        'attribute vec3 aColor; attribute float aSeed;',
+        'uniform float uTime; uniform float uSize; uniform float uDpr; uniform float uScroll; uniform float uMorph;',
+        'attribute vec3 aColor; attribute float aSeed; attribute vec3 aTarget;',
         'varying vec3 vColor; varying float vAlpha;',
         'void main() {',
         '  vec3 p = position;',
         '  float r = length(p.xz);',
         '  float t = uTime * 0.085 + aSeed * 6.2831;',
         '  float ang = atan(p.z, p.x) + (0.16 + 0.5 / (1.0 + r)) * uTime * 0.16;',
-        '  p.x = cos(ang) * r;',
-        '  p.z = sin(ang) * r;',
-        '  p.y += sin(t * 1.15 + r * 1.8) * (0.06 + uScroll * 0.05);',
-        '  float lift = uScroll * (1.15 + aSeed * 1.5);',
-        '  p.y += lift * 0.85;',
-        '  p.xz *= 1.0 - uScroll * 0.18;',
-        '  vec4 mv = modelViewMatrix * vec4(p, 1.0);',
+        '  vec3 cloud = vec3(cos(ang) * r, p.y + sin(t * 1.15 + r * 1.8) * (0.06 + uScroll * 0.05), sin(ang) * r);',
+        // stagger per point so the lattice assembles rather than snaps
+        '  float local = clamp((uMorph * 1.45) - aSeed * 0.45, 0.0, 1.0);',
+        '  vec3 tp = aTarget;',
+        '  tp.z += sin(t * 0.7 + aSeed * 12.0) * 0.02;',
+        '  vec3 mixed = mix(cloud, tp, local);',
+        '  mixed.y += (1.0 - local) * uScroll * (1.15 + aSeed * 1.5) * 0.85;',
+        '  mixed.xz *= 1.0 - uScroll * 0.18;',
+        '  vec4 mv = modelViewMatrix * vec4(mixed, 1.0);',
         '  gl_Position = projectionMatrix * mv;',
-        '  gl_PointSize = uSize * uDpr * (30.0 / max(0.15, -mv.z)) * (0.45 + aSeed * 0.9);',
-        '  vColor = aColor;',
+        '  float size = uSize * uDpr * (30.0 / max(0.15, -mv.z)) * (0.45 + aSeed * 0.9);',
+        '  gl_PointSize = size * mix(1.0, 0.62, local);',
+        '  vec3 tok = mix(vec3(0.0, 0.86, 1.0), vec3(0.98, 0.94, 0.88), step(0.86, aSeed));',
+        '  vColor = mix(aColor, tok, local * 0.8);',
         '  vAlpha = smoothstep(0.0, 0.55, 1.0 - r / 4.9) * (0.75 + 0.25 * sin(t));',
+        '  float rank = clamp((tp.x + 3.5) / 7.0, 0.0, 1.0);',
+        '  vAlpha *= mix(1.0, 0.4 + 0.6 * rank, local);',
+        '  vAlpha = mix(vAlpha, 0.95, local * 0.55);',
         '}'
       ].join('\n'),
       fragmentShader: [
@@ -112,22 +177,8 @@
 
     points = new THREE.Points(geo, mat);
     points.rotation.x = 0.04;
-    points.position.set(window.innerWidth < 900 ? 0 : 3.15, -0.3, 0);
+    points.position.set(window.innerWidth < 900 ? 0 : 4.5, -0.25, 0);
     scene.add(points);
-
-    // bowl rim
-    var rimGeo = new THREE.BufferGeometry();
-    var rimPos = [];
-    for (var k = 0; k <= 220; k++) {
-      var th = (k / 220) * Math.PI * 2;
-      rimPos.push(Math.cos(th) * 4.28, 0.02, Math.sin(th) * 4.28);
-    }
-    rimGeo.setAttribute('position', new THREE.Float32BufferAttribute(rimPos, 3));
-    rim = new THREE.Line(rimGeo, new THREE.LineBasicMaterial({
-      color: 0x9fd8ff, transparent: true, opacity: 0.09, blending: THREE.AdditiveBlending, depthWrite: false
-    }));
-    rim.position.copy(points.position);
-    scene.add(rim);
 
     animate();
   }
@@ -143,15 +194,13 @@
 
     points.material.uniforms.uTime.value = t;
     points.material.uniforms.uScroll.value = scrollN;
+    points.material.uniforms.uMorph.value = morphAt(t);
 
-    points.rotation.y += 0.00055;
+    points.rotation.y += 0.0004;
     scene.rotation.y = target.x * 0.22;
     scene.rotation.x = target.y * 0.10;
     camera.position.z = 7.9 + scrollN * 1.6;
     camera.position.y = 2.05 + scrollN * 0.5;
-
-    rim.rotation.y = points.rotation.y * 0.6;
-    rim.material.opacity = 0.09 * (1 - scrollN * 0.7);
 
     renderer.render(scene, camera);
   }
@@ -162,9 +211,9 @@
     if (!w || !h) return;
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     renderer.setSize(w, h, false);
-    points.material.uniforms.uDpr.value = Math.min(window.devicePixelRatio || 1, 2);
+    points.material.uniforms.uDpr.value = Math.min(window.devicePixelRatio || 1, 1.75);
   }
 
   window.addEventListener('pointermove', function (e) {

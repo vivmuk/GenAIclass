@@ -12,7 +12,7 @@
 <meta property="og:image" content="images/art/spice-nebula.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="css/chutney.css">
+<link rel="stylesheet" href="css/chutney.css?v=20261109k">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305060a'/%3E%3Ccircle cx='10' cy='13' r='2' fill='%2300e5ff'/%3E%3Ccircle cx='16' cy='11' r='2' fill='%23ff4dff'/%3E%3Ccircle cx='22' cy='13' r='2' fill='%23ffb020'/%3E%3Cpath d='M6 17h20c0 5.5-4.5 9-10 9s-10-3.5-10-9Z' stroke='%23f4efe6' stroke-width='1.4' fill='none'/%3E%3C/svg%3E">
 </head>
 <body>
@@ -477,6 +477,40 @@
         <div class="pl-row"><b>Gemini 4 Argon</b><span class="mono">$2 / $10 intro → $4 / $20 after Nov 30</span><span class="delta">+100% later</span></div>
       </div>
 
+      <div class="pricemap reveal">
+        <div class="pricemap-head">
+          <div>
+            <div class="kicker mono">The price plane</div>
+            <h3>A hundred-fold spread.</h3>
+          </div>
+          <p>Input against output, both on log scales, because the cheapest model here is a hundred times cheaper than the dearest. Above the dashed diagonal you pay more to write than to read.</p>
+        </div>
+        <div id="price-map" class="pricemap-canvas"></div>
+        <div class="pm-legend"><span><i style="background:#00e5ff"></i>Closed frontier</span><span><i style="background:#7cff6b"></i>Open weights</span><span><i style="background:#ffb020"></i>Efficient tier</span><span class="pm-hint">Hover a dot for prices</span></div>
+        <p class="note mono" style="margin-top:.9rem">Source: the model table above · list prices, USD per 1M tokens · Nov 2026</p>
+      </div>
+
+      <div class="estimator reveal">
+        <div class="est-head">
+          <div class="kicker mono">Run the bill</div>
+          <h3>What an agent run costs.</h3>
+          <p>Pick a model, set the tokens in and out, and watch which side of the bill you are actually paying.</p>
+        </div>
+        <div class="est-controls">
+          <label>Model<select id="est-model"></select></label>
+          <label><span>Input tokens <output id="est-in-out">100k</output></span><input id="est-in" type="range" min="1" max="8" step="0.05" value="5"></label>
+          <label><span>Output tokens <output id="est-out-out">80k</output></span><input id="est-out" type="range" min="1" max="8" step="0.05" value="4.9"></label>
+        </div>
+        <div class="est-result">
+          <div class="est-figure"><span class="est-label mono">Estimated cost</span><span id="est-cost">—</span></div>
+          <div class="est-side">
+            <span id="est-split" class="est-split">—</span>
+            <small>per run · <span id="est-per">—</span> per 1,000 runs</small>
+            <small class="est-note">List price, no cache discount, no retries — a floor, not a quote.</small>
+          </div>
+        </div>
+      </div>
+
       <div class="definition" style="margin-top:clamp(2.5rem,5vw,4rem)">
         <figure class="plate reveal-img">
           <img src="images/art/compute.webp" alt="Macro photograph of a glowing silicon die" width="1536" height="1024" loading="lazy">
@@ -515,6 +549,40 @@
           more than swapping the model. Context, tools, memory, verification, isolation and spend limits —
           that is where the work actually lives.
         </p>
+      </div>
+
+
+      <div class="loop-band reveal">
+        <div class="loop-copy">
+          <div class="kicker mono">The loop</div>
+          <h3>Six gates, one turn.</h3>
+          <p>Each gate can fail the turn. Hover a node to see what it catches.</p>
+        </div>
+        <div class="loop-figure"><svg class="loop-svg" viewBox="0 0 460 460" role="img" aria-label="The six-part harness loop"><g class="loop-node" data-step="1" tabindex="0" role="button" aria-label="Step 1: Context">
+          <circle cx="230.0" cy="80.0" r="42"/>
+          <text class="loop-n" x="230.0" y="75.0">01</text>
+          <text class="loop-label" x="230.0" y="94.0">Context</text>
+        </g><path class="loop-arc" d="M 266.3 84.5 A 150 150 0 0 1 337.9 125.8"/><path class="loop-arrow" d="M 335.8 123.6 L 345.1 125.8 L 337.6 133.0 Z"/><g class="loop-node" data-step="2" tabindex="0" role="button" aria-label="Step 2: Tools">
+          <circle cx="359.9" cy="155.0" r="42"/>
+          <text class="loop-n" x="359.9" y="150.0">02</text>
+          <text class="loop-label" x="359.9" y="169.0">Tools</text>
+        </g><path class="loop-arc" d="M 374.2 188.7 A 150 150 0 0 1 374.2 271.3"/><path class="loop-arrow" d="M 375.0 268.5 L 377.8 277.6 L 367.8 274.7 Z"/><g class="loop-node" data-step="3" tabindex="0" role="button" aria-label="Step 3: Memory">
+          <circle cx="359.9" cy="305.0" r="42"/>
+          <text class="loop-n" x="359.9" y="300.0">03</text>
+          <text class="loop-label" x="359.9" y="319.0">Memory</text>
+        </g><path class="loop-arc" d="M 337.9 334.2 A 150 150 0 0 1 266.3 375.5"/><path class="loop-arrow" d="M 269.2 374.8 L 262.7 381.8 L 260.2 371.7 Z"/><g class="loop-node" data-step="4" tabindex="0" role="button" aria-label="Step 4: Verify">
+          <circle cx="230.0" cy="380.0" r="42"/>
+          <text class="loop-n" x="230.0" y="375.0">04</text>
+          <text class="loop-label" x="230.0" y="394.0">Verify</text>
+        </g><path class="loop-arc" d="M 193.7 375.5 A 150 150 0 0 1 122.1 334.2"/><path class="loop-arrow" d="M 124.2 336.4 L 114.9 334.2 L 122.4 327.0 Z"/><g class="loop-node" data-step="5" tabindex="0" role="button" aria-label="Step 5: Isolation">
+          <circle cx="100.1" cy="305.0" r="42"/>
+          <text class="loop-n" x="100.1" y="300.0">05</text>
+          <text class="loop-label" x="100.1" y="319.0">Isolation</text>
+        </g><path class="loop-arc" d="M 85.8 271.3 A 150 150 0 0 1 85.8 188.7"/><path class="loop-arrow" d="M 85.0 191.5 L 82.2 182.4 L 92.2 185.3 Z"/><g class="loop-node" data-step="6" tabindex="0" role="button" aria-label="Step 6: Spend">
+          <circle cx="100.1" cy="155.0" r="42"/>
+          <text class="loop-n" x="100.1" y="150.0">06</text>
+          <text class="loop-label" x="100.1" y="169.0">Spend</text>
+        </g><path class="loop-arc" d="M 122.1 125.8 A 150 150 0 0 1 193.7 84.5"/><path class="loop-arrow" d="M 190.8 85.2 L 197.3 78.2 L 199.8 88.3 Z"/><text class="loop-core" x="230" y="222">THE HARNESS</text><text class="loop-sub" x="230" y="244">one turn, six gates</text></svg></div>
       </div>
 
       <div class="harness">
@@ -792,10 +860,10 @@
 </footer>
 
 <script src="js/vendor/three.min.js"></script>
-<script src="js/hero.js"></script>
-<script src="js/bench-data.js"></script>
-<script src="js/site.js"></script>
-<script src="js/katha.js"></script>
-<script src="js/subscribe.js"></script>
+<script src="js/hero.js?v=20261109k"></script>
+<script src="js/bench-data.js?v=20261109k"></script>
+<script src="js/site.js?v=20261109k"></script>
+<script src="js/katha.js?v=20261109k"></script>
+<script src="js/subscribe.js?v=20261109k"></script>
 </body>
 </html>
