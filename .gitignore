@@ -45,3 +45,8 @@ next-env.d.ts
 
 # Prevent nested OneDrive folder
 OneDrive/
+
+# build working files (not shipped)
+genai-tutorial/lab/
+genai-tutorial/assets/stills/raw/
+node_modules/
