@@ -987,3 +987,19 @@ html:not(.js) .plate-print canvas { display: none; }
   .title-page .imprint { grid-column: 2; grid-row: 4; }
 }
 .toc-date { white-space: nowrap; }
+
+/* On a phone the opener was bottom-aligned inside a 90svh box, which left a
+   quarter-screen of nothing under the folio. Start it under the folio instead. */
+@media (max-width: 699px) {
+  .title-page {
+    min-height: auto;
+    justify-content: flex-start;
+    padding-top: calc(var(--folio-h) + var(--sc-5));
+    padding-bottom: var(--sc-7);
+  }
+}
+
+/* Grid children default to min-width:auto, so the 720px phone clip held the peak
+   frame open at 490px inside a 310px column and the poster ran off the screen. */
+.peak__media, .peak__frame, .peak__media > figcaption { min-width: 0; }
+.peak__frame, .peak__media > figcaption { width: 100%; }
