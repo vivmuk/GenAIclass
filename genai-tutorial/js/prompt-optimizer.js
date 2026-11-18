@@ -39,6 +39,9 @@ async function checkVeniceConnection() {
         const apiEndpoint = API_BASE_URL + "/models";
         const apiKey = (window.getVeniceKey && window.getVeniceKey()) || window.VENICE_API_KEY;
         if (!apiKey) {
+          // Without this the line kept saying "Connecting" while the key modal
+          // asked for a key that had never existed.
+          updateConnectionStatus(false, 'No Venice key yet — add one with the gear.');
           if (window.openKeyModal) { window.openKeyModal(); return; }
           alert('Add your Venice API key (click the ⚙ gear) to use the optimizer.');
           return;
