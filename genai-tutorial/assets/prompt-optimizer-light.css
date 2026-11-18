@@ -1,0 +1,379 @@
+/* Prompting lab, light theme.
+   Loads after site.css, doc.css and css/prompt-optimizer.css and replaces the
+   old dark theme with the site palette. Styling only: no ids or scripts change. */
+
+:root {
+  --primary-color: var(--sc-accent);
+  --primary-dark: var(--gc-accent-press);
+  --secondary-color: var(--sc-ink-soft);
+  --text-color: var(--sc-ink);
+  --dark-bg: var(--gc-paper);
+  --card-bg: var(--gc-white);
+  --border-color: var(--sc-hairline);
+  --success-color: var(--sc-accent);
+  --user-message-bg: var(--gc-accent-tint);
+  --ai-message-bg: var(--gc-white);
+  --gradient-start: var(--sc-accent);
+  --gradient-end: var(--sc-accent);
+  --tooltip-bg: var(--gc-white);
+  --po-gap: clamp(1rem, 2.4vw, 1.5rem);
+}
+
+body {
+  background: var(--gc-paper);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--sc-font-display);
+  color: var(--sc-ink);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+/* ------------------------------------------------------------- page bar -- */
+/* byok.js puts its gear at a fixed top-right spot. This keeps room at the end
+   of the docbar so the gear sits inside the bar, next to Subscribe. */
+.docbar { padding-inline-end: calc(var(--sc-gutter) + 40px + var(--sc-3)); }
+
+body #byok-gear {
+  top: 8px;
+  right: var(--sc-gutter);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--sc-r-md);
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  color: var(--sc-ink-soft);
+  backdrop-filter: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+body #byok-gear:hover { color: var(--sc-ink); border-color: var(--sc-accent); transform: none; }
+
+/* byok.js sets the dot colour inline (green when a key is saved), so only
+   !important can override it. Blue means a key is set, orange means none. */
+body #byok-dot { background: var(--gc-signal) !important; border: 1px solid var(--gc-white); }
+body #byok-dot[title="Venice key set"] { background: var(--sc-accent) !important; }
+
+body #byok-modal { background: color-mix(in oklab, var(--sc-ink) 40%, transparent); backdrop-filter: none; font-family: var(--sc-font-text); }
+body #byok-card {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-lg);
+  box-shadow: var(--sc-e3);
+  color: var(--sc-ink);
+}
+body #byok-card h3 { font-family: var(--sc-font-display); letter-spacing: 0; color: var(--sc-ink); }
+body #byok-card p { color: var(--sc-ink-soft); }
+body #byok-reason { color: var(--gc-signal-text); }
+body #byok-input {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  color: var(--sc-ink);
+}
+body #byok-input:focus { border-color: var(--sc-accent); }
+body #byok-save {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border-radius: var(--sc-r-md);
+  font-family: var(--sc-font-text);
+}
+body #byok-save:hover { background: var(--gc-accent-press); }
+body #byok-clear {
+  color: var(--sc-ink);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  font-family: var(--sc-font-text);
+}
+body #byok-ref { color: var(--sc-accent); }
+
+/* --------------------------------------------------------------- layout -- */
+.main-content {
+  max-width: 1200px;
+  margin: 0;
+  padding: clamp(2rem, 5vw, 4rem) var(--sc-gutter) var(--sc-7);
+}
+
+.hero {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 var(--sc-6);
+  text-align: left;
+}
+.hero h1 {
+  font-size: var(--sc-t-2xl);
+  font-stretch: 84%;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0 0 var(--sc-3);
+}
+.hero p {
+  font-family: var(--sc-font-display);
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.45;
+  color: var(--sc-ink-soft);
+  opacity: 1;
+  max-width: 56ch;
+  margin: 0;
+}
+
+/* -------------------------------------------------------- status line -- */
+/* prompt-optimizer.js writes an inline colour (green or red) on every update,
+   so the colour needs !important. The icon it injects says the state:
+   check = connected (blue), exclamation = needs attention (orange). */
+.connection-status {
+  gap: var(--sc-2);
+  margin-top: var(--sc-4);
+  padding: var(--sc-1) var(--sc-3);
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-pill);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft) !important;
+}
+.connection-status i { display: none; }
+.connection-status::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gc-control);
+  flex: none;
+}
+.connection-status:has(.fa-check-circle) { color: var(--sc-ink) !important; }
+.connection-status:has(.fa-check-circle)::before { background: var(--sc-accent); }
+.connection-status:has(.fa-exclamation-circle) { color: var(--gc-signal-text) !important; border-color: var(--gc-signal); background: var(--gc-signal-tint); }
+.connection-status:has(.fa-exclamation-circle)::before { background: var(--gc-signal); }
+
+.api-note {
+  background: none;
+  border: 0;
+  border-left: 2px solid var(--sc-hairline-strong);
+  border-radius: 0;
+  margin: var(--sc-4) 0 0;
+  padding: 0 0 0 var(--sc-3);
+  max-width: 62ch;
+  text-align: left;
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+.api-note i { color: var(--sc-ink-soft); }
+
+/* ------------------------------------------------------------ sections -- */
+.prompt-concepts,
+.comparison-lab-section {
+  background: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0 0 var(--sc-7);
+  padding-top: var(--sc-5);
+  border-top: 1px solid var(--sc-hairline);
+}
+.prompt-concepts h2,
+#comparison-lab h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  text-align: left;
+  margin: 0 0 var(--sc-2);
+}
+.prompt-concepts > p,
+#comparison-lab > p {
+  text-align: left;
+  margin: 0 0 var(--sc-5);
+  max-width: 62ch;
+  color: var(--sc-ink-soft);
+  opacity: 1;
+}
+
+.concept-grid { gap: var(--po-gap); max-width: none; }
+.concept-card,
+.parameter-info-card,
+.chat-column,
+.single-prompt-container {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-lg);
+  box-shadow: none;
+}
+.concept-card { transition: none; }
+.concept-card:hover { transform: none; box-shadow: none; }
+.concept-icon,
+.concept-card:nth-child(n) .concept-icon {
+  width: auto;
+  height: auto;
+  background: none;
+  border-radius: 0;
+  justify-content: flex-start;
+  margin-bottom: var(--sc-3);
+  font-size: 1.15rem;
+  color: var(--sc-accent);
+}
+.concept-card h3 { font-size: 1.15rem; color: var(--sc-ink); margin: 0 0 var(--sc-3); }
+.technique-list li { color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
+.technique-list strong { color: var(--sc-ink); }
+
+/* -------------------------------------------------------- prompt input -- */
+.controls { justify-content: flex-start; margin-bottom: var(--sc-4); }
+.sync-toggle { gap: var(--sc-2); color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
+.sync-toggle input { margin: 0; accent-color: var(--sc-accent); }
+
+.single-prompt-container { padding: var(--po-gap); margin-bottom: var(--sc-4); }
+.prompt-input-label { gap: var(--sc-2); color: var(--sc-ink-soft); font-size: var(--sc-t-sm); font-weight: 500; }
+.prompt-input-label i { margin: 0; }
+
+.shared-prompt-input {
+  box-sizing: border-box;
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+  line-height: 1.5;
+}
+.shared-prompt-input::placeholder { color: var(--gc-control); }
+.shared-prompt-input:focus { border-color: var(--sc-accent); box-shadow: 0 0 0 1px var(--sc-accent); }
+
+/* ------------------------------------------------------------- buttons -- */
+.generate-button {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border: 1px solid var(--sc-accent);
+  border-radius: var(--sc-r-md);
+  box-shadow: none;
+  font-family: var(--sc-font-text);
+  font-weight: 600;
+  transition: background-color 0.15s;
+}
+.generate-button:hover { background: var(--gc-accent-press); border-color: var(--gc-accent-press); transform: none; box-shadow: none; }
+.generate-button:disabled { background: var(--gc-control); border-color: var(--gc-control); cursor: progress; }
+
+.chat-controls { justify-content: flex-start; margin-bottom: var(--sc-4); }
+.secondary-button {
+  background: transparent;
+  color: var(--sc-accent);
+  border: 1px solid var(--sc-accent);
+  border-radius: var(--sc-r-md);
+  font-family: var(--sc-font-text);
+  font-weight: 500;
+  transition: background-color 0.15s;
+}
+.secondary-button:hover { background: var(--gc-accent-tint); }
+
+/* ---------------------------------------------------- two chat columns -- */
+.chat-container { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--po-gap); }
+
+.chat-header,
+.chat-messages,
+.param-controls { background: var(--gc-white); }
+.chat-header { border-bottom: 1px solid var(--sc-hairline); }
+.param-controls { border-top: 1px solid var(--sc-hairline); }
+
+.model-dropdown {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+}
+.model-dropdown:focus { border-color: var(--sc-accent); }
+.model-info { color: var(--sc-ink-soft); opacity: 1; }
+
+.chat-messages { height: 340px; color: var(--sc-ink); }
+
+.parameter-control label { gap: var(--sc-2); color: var(--sc-ink-soft); font-weight: 500; }
+.parameter-control label i { color: var(--gc-control); }
+.parameter-slider { height: 4px; background: var(--gc-winter); accent-color: var(--sc-accent); }
+.parameter-slider::-webkit-slider-thumb { background: var(--sc-accent); border: 2px solid var(--gc-white); box-shadow: 0 0 0 1px var(--sc-accent); }
+.parameter-slider::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: var(--sc-accent); border: 2px solid var(--gc-white); }
+.parameter-value { width: 3.5ch; color: var(--sc-ink); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* ------------------------------------------------------------ messages -- */
+.user-message,
+.ai-message,
+.loading-message,
+.error-message {
+  border-radius: var(--sc-r-md);
+  font-size: var(--sc-t-sm);
+  line-height: 1.55;
+  color: var(--sc-ink);
+}
+.user-message { background: var(--gc-accent-tint); }
+.ai-message { background: var(--gc-white); border: 1px solid var(--sc-hairline); }
+.loading-message { background: var(--gc-paper); color: var(--sc-ink-soft); }
+.loading-message i { color: var(--sc-accent); }
+.error-message { background: var(--gc-signal-tint); border-left: 2px solid var(--gc-signal); color: var(--gc-signal-text); }
+
+.suggestion-container,
+.parameters-guide,
+.warning-container {
+  background: var(--gc-paper);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  box-shadow: none;
+}
+.suggestion-container h3,
+.parameters-guide h3,
+.warning-container h3 { color: var(--sc-ink); font-size: 1rem; }
+.suggestion-btn {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-md);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+}
+.suggestion-btn:hover { background: var(--gc-accent-tint); border-color: var(--sc-accent); }
+.suggestion-tip,
+.parameters-guide p,
+.parameters-guide li,
+.warning-container p { color: var(--sc-ink-soft); }
+.parameters-guide strong { color: var(--sc-ink); }
+.warning-container { background: var(--gc-signal-tint); border-left: 2px solid var(--gc-signal); }
+.warning-container h3 { color: var(--gc-signal-text); }
+
+/* ------------------------------------------------------ parameter guide -- */
+.parameter-info-section { background: none; border-radius: 0; padding: 0; margin-top: var(--sc-6); }
+.parameter-info-section h3 { text-align: left; color: var(--sc-ink); margin: 0 0 var(--sc-4); }
+.parameter-info-grid { gap: var(--po-gap); }
+.parameter-info-card { padding: var(--po-gap); }
+.parameter-info-card h4 { color: var(--sc-ink); margin: 0 0 var(--sc-2); }
+.parameter-info-card p,
+.parameter-info-card li { color: var(--sc-ink-soft); }
+.parameter-info-card strong { color: var(--sc-ink); }
+
+/* -------------------------------------------------------------- footer -- */
+.footer {
+  opacity: 1;
+  color: var(--sc-ink-soft);
+  font-size: var(--sc-t-sm);
+  text-align: left;
+  padding: var(--sc-5) var(--sc-gutter);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+/* --------------------------------------------------------------- phone -- */
+@media (max-width: 720px) {
+  .chat-container,
+  .concept-grid,
+  .parameter-info-grid { grid-template-columns: 1fr; }
+  .chat-messages { height: 280px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .connection-status .fa-spin { animation: none; }
+}
+
+/* js/byok.js injects its own modal styles (width:min(440px,92vw)). At a phone
+   width that container still reported a 430px layout box and scaled the whole
+   page, so pin it to the viewport here. */
+#byok-modal { max-width: 100vw; overflow-x: hidden; padding: 1rem; box-sizing: border-box; }
+#byok-modal #byok-card { width: min(30rem, calc(100vw - 2rem)) !important; max-width: calc(100vw - 2rem); box-sizing: border-box; }
+
+/* The old sheet sized .main-content with content-box, so 390px plus 40px of
+   inline padding laid out at 430px and a phone scaled the whole page down. */
+#main.main-content { box-sizing: border-box; width: 100%; max-width: 100%; }
