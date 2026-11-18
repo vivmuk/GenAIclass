@@ -43,6 +43,36 @@
       sections.forEach(function (s) { io.observe(s); });
     }
 
+
+    // Wide tables scroll inside their own box instead of widening the page.
+    doc.querySelectorAll('table.table').forEach(function (table) {
+      if (table.parentElement && table.parentElement.classList.contains('table-scroll')) return;
+      var box = doc.createElement('div');
+      box.className = 'table-scroll';
+      table.parentNode.insertBefore(box, table);
+      box.appendChild(table);
+    });
+
+    // Group filter for catalogue tables: chips with data-filter set the group,
+    // rows carry data-group. "all" clears it.
+    var chips = Array.prototype.slice.call(doc.querySelectorAll('[data-filter]'));
+    if (chips.length) {
+      var rows = Array.prototype.slice.call(doc.querySelectorAll('tbody tr[data-group]'));
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          var group = chip.getAttribute('data-filter');
+          chips.forEach(function (c) {
+            var on = c === chip;
+            c.classList.toggle('is-active', on);
+            c.setAttribute('aria-pressed', String(on));
+          });
+          rows.forEach(function (row) {
+            row.hidden = group !== 'all' && row.getAttribute('data-group') !== group;
+          });
+        });
+      });
+    }
+
     // Sortable tables: click a header, sort by the cell's data-value when present.
     doc.querySelectorAll('table[data-sortable]').forEach(function (table) {
       var body = table.tBodies[0];

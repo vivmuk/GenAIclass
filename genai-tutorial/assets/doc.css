@@ -86,12 +86,10 @@ body { font-family: var(--sc-font-text); }
 .doc {
   font-family: var(--sc-font-text);
   padding: clamp(2.5rem, 6vw, 5rem) var(--sc-gutter) clamp(4rem, 9vw, 8rem);
-  max-width: 78ch;
+  max-width: 72ch;
 }
 
-@media (min-width: 1100px) {
-  .doc { margin-inline-start: calc(var(--sc-gutter) * 0.5); }
-}
+
 
 .doc__kicker {
   font-family: var(--sc-font-text);
@@ -132,12 +130,12 @@ body { font-family: var(--sc-font-text); }
   color: var(--sc-ink-soft);
   border-top: 1px solid var(--sc-hairline);
   padding-top: var(--sc-3);
-  margin: 0 0 var(--sc-7);
+  margin: 0 0 var(--sc-6);
 }
 
 .doc__meta strong { color: var(--sc-ink); font-weight: 600; }
 
-.doc__section { margin-block-start: clamp(2.75rem, 5vw, 4.5rem); }
+.doc__section { margin-block-start: clamp(2.25rem, 4vw, 3.5rem); }
 
 .doc__h2 {
   font-family: var(--sc-font-display);
@@ -163,7 +161,7 @@ body { font-family: var(--sc-font-text); }
   font-size: var(--sc-t-base);
   line-height: 1.68;
   color: var(--sc-ink);
-  max-width: 66ch;
+  max-width: none;
 }
 
 .doc p + p { margin-top: var(--sc-4); }
@@ -346,9 +344,12 @@ body { font-family: var(--sc-font-text); }
 .sub-status.err { color: var(--gc-signal-text); }
 
 /* Byline items run together without a mark between them; give each one a leader. */
-.doc__meta span + span::before {
+/* A leading dot lands at the start of a wrapped line, so the separator trails
+   the item instead of preceding the next one. */
+.doc__meta span + span::before { content: none; }
+.doc__meta span:not(:last-child)::after {
   content: "·";
-  margin-right: var(--sc-4);
+  margin-left: var(--sc-4);
   color: var(--sc-hairline-strong);
 }
 
@@ -356,3 +357,30 @@ body { font-family: var(--sc-font-text); }
 .doc__form { column-gap: var(--sc-4); }
 .doc__form input { border-radius: var(--sc-r-sm); }
 .doc__form button { min-width: 11rem; }
+
+/* Filter chips above a catalogue table. */
+.doc__chips { display: flex; flex-wrap: wrap; gap: var(--sc-2); margin-block: var(--sc-5) var(--sc-3); }
+.doc__chips button {
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-pill);
+  padding: var(--sc-1) var(--sc-3);
+  cursor: pointer;
+}
+.doc__chips button:hover { color: var(--sc-ink); border-color: var(--sc-ink-soft); }
+.doc__chips button.is-active {
+  color: var(--gc-accent-ink);
+  background: var(--sc-accent);
+  border-color: var(--sc-accent);
+}
+
+/* Phone: the table keeps its columns and scrolls sideways rather than pushing
+   the whole page wider than the screen. */
+.table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+@media (max-width: 520px) {
+  .doc .table th, .doc .table td { padding: var(--sc-2) var(--sc-2); }
+  .doc .table { font-size: 0.9rem; }
+}
