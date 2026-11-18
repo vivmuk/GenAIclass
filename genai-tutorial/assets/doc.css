@@ -1,0 +1,358 @@
+/* The type and spacing scale lives in scrollcraft.css, which the home page loads
+   for the scroll engine. Document pages do not load that engine, so the tokens
+   are declared here with the same values. */
+:root {
+  --sc-t-sm:   clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
+  --sc-t-base: clamp(1rem, 0.96rem + 0.22vw, 1.125rem);
+  --sc-t-2xl:  clamp(2.1rem, 1.6rem + 2.4vw, 3.4rem);
+  --sc-t-3xl:  clamp(2.8rem, 1.9rem + 4.2vw, 5rem);
+  --sc-1: 0.25rem;  --sc-2: 0.5rem;   --sc-3: 0.75rem;  --sc-4: 1rem;
+  --sc-5: 1.5rem;   --sc-6: 2rem;     --sc-7: 3rem;     --sc-8: 4rem;
+  --sc-section: clamp(4.5rem, 9vw, 11rem);
+  --sc-gutter:  clamp(1.25rem, 5vw, 5.5rem);
+  --sc-z-chrome: 40;
+}
+
+body { font-family: var(--sc-font-text); }
+
+/* ---------------------------------------------------------------- doc pages --
+   Every page except the home page is a plain document: one measured column,
+   comparisons carried by tables, no scroll animation. Load after site.css,
+   which supplies the tokens, the table and the type stack. */
+
+.docbar {
+  position: sticky;
+  top: 0;
+  z-index: var(--sc-z-chrome, 40);
+  display: flex;
+  align-items: center;
+  gap: var(--sc-4);
+  min-height: var(--folio-h);
+  padding: var(--sc-2) var(--sc-gutter);
+  background: color-mix(in oklab, var(--gc-paper) 92%, transparent);
+  border-bottom: 1px solid var(--sc-hairline);
+  backdrop-filter: blur(12px);
+  font-family: var(--sc-font-display);
+}
+
+.docbar__word {
+  font-weight: 600;
+  font-stretch: 88%;
+  font-size: var(--sc-t-base);
+  letter-spacing: -0.01em;
+  color: var(--sc-ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.docbar__links {
+  display: flex;
+  gap: var(--sc-4);
+  margin-inline-start: auto;
+  font-size: var(--sc-t-sm);
+}
+
+.docbar__links a {
+  color: var(--sc-ink-soft);
+  text-decoration: none;
+  padding-block: var(--sc-1);
+  border-bottom: 1px solid transparent;
+}
+
+.docbar__links a:hover,
+.docbar__links a[aria-current="page"] {
+  color: var(--sc-ink);
+  border-bottom-color: var(--gc-signal);
+}
+
+.docbar__cta {
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  color: var(--gc-accent-ink);
+  background: var(--sc-accent);
+  padding: var(--sc-2) var(--sc-4);
+  border-radius: var(--sc-r-sm);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.docbar__cta:hover { background: var(--gc-accent-press); }
+
+@media (max-width: 720px) {
+  .docbar__links { display: none; }
+  .docbar { gap: var(--sc-3); }
+}
+
+.doc {
+  font-family: var(--sc-font-text);
+  padding: clamp(2.5rem, 6vw, 5rem) var(--sc-gutter) clamp(4rem, 9vw, 8rem);
+  max-width: 78ch;
+}
+
+@media (min-width: 1100px) {
+  .doc { margin-inline-start: calc(var(--sc-gutter) * 0.5); }
+}
+
+.doc__kicker {
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gc-signal-text);
+  margin: 0 0 var(--sc-3);
+}
+
+.doc__h1 {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-stretch: 84%;
+  font-size: var(--sc-t-3xl);
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+  text-wrap: balance;
+  margin: 0 0 var(--sc-5);
+  max-width: 22ch;
+}
+
+.doc__standfirst {
+  font-family: var(--sc-font-display);
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--sc-ink-soft);
+  max-width: 52ch;
+  margin: 0 0 var(--sc-5);
+}
+
+.doc__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-2) var(--sc-4);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  border-top: 1px solid var(--sc-hairline);
+  padding-top: var(--sc-3);
+  margin: 0 0 var(--sc-7);
+}
+
+.doc__meta strong { color: var(--sc-ink); font-weight: 600; }
+
+.doc__section { margin-block-start: clamp(2.75rem, 5vw, 4.5rem); }
+
+.doc__h2 {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-stretch: 86%;
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 var(--sc-4);
+  max-width: 34ch;
+}
+
+.doc__h3 {
+  font-family: var(--sc-font-display);
+  font-weight: 600;
+  font-size: var(--sc-t-base);
+  margin: var(--sc-5) 0 var(--sc-2);
+}
+
+.doc p,
+.doc li {
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-base);
+  line-height: 1.68;
+  color: var(--sc-ink);
+  max-width: 66ch;
+}
+
+.doc p + p { margin-top: var(--sc-4); }
+
+.doc ul,
+.doc ol { margin: var(--sc-4) 0; padding-inline-start: 1.2em; }
+.doc li + li { margin-top: var(--sc-2); }
+
+.doc a { color: var(--sc-accent); text-underline-offset: 0.18em; }
+.doc a:hover { color: var(--gc-accent-press); }
+
+.doc strong { font-weight: 600; }
+
+.doc__quote {
+  margin: var(--sc-6) 0;
+  padding-inline-start: var(--sc-5);
+  border-inline-start: 2px solid var(--gc-signal);
+  font-family: var(--sc-font-display);
+  font-size: clamp(1.1rem, 1rem + 0.4vw, 1.3rem);
+  line-height: 1.45;
+  color: var(--sc-ink);
+}
+
+.doc__note {
+  margin: var(--sc-5) 0;
+  padding: var(--sc-4) var(--sc-5);
+  background: var(--gc-signal-tint);
+  border-inline-start: 2px solid var(--gc-signal);
+  border-radius: var(--sc-r-sm);
+}
+
+.doc__note p { margin: 0; font-size: var(--sc-t-sm); line-height: 1.6; }
+.doc__note p + p { margin-top: var(--sc-3); }
+
+.doc__grid {
+  display: grid;
+  gap: var(--sc-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  margin-block: var(--sc-5);
+}
+
+.doc__card {
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  padding: var(--sc-4) var(--sc-5);
+  background: var(--gc-white);
+}
+
+.doc__card h3 {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-base);
+  font-weight: 600;
+  margin: 0 0 var(--sc-2);
+}
+
+.doc__card p { font-size: var(--sc-t-sm); line-height: 1.55; color: var(--sc-ink-soft); margin: 0; }
+
+.doc__card a { font-size: var(--sc-t-sm); }
+
+.doc__steps {
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+  margin: var(--sc-5) 0;
+}
+
+.doc__steps li {
+  counter-increment: step;
+  position: relative;
+  padding-inline-start: var(--sc-7);
+  margin-block: var(--sc-4);
+}
+
+.doc__steps li::before {
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.1em;
+  width: var(--sc-6);
+  height: var(--sc-6);
+  display: grid;
+  place-items: center;
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  color: var(--gc-accent-ink);
+  background: var(--sc-accent);
+  border-radius: var(--sc-r-sm);
+}
+
+.doc table.table { width: 100%; margin-block: var(--sc-5); font-size: var(--sc-t-sm); }
+.doc .table caption { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+
+.doc__foot {
+  margin-block-start: clamp(3.5rem, 7vw, 6rem);
+  border-top: 1px solid var(--sc-hairline);
+  padding-top: var(--sc-4);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sc-2) var(--sc-5);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+}
+
+.doc__foot a { color: var(--sc-ink-soft); }
+.doc__foot a:hover { color: var(--sc-ink); }
+
+.doc :focus-visible {
+  outline: 2px solid var(--sc-accent);
+  outline-offset: 3px;
+  border-radius: var(--sc-r-sm);
+}
+
+@media print {
+  .docbar, .doc__foot { display: none; }
+  .doc { max-width: none; padding: 0; }
+  .doc a { color: inherit; text-decoration: none; }
+}
+
+/* Signup form (js/subscribe.js reads form[name="katha-weekly"], .sub-status,
+   input[name="email"], input[name="first_name"], button[type="submit"]). */
+.doc__form {
+  display: grid;
+  gap: var(--sc-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  align-items: end;
+  margin-block: var(--sc-5) var(--sc-3);
+  max-width: 40rem;
+}
+
+.doc__form label {
+  display: block;
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  margin-bottom: var(--sc-1);
+}
+
+.doc__form input {
+  width: 100%;
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-base);
+  color: var(--sc-ink);
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-sm);
+  padding: var(--sc-3) var(--sc-3);
+}
+
+.doc__form input:focus {
+  border-color: var(--sc-accent);
+  outline: 2px solid color-mix(in oklab, var(--sc-accent) 28%, transparent);
+  outline-offset: 1px;
+}
+
+.doc__form button {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-base);
+  font-weight: 600;
+  color: var(--gc-accent-ink);
+  background: var(--sc-accent);
+  border: 0;
+  border-radius: var(--sc-r-sm);
+  padding: var(--sc-3) var(--sc-5);
+  cursor: pointer;
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.doc__form button:hover { background: var(--gc-accent-press); }
+.doc__form button:disabled { opacity: 0.55; cursor: progress; }
+
+.sub-status {
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  grid-column: 1 / -1;
+  min-height: 1.4em;
+}
+
+.sub-status.err { color: var(--gc-signal-text); }
+
+/* Byline items run together without a mark between them; give each one a leader. */
+.doc__meta span + span::before {
+  content: "·";
+  margin-right: var(--sc-4);
+  color: var(--sc-hairline-strong);
+}
+
+/* The two inputs sat flush and read as one control. */
+.doc__form { column-gap: var(--sc-4); }
+.doc__form input { border-radius: var(--sc-r-sm); }
+.doc__form button { min-width: 11rem; }
