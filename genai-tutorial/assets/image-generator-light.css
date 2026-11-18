@@ -1,0 +1,564 @@
+/* ============================================================================
+   GenAI Chutney: image-generator-light.css
+   Light palette for image-generator.html. Loaded after css/image-generator.css
+   (and after site.css / doc.css), so equal-specificity rules here win.
+   Tokens come from assets/site.css: paper, white, plate, ink, ink-soft, blue
+   accent, orange signal, hairline. Orange appears only on the progress fill
+   and the error warning. No gradients, no dark surfaces, no motion on scroll.
+   ========================================================================== */
+
+/* ----------------------------------------------------------- page shell -- */
+body {
+  background: var(--gc-paper);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+}
+
+.site-container {
+  min-height: 0;
+  background: var(--gc-paper);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+}
+
+.site-container *,
+.site-container *::before,
+.site-container *::after { box-sizing: border-box; }
+
+.content-container {
+  max-width: 76rem;
+  margin: 0;
+  padding: clamp(2.5rem, 6vw, 5rem) var(--sc-gutter) var(--sc-6);
+}
+
+.site-container h1,
+.site-container h2,
+.site-container h3 {
+  font-family: var(--sc-font-display);
+  color: var(--sc-ink);
+  background: none;
+  -webkit-text-fill-color: currentColor;
+}
+
+/* The docbar's key control is a button, not a link: match the CTA look. */
+.docbar__key {
+  border: 0;
+  cursor: pointer;
+  font-family: var(--sc-font-display);
+}
+
+/* --------------------------------------------------------------- intro -- */
+.hero-section {
+  text-align: left;
+  padding: 0;
+  margin: 0 0 var(--sc-6);
+  background: none;
+}
+
+.hero-section .doc__standfirst { margin-bottom: 0; }
+
+/* ---------------------------------------------------------------- tabs -- */
+.tabs {
+  display: flex;
+  gap: var(--sc-5);
+  margin: 0 0 var(--sc-5);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--sc-hairline);
+}
+
+.tab {
+  padding: var(--sc-2) 0;
+  margin-bottom: -1px;
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  color: var(--sc-ink-soft);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tab:hover:not(.active) {
+  background: none;
+  color: var(--sc-ink);
+}
+
+.tab.active {
+  background: none;
+  color: var(--sc-ink);
+  border-bottom-color: var(--sc-accent);
+  box-shadow: none;
+}
+
+/* -------------------------------------------------------------- panels -- */
+.panel {
+  gap: var(--sc-5);
+  border-radius: 0;
+  align-items: start;
+}
+
+.generator-form,
+.optimizer-form,
+.result-container,
+.optimization-result {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  box-shadow: none;
+}
+
+.generator-form,
+.optimizer-form { padding: var(--sc-5); }
+
+.optimizer-form { grid-column: 1 / -1; max-width: 48rem; }
+
+/* --------------------------------------------------------------- forms -- */
+.form-section { margin-bottom: var(--sc-5); }
+.form-section:last-of-type { margin-bottom: 0; }
+
+.form-section h3,
+.optimization-result h3 {
+  margin: 0 0 var(--sc-4);
+  font-size: var(--sc-t-base);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.form-section h3:after,
+.optimization-result h3:after { background-color: var(--sc-hairline); }
+
+.form-section > p {
+  font-size: var(--sc-t-sm);
+  line-height: 1.55;
+  color: var(--sc-ink-soft);
+  margin: 0 0 var(--sc-4);
+}
+
+.form-row { gap: var(--sc-4); margin-bottom: 0; }
+
+.form-group { margin-bottom: var(--sc-4); }
+
+.form-group label {
+  margin-bottom: var(--sc-1);
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  color: var(--sc-ink);
+}
+
+.form-control {
+  padding: var(--sc-2) var(--sc-3);
+  background-color: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-sm);
+  color: var(--sc-ink);
+  font-family: var(--sc-font-text);
+  font-size: var(--sc-t-sm);
+  line-height: 1.5;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control::placeholder { color: var(--sc-ink-soft); opacity: 0.8; }
+
+.form-control:hover { border-color: var(--gc-control); }
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--sc-accent);
+  box-shadow: 0 0 0 3px var(--gc-accent-tint);
+}
+
+/* Dark-theme chevron was white; redraw it in ink-soft. */
+select.form-control {
+  background-color: var(--gc-white);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234A5466' width='18px' height='18px'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-position: right var(--sc-3) center;
+  padding-right: var(--sc-6);
+}
+
+/* ------------------------------------------------------------- buttons -- */
+.primary-button,
+.secondary-button {
+  padding: var(--sc-2) var(--sc-4);
+  border-radius: var(--sc-r-sm);
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-sm);
+  font-weight: 600;
+  box-shadow: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.primary-button {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  border: 1px solid var(--sc-accent);
+}
+
+.primary-button:hover {
+  background: var(--gc-accent-press);
+  border-color: var(--gc-accent-press);
+  transform: none;
+  box-shadow: none;
+}
+
+.primary-button:disabled { opacity: 0.55; cursor: progress; }
+
+.secondary-button {
+  background: var(--gc-white);
+  color: var(--sc-ink);
+  border: 1px solid var(--sc-hairline-strong);
+}
+
+.secondary-button:hover {
+  background: var(--gc-white);
+  border-color: var(--sc-ink-soft);
+}
+
+.form-actions { margin-top: var(--sc-5); gap: var(--sc-3); }
+
+/* -------------------------------------------------------- result panel -- */
+.result-container {
+  min-height: 26rem;
+  overflow: hidden;
+}
+
+.placeholder {
+  background: var(--gc-plate);
+  padding: var(--sc-6);
+}
+
+.placeholder-content { color: var(--sc-ink-soft); }
+.placeholder-content p {
+  margin: 0 0 var(--sc-1);
+  font-size: var(--sc-t-base);
+  color: var(--sc-ink);
+}
+.placeholder-content small { font-size: var(--sc-t-sm); color: var(--sc-ink-soft); }
+
+.placeholder-icon {
+  color: var(--gc-control);
+  opacity: 0.6;
+  font-size: 2.5rem;
+}
+
+/* The one warning: js/image-generator.js writes an inline red colour onto the
+   error icon. !important is required to beat that inline style and keep the
+   warning in the site's orange signal. */
+.placeholder-icon.fa-exclamation-triangle {
+  color: var(--gc-signal) !important;
+  opacity: 1;
+}
+
+.progress-container { padding: var(--sc-6) var(--sc-5); }
+
+.progress-info {
+  margin-bottom: var(--sc-3);
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink);
+}
+
+#progress-percentage { font-variant-numeric: tabular-nums; color: var(--sc-ink-soft); }
+
+.progress {
+  height: 6px;
+  background-color: var(--gc-plate);
+  border-radius: var(--sc-r-sm);
+  margin-bottom: var(--sc-2);
+}
+
+/* Orange fill. The script sets an inline red background on failure; !important
+   keeps the bar in the palette (the error message itself carries the failure). */
+.progress-bar {
+  background: var(--gc-signal) !important;
+  border-radius: var(--sc-r-sm);
+}
+
+.progress-time {
+  font-size: var(--sc-t-sm);
+  color: var(--sc-ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The image sits alone on the plate; details live below it, never over it. */
+.image-container {
+  height: auto;
+  min-height: 20rem;
+  max-height: 34rem;
+  padding: var(--sc-4);
+  background-color: var(--gc-plate);
+}
+
+.image-container img {
+  max-height: calc(34rem - 2 * var(--sc-4));
+  border-radius: var(--sc-r-sm);
+  box-shadow: none;
+  transition: none;
+}
+
+.image-container img:hover { transform: none; }
+
+.image-details {
+  padding: var(--sc-4) var(--sc-5);
+  gap: var(--sc-3) var(--sc-4);
+  background: var(--gc-white);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sc-ink-soft);
+}
+
+.detail-value {
+  font-size: var(--sc-t-sm);
+  font-weight: 500;
+  color: var(--sc-ink);
+  overflow-wrap: anywhere;
+}
+
+.result-actions {
+  padding: var(--sc-3) var(--sc-5);
+  gap: var(--sc-3);
+  background: var(--gc-white);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+/* ----------------------------------------------------------- optimiser -- */
+.optimization-result {
+  margin-top: var(--sc-5);
+  padding: var(--sc-5) 0 0;
+  border-width: 1px 0 0;
+  border-radius: 0;
+}
+
+.optimized-prompt {
+  padding: var(--sc-4);
+  background: var(--gc-paper);
+  border: 1px solid var(--sc-hairline);
+  border-left: 2px solid var(--sc-accent);
+  border-radius: var(--sc-r-sm);
+  margin-bottom: 0;
+}
+
+.optimized-prompt p {
+  font-size: var(--sc-t-sm);
+  line-height: 1.65;
+  color: var(--sc-ink);
+}
+
+/* ------------------------------------------------------------- gallery -- */
+.gallery-section { margin-top: var(--sc-7); }
+
+.gallery-section h2,
+.tips-section h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.1rem);
+  font-weight: 600;
+  font-stretch: 86%;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-align: left;
+  margin: 0 0 var(--sc-4);
+  padding-bottom: 0;
+}
+
+.gallery-section h2:after { display: none; }
+
+.image-gallery {
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: var(--sc-3);
+}
+
+.gallery-item {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.gallery-item:hover {
+  transform: none;
+  border-color: var(--sc-hairline-strong);
+}
+
+.gallery-image {
+  height: auto;
+  aspect-ratio: 1;
+  background: var(--gc-plate);
+}
+
+.gallery-image img { transition: none; }
+.gallery-item:hover .gallery-image img { transform: none; }
+
+.gallery-details {
+  padding: var(--sc-2) var(--sc-3) var(--sc-3);
+  border-top: 1px solid var(--sc-hairline);
+}
+
+.gallery-prompt {
+  height: auto;
+  margin-bottom: var(--sc-2);
+  -webkit-line-clamp: 2;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--sc-ink-soft);
+}
+
+.gallery-actions { gap: var(--sc-1); }
+
+.gallery-actions button {
+  padding: var(--sc-1) var(--sc-2);
+  background: var(--gc-white);
+  color: var(--sc-ink-soft);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-sm);
+}
+
+.gallery-actions button:hover {
+  background: var(--gc-white);
+  color: var(--sc-ink);
+  border-color: var(--sc-hairline-strong);
+}
+
+/* ---------------------------------------------------------------- tips -- */
+.tips-section {
+  margin-top: var(--sc-7);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+.tips-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: var(--sc-4);
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tip-card {
+  padding: var(--sc-4) var(--sc-5);
+  text-align: left;
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  transition: none;
+}
+
+.tip-card:hover { transform: none; box-shadow: none; }
+
+.tip-icon {
+  width: auto;
+  height: auto;
+  margin-bottom: var(--sc-2);
+  background: none;
+  border-radius: 0;
+  font-size: 1rem;
+  color: var(--sc-accent);
+}
+
+.tip-card h3 {
+  margin: 0 0 var(--sc-2);
+  font-size: var(--sc-t-base);
+  font-weight: 600;
+}
+
+.tip-card p {
+  margin: 0;
+  font-size: var(--sc-t-sm);
+  line-height: 1.55;
+  color: var(--sc-ink-soft);
+}
+
+/* -------------------------------------------------------------- footer -- */
+.ig-foot {
+  margin: 0;
+  padding: var(--sc-4) var(--sc-gutter) var(--sc-7);
+  max-width: 76rem;
+}
+
+.ig-foot p { margin: 0; }
+
+/* --------------------------------------------------- BYOK key dialog -- */
+/* js/byok.js injects a dark floating gear and dialog. The docbar's "Venice key"
+   button now opens the dialog, so the gear is hidden and the dialog is redrawn
+   light. ID-on-ID selectors outrank the injected rules without !important. */
+body #byok-gear { display: none; }
+
+body #byok-modal {
+  background: color-mix(in oklab, var(--sc-ink) 28%, transparent);
+  backdrop-filter: none;
+  font-family: var(--sc-font-text);
+}
+
+#byok-modal #byok-card {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline);
+  border-radius: var(--sc-r-md);
+  box-shadow: var(--sc-e3);
+  color: var(--sc-ink);
+}
+
+#byok-modal #byok-card h3 {
+  font-family: var(--sc-font-display);
+  font-size: var(--sc-t-base);
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--sc-ink);
+}
+
+#byok-modal #byok-card p { color: var(--sc-ink-soft); font-size: var(--sc-t-sm); }
+
+#byok-modal #byok-reason { color: var(--sc-ink); font-size: var(--sc-t-sm); }
+
+#byok-modal #byok-input {
+  background: var(--gc-white);
+  border: 1px solid var(--sc-hairline-strong);
+  border-radius: var(--sc-r-sm);
+  color: var(--sc-ink);
+}
+
+#byok-modal #byok-input:focus {
+  border-color: var(--sc-accent);
+  box-shadow: 0 0 0 3px var(--gc-accent-tint);
+}
+
+#byok-modal #byok-save {
+  background: var(--sc-accent);
+  color: var(--sc-accent-ink);
+  font-family: var(--sc-font-display);
+  border-radius: var(--sc-r-sm);
+}
+
+#byok-modal #byok-save:hover { background: var(--gc-accent-press); }
+
+#byok-modal #byok-row button:not(#byok-save) {
+  background: var(--gc-white);
+  color: var(--sc-ink-soft);
+  border: 1px solid var(--sc-hairline-strong);
+  font-family: var(--sc-font-display);
+  border-radius: var(--sc-r-sm);
+}
+
+#byok-modal #byok-ref { color: var(--sc-accent); }
+
+/* ------------------------------------------------------------- utility -- */
+.fadeIn { animation: none; }
+
+@media (max-width: 768px) {
+  .generator-form,
+  .optimizer-form { padding: var(--sc-4); }
+  .image-details { padding: var(--sc-4); }
+  .result-actions { padding: var(--sc-3) var(--sc-4); }
+}
+
+/* js/byok.js injects its own modal styles (width:min(440px,92vw)). At a phone
+   width that container still reported a 430px layout box and scaled the whole
+   page, so pin it to the viewport here. */
+#byok-modal { max-width: 100vw; overflow-x: hidden; padding: 1rem; box-sizing: border-box; }
+#byok-modal #byok-card { width: min(30rem, calc(100vw - 2rem)) !important; max-width: calc(100vw - 2rem); box-sizing: border-box; }

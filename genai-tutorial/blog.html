@@ -1,24 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Blog has moved — Katha Weekly | GenAI Chutney</title>
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=katha.html">
 <link rel="canonical" href="katha.html">
-<link rel="stylesheet" href="css/chutney.css">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#FAFBFC">
+<style>
+  :root { color-scheme: light; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    background: #FAFBFC;
+    color: #121722;
+    font-family: "IBM Plex Sans", system-ui, sans-serif;
+    padding: 2rem;
+  }
+  .moved { max-width: 34rem; }
+  .kicker {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #A8400A;
+    margin: 0 0 0.75rem;
+  }
+  h1 {
+    font-family: "Instrument Sans", "IBM Plex Sans", system-ui, sans-serif;
+    font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.9rem;
+  }
+  p { font-size: 1.05rem; line-height: 1.6; color: #4A5466; margin: 0 0 1.5rem; }
+  a.go {
+    display: inline-block;
+    font-weight: 600;
+    color: #fff;
+    background: #1D4ED0;
+    padding: 0.65rem 1.25rem;
+    border-radius: 2px;
+    text-decoration: none;
+  }
+  a.go:hover { background: #173FA8; }
+  a.plain { color: #1D4ED0; }
+</style>
 </head>
 <body>
-<main class="section" style="min-height:70vh;display:grid;place-items:center;text-align:center">
-  <div class="container narrow">
-    <div class="mono" style="color:var(--muted);margin-bottom:1rem">The blog moved</div>
-    <h1 style="font-size:clamp(2rem,5vw,3.6rem)">Katha Weekly <em class="serif gradient-text">is the blog now.</em></h1>
-    <p class="section-lede" style="margin:1.2rem auto 1.8rem">Every issue aggregates the week across eight AI channels into one argument. Take me there.</p>
-    <a class="btn" href="katha.html"><span>Open Katha Weekly</span>
-      <svg class="arw" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.4"/></svg>
-    </a>
-  </div>
+<main class="moved">
+  <p class="kicker">The blog moved</p>
+  <h1>Katha Weekly is the blog now.</h1>
+  <p>Every issue reads the week across eight AI channels and argues it in one piece. If the redirect does not fire, follow the link.</p>
+  <a class="go" href="katha.html">Open Katha Weekly</a>
+  <p style="margin-top:1.2rem;font-size:.9rem">Or go back to <a class="plain" href="index.html">the field guide</a>.</p>
 </main>
 </body>
 </html>
