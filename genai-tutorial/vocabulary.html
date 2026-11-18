@@ -30,7 +30,7 @@
             <a href="author.html">About</a>
         </nav>
         <a class="docbar__cta" href="newsletter.html#signup">Subscribe</a>
-        <button class="docbar__menu" id="sidebarToggle" type="button" aria-controls="sidebar" aria-label="Toggle menu">Menu</button>
+        <button class="docbar__menu" id="sidebarToggle" type="button" aria-controls="sidebar" aria-label="Toggle menu" aria-expanded="false">Menu</button>
         <div class="docbar__scrim" id="sidebarOverlay"></div>
     </header>
 
@@ -227,14 +227,20 @@
         const sidebarToggle = document.getElementById('sidebarToggle');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('sidebarOverlay');
+        function syncExpanded() {
+            sidebarToggle.setAttribute('aria-expanded', String(sidebar.classList.contains('open')));
+        }
         function closeSidebar() {
             sidebar.classList.remove('open');
             overlay.classList.remove('active');
+            syncExpanded();
         }
         sidebarToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
             overlay.classList.toggle('active');
+            syncExpanded();
         });
+        syncExpanded();
         overlay.addEventListener('click', closeSidebar);
     </script>
 </body>
