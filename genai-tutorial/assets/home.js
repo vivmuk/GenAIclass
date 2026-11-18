@@ -294,7 +294,8 @@
     divide: 'Two layers, trained by backpropagation.',
     solved: 'Two layers, trained by backpropagation. Solved.',
     peak: 'This plate: one weight for each of 400 inputs.',
-    rest: ''
+    rest: '',
+    mark: 'The plate from the first chapter: one weight for each of 400 inputs, trained to tell a cross from a ring.'
   };
 
   function colourResolver(host) {
@@ -380,7 +381,9 @@
     function state(active) {
       var phase = active ? active.getAttribute('data-retina-phase') : null;
       var p = active ? progressOf(active) : 0, rm = reduced.matches;
-      if (!phase) return { phase: 'zero', index: 0, caption: CAPTIONS.zero };
+      // At the top of the page no chapter is active. Show the trained plate rather
+      // than 400 zeros: the untrained grid read as an empty grey box on the fold.
+      if (!phase) return { phase: 'rest', index: K, caption: CAPTIONS.mark };
       if (phase === 'teach') {
         var ti = rm ? K : Math.round(window01(p, 0.10, 0.85) * K);
         return { phase: 'teach', index: ti, caption: model.teach.solvedAt > 0 && ti >= model.teach.solvedAt ? CAPTIONS.learned : CAPTIONS.teach };
