@@ -344,14 +344,11 @@ body { font-family: var(--sc-font-text); }
 .sub-status.err { color: var(--gc-signal-text); }
 
 /* Byline items run together without a mark between them; give each one a leader. */
-/* A leading dot lands at the start of a wrapped line, so the separator trails
-   the item instead of preceding the next one. */
+/* Separators are drawn by space alone. A dot either starts a wrapped line or
+   dangles at the end of one, and both read as a defect. */
+.doc__meta { column-gap: var(--sc-5); row-gap: var(--sc-2); }
 .doc__meta span + span::before { content: none; }
-.doc__meta span:not(:last-child)::after {
-  content: "·";
-  margin-left: var(--sc-4);
-  color: var(--sc-hairline-strong);
-}
+.doc__meta span::after { content: none; }
 
 /* The two inputs sat flush and read as one control. */
 .doc__form { column-gap: var(--sc-4); }
@@ -383,4 +380,24 @@ body { font-family: var(--sc-font-text); }
 @media (max-width: 520px) {
   .doc .table th, .doc .table td { padding: var(--sc-2) var(--sc-2); }
   .doc .table { font-size: 0.9rem; }
+}
+
+/* About page: the portrait sits beside the opening, never behind the text. */
+.doc__intro { display: grid; gap: var(--sc-6); align-items: start; margin-bottom: var(--sc-5); }
+
+@media (min-width: 880px) {
+  .doc__intro { grid-template-columns: minmax(0, 1fr) 18rem; }
+  .doc__intro .doc__h1 { max-width: 14ch; }
+}
+
+.doc__portrait-fig { margin: 0; padding-top: 0.15rem; }
+
+.doc__portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: var(--sc-r-md);
+  background: var(--gc-plate);
 }
